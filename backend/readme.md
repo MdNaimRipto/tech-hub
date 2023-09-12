@@ -1,0 +1,4 @@
+- Website Name: PC BUILDER
+- Website Link: https://pc-builder-server-one.vercel.app/
+- Client Side Github Repository Link: https://github.com/MdNaimRipto/pc-builder-client
+- Server Side Github Repository Link: https://github.com/MdNaimRipto/pc-builder-server

@@ -1,0 +1,80 @@
+[
+  {
+    "image": "https://i.ibb.co/7WZSvnt/cpu1.webp",
+    "productName": "Intel 13th Gen Core i9 13900K Raptor Lake Processor",
+    "category": "CPU",
+    "status": true,
+    "price": 199.99,
+    "description": "The Intel Core i9-13900K 3 GHz 24-Core LGA 1700 Processor will boost your productivity, gaming, and content production. This 13th-generation desktop CPU expands on the Hybrid Core design and Intel 7 process by packing 24 cores onto a single chip, eight more than the previous generation, while still fitting the LGA 1700 socket. The Core i9-13900K is designed to deliver great performance, with 16 low-voltage Efficient-cores handling background activities for multitasking and eight 3 GHz Performance-cores providing speed for demanding programs and gaming. The built-in Intel Thread Director guarantees that the two function in unison by dynamically and intelligently distributing tasks to the appropriate core at the appropriate moment. This processor is designed to handle practically any job, with 32MB of cache and a 5.7 GHz Turbo Boost Max 3.0 frequency that can be increased using Thermal Velocity Boost and Adaptive Boost technologies. This CPU may be overclocked for increased performance. PCI Express 5.0 and dual-channel DDR5 ECC memory at 5600 MHz are also supported by the Core i9-13900K. The Intel 13th Gen Core i9 13900K Processor comes with a 03-year warranty.",
+    "keyFeatures": ["8 cores", "16 threads", "3.5 GHz base clock"],
+    "individualRating": 0,
+    "allRating": [0],
+    "rating": 0,
+    "reviews": []
+  },
+  {
+    "image": "https://i.ibb.co/XpvBgth/motherboard1.webp",
+    "productName": "ASUS TUF GAMING Z790-PLUS WIFI D4 13th Gen & 12th Gen ATX Motherboard",
+    "category": "Motherboard",
+    "status": true,
+    "price": 159.99,
+    "description": "ASUS TUF GAMING Z790-PLUS WIFI D4 Motherboard comes with LGA 1700 socket and Z790 chipset. It supports 13th Gen Intel Core Processors & 12th Gen Intel Core, Pentium Gold, and Celeron Processors. The motherboard has 4x DDR4 Dual-Channel RAM slots that allow you to equip up to 128GB of memory for enhanced multitasking capabilities and complex photo and video rendering. ASUS TUF GAMING Z790-PLUS WIFI D4 Motherboard also supports 4 x M.2 slots and 4 x SATA 6Gb/s ports so you can build a large library of storage drives for your games or creative projects. while PCIe 5.0 x16, 4.0 x16, 4.0 x4, and two 3.0 x1 slots accommodate adapter cards. Connect to wired peripherals through two USB-A 3.2 Gen 2 and four 3.2 Gen 1 ports, or two USB-C 3.2 Gen 2x2 and four 3.2 Gen 2 ports. DisplayPort 1.4 or HDMI 2.1 interfaces are used to output video. An RJ45 port enables 2.5 Gigabit Ethernet, and the bundled antenna supports Wi-Fi 6. The rear I/O panel also includes five 1/8\" audio jacks and a digital audio S/PDIF output. Fans, Clear CMOS, Thunderbolt 4, RGB lighting, and front-panel USB-C 3.2 Gen 2 and USB-A 3.2 Gen 1 and 2.0 ports are all supported by internal headers. The ASUS TUF GAMING Z-790 PLUS WIFI D4 LGA 1700 ATX Motherboard is 64-bit compatible with Windows 10 and later.",
+    "keyFeatures": ["ATX form factor", "Supports DDR4 RAM", "PCIe 4.0 support"],
+    "individualRating": 0,
+    "allRating": [0],
+    "rating": 0,
+    "reviews": []
+  },
+  {
+    "image": "https://i.ibb.co/PmwbSbJ/ram1.webp",
+    "productName": "Corsair DOMINATOR PLATINUM RGB 32GB (2x16GB) DDR5 6000MHz C36 AMD EXPO RAM Kit",
+    "category": "RAM",
+    "status": true,
+    "price": 89.99,
+    "description": "The Corsair DOMINATOR PLATINUM RGB 32GB (2x16GB) DDR5 6000MHz C36 AMD EXPO RAM Kit is a high-performance memory kit designed for gaming enthusiasts and content creators. With the advent of DDR5 technology, this RAM kit offers unprecedented processing speed, allowing your high-end CPU to access data quickly and efficiently. No matter the task at hand, whether it's gaming, content creation, multitasking, or even opening numerous browser tabs, this RAM kit ensures that your gaming PC can handle complex tasks faster than ever before. It provides the power and control you need for demanding applications.",
+    "keyFeatures": ["DDR4", "16GB (2x8GB)", "3200MHz", "CL16"],
+    "individualRating": 0,
+    "allRating": [0],
+    "rating": 0,
+    "reviews": []
+  },
+  {
+    "image": "https://i.ibb.co/FBFD3Wd/psu1.webp",
+    "productName": "ASUS ROG THOR 1200P2 GAMING 80 Plus Platinum 1200W Power Supply",
+    "category": "PSU",
+    "status": true,
+    "price": 59.99,
+    "description": "The inbuilt OLED monitor in the ROG Thor 1200P Platinum Power Supply Unit provides a real-time display of power consumption. Now you can easily check how much electricity your apparatus is using. To improve component lifespan, the ROG Thor 1200W Platinum has a 135mm unique Wing-blade fan. The fan is kept spinning freely thanks to IP5X dust protection, and 0dB technology makes use of thermal sensors to enable the fan to entirely shut off at lower wattages for absolutely silent operation. The integrated ROG heatsinks are 20% cooler inside the ROG Thor 1200W Platinum thanks to their 2x larger capacity than conventional designs. As a result, components last longer and can operate at 0dB for longer than in conventional designs. Given how efficient the heatsinks are, the fan.",
+    "keyFeatures": ["500W", "80 Plus Bronze certified", "Silent fan"],
+    "individualRating": 0,
+    "allRating": [0],
+    "rating": 0,
+    "reviews": []
+  },
+  {
+    "image": "https://i.ibb.co/zhtz1h1/storage1.jpg",
+    "productName": "Seagate Internal 1TB SATA Barracuda HDD",
+    "category": "StorageDevice",
+    "status": true,
+    "price": 89.99,
+    "description": "The latest price of Seagate Internal 1TB Barracuda HDD in Bangladesh is 4,200৳. You can buy the Seagate Internal 1TB Barracuda HDD at best price from our website or visit any of our showrooms.",
+    "keyFeatures": ["500GB", "SATA III interface", "Read speed up to 550MB/s"],
+    "individualRating": 0,
+    "allRating": [0],
+    "rating": 0,
+    "reviews": []
+  },
+  {
+    "image": "https://i.ibb.co/dryrD7n/monitor1.webp",
+    "productName": "LG 27GR95QE-B 27-Inch UltraGear OLED Monitor",
+    "category": "Monitor",
+    "status": true,
+    "price": 179.99,
+    "description": "The LG 27GR95QE-B 27-inch UltraGear Gaming Monitor has OLED technology. It has a 240Hz refresh rate for a smoother gaming experience. The screen has no bezels and minimal inner borders. The LG gaming monitor has a matte black chassis with toned-down accents. The LG 27GR95QE-B 27-inch UltraGear also has RGB Hexagon Lighting at the back to entice gamers. The LEDs are arranged in a hexagonal pattern around the bulge, providing the necessary lighting. It's great for looks, but it can also function as a bias light, keeping your eyes comfortable and safe during extended periods of use. This monitor has a 27-inch diagonal. So it should fit nicely with your peripherals if you have a standard-sized desk. It's also lightweight at 16.2 pounds, making it easy to transport to LAN parties or gaming events. You get clear picture quality with the increased brightness of up to 1,000 nits and HDR10 technology, which gives you smooth edges and vibrant colorization. Experience fluid visuals with a refresh rate of 240 Hz and 0.03 ms Grey-to-Grey (GtG), which incorporates AMD's FreeSync Premium and NVIDIA's G-Sync technology to reduce screen tearing and stuttering for optimal battlefield performance. The LG 27GR95QE-B Monitor looks fragile because of its thin panel, but it is quite durable and reliable. The LG monitor stand has tilt, swivel, pivot, and height adjustments. With the default setup, finding a comfortable viewing angle that won't strain your neck after hours of play is simple.",
+    "keyFeatures": ["24-inch", "1920x1080 resolution", "60Hz refresh rate"],
+    "individualRating": 0,
+    "allRating": [0],
+    "rating": 0,
+    "reviews": []
+  }
+]
