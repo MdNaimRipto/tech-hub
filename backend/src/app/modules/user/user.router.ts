@@ -17,6 +17,8 @@ router.post(
   userController.userLogin
 );
 
+router.get("/getAllUsers", userController.getAllUser);
+
 router.post(
   "/updateUser/:id",
   zodValidationRequest(userValidation.userUpdateZodSchema),

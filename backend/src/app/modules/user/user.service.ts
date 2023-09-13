@@ -46,6 +46,14 @@ const userLogin = async (payload: ILoginUser): Promise<IUser> => {
   return isExists;
 };
 
+const getAllUser = async (): Promise<IUser[]> => {
+  const users = await Users.find();
+  if (users.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, "No Users Found to Show!");
+  }
+  return users;
+};
+
 // User Update
 const updateUser = async (
   userID: string,
@@ -163,6 +171,7 @@ const deleteUser = async (userID: string): Promise<IUser | null> => {
 export const UserService = {
   userRegister,
   userLogin,
+  getAllUser,
   updateUser,
   forgotPassword,
   deleteUser,

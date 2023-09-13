@@ -32,6 +32,17 @@ const userLogin = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// Get all User's
+const getAllUser = catchAsync(async (req: Request, res: Response) => {
+  const user = await UserService.getAllUser();
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "All User's",
+    data: user,
+  });
+});
+
 // Update User
 const updateUser = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -72,6 +83,7 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 export const userController = {
   userRegister,
   userLogin,
+  getAllUser,
   updateUser,
   forgotPassword,
   deleteUser,
