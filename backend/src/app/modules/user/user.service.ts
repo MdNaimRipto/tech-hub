@@ -4,7 +4,9 @@ import { ILoginUser, IUser } from "./user.interface";
 import { Users } from "./user.schema";
 import bcrypt from "bcrypt";
 import { generateUID } from "./user.utils";
+import config from "../../../config/config";
 
+// User Register
 const userRegister = async (payload: IUser): Promise<IUser> => {
   const { email, contactNumber } = payload;
   // Check if the email or contact already exists
@@ -26,6 +28,7 @@ const userRegister = async (payload: IUser): Promise<IUser> => {
   return result;
 };
 
+// User Login
 const userLogin = async (payload: ILoginUser): Promise<IUser> => {
   const { email, password } = payload;
   const isExists = await Users.findOne({ email: email });
@@ -43,7 +46,106 @@ const userLogin = async (payload: ILoginUser): Promise<IUser> => {
   return isExists;
 };
 
+// User Update
+const updateUser = async (
+  userID: string,
+  payload: Partial<IUser>
+): Promise<IUser | null> => {
+  const isExistsUser = await Users.findById({ _id: userID });
+  if (!isExistsUser) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
+  }
+
+  const { userRole, uid, ...updatePayload } = payload;
+
+  if (userRole !== undefined || uid !== undefined) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      "Permission Denied! Please Try Again."
+    );
+  }
+
+  if (payload.email) {
+    const isExists = await Users.findOne({ email: payload.email });
+    if (isExists) {
+      throw new ApiError(
+        httpStatus.UNAUTHORIZED,
+        "Email Already Exists! Try Another One."
+      );
+    }
+    updatePayload.email = payload.email;
+  }
+
+  if (payload.password) {
+    const isPreviousPass = await bcrypt.compare(
+      payload.password,
+      isExistsUser.password as string
+    );
+
+    if (isPreviousPass) {
+      throw new ApiError(
+        httpStatus.UNAUTHORIZED,
+        "New Password Cannot be The Previous Password"
+      );
+    }
+    const newPassword = await bcrypt.hash(
+      payload.password,
+      Number(config.salt_round)
+    );
+    updatePayload.password = newPassword;
+  }
+
+  const result = await Users.findOneAndUpdate({ _id: userID }, updatePayload, {
+    new: true,
+  });
+
+  return result;
+};
+
+//
+const forgotPassword = async (
+  userID: string,
+  payload: Partial<IUser>
+): Promise<IUser | null> => {
+  const isExistsUser = await Users.findById({ _id: userID });
+  if (!isExistsUser) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
+  }
+
+  if (!payload.password) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      "Password Update Failed!. Try Again."
+    );
+  }
+
+  const isPreviousPass = await bcrypt.compare(
+    payload.password,
+    isExistsUser.password as string
+  );
+
+  if (isPreviousPass) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      "New Password Cannot be The Previous Password"
+    );
+  }
+  const newPass = await bcrypt.hash(
+    payload.password,
+    Number(config.salt_round)
+  );
+  payload.password = newPass;
+
+  const result = await Users.findOneAndUpdate({ _id: userID }, payload, {
+    new: true,
+  });
+
+  return result;
+};
+
 export const UserService = {
   userRegister,
   userLogin,
+  updateUser,
+  forgotPassword,
 };

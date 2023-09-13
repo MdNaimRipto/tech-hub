@@ -38,7 +38,24 @@ const loginUserZodSchema = z.object({
   }),
 });
 
+const userUpdateZodSchema = z.object({
+  body: z.object({
+    firstName: z.string().optional(),
+    lastName: z.string().optional(),
+    email: z.string().optional(),
+    contactNumber: z.string().optional(),
+    password: z.string().optional(),
+    userProfile: z.string().optional(),
+    street: z.string().optional(),
+    city: z.string().optional(),
+    district: z.string().optional(),
+    userRole: z.string().optional(),
+    uid: z.string().optional(),
+  }),
+});
+
 export const userValidation = {
   usersZodSchema,
   loginUserZodSchema,
+  userUpdateZodSchema,
 };

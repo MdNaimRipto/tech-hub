@@ -17,4 +17,12 @@ router.post(
   userController.userLogin
 );
 
+router.post(
+  "/updateUser/:id",
+  zodValidationRequest(userValidation.userUpdateZodSchema),
+  userController.updateUser
+);
+
+router.post("/forgotPassword/:id", userController.forgotPassword);
+
 export const UsersRouter = router;
