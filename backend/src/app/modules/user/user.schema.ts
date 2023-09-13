@@ -18,6 +18,8 @@ export const usersSchema = new Schema<IUser>(
     street: { type: String, required: true, default: "empty" },
     city: { type: String, required: true, default: "empty" },
     district: { type: String, required: true, default: "empty" },
+    userRole: { type: String, required: true, default: "seller" },
+    uid: { type: String, required: true, unique: true },
   },
   {
     timestamps: true,

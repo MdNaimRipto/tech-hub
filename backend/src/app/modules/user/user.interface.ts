@@ -8,6 +8,8 @@ export type IUser = {
   city: string;
   district: string;
   userProfile: string;
+  userRole: string;
+  uid: string;
 };
 
 export type ILoginUser = {

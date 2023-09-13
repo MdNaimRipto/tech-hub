@@ -3,6 +3,7 @@ import ApiError from "../../../errors/ApiError";
 import { ILoginUser, IUser } from "./user.interface";
 import { Users } from "./user.schema";
 import bcrypt from "bcrypt";
+import { generateUID } from "./user.utils";
 
 const userRegister = async (payload: IUser): Promise<IUser> => {
   const { email, contactNumber } = payload;
@@ -13,6 +14,10 @@ const userRegister = async (payload: IUser): Promise<IUser> => {
   if (existingUser) {
     throw new ApiError(httpStatus.CONFLICT, "Email or Contact Already Exists");
   }
+
+  const id = generateUID();
+
+  payload.uid = id;
 
   const user = new Users(payload);
 

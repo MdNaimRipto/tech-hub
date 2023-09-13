@@ -23,6 +23,7 @@ const usersZodSchema = z.object({
     street: z.string().default("empty"),
     city: z.string().default("empty"),
     district: z.string().default("empty"),
+    userRole: z.string().default("seller"),
   }),
 });
 
