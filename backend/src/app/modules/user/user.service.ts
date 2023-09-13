@@ -102,7 +102,7 @@ const updateUser = async (
   return result;
 };
 
-//
+// Forgot Password
 const forgotPassword = async (
   userID: string,
   payload: Partial<IUser>
@@ -143,9 +143,27 @@ const forgotPassword = async (
   return result;
 };
 
+// Delete User
+const deleteUser = async (userID: string): Promise<IUser | null> => {
+  const isExists = await Users.findById({ _id: userID });
+  if (!isExists) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
+  }
+
+  const deleteUser = await Users.findOneAndDelete(
+    { _id: userID },
+    {
+      new: true,
+    }
+  );
+
+  return deleteUser;
+};
+
 export const UserService = {
   userRegister,
   userLogin,
   updateUser,
   forgotPassword,
+  deleteUser,
 };

@@ -58,9 +58,21 @@ const forgotPassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// Delete User
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const user = await UserService.deleteUser(id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Account Deleted Successfully",
+    data: user,
+  });
+});
 export const userController = {
   userRegister,
   userLogin,
   updateUser,
   forgotPassword,
+  deleteUser,
 };

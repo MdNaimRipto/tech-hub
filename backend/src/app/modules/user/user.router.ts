@@ -25,4 +25,6 @@ router.post(
 
 router.post("/forgotPassword/:id", userController.forgotPassword);
 
+router.delete("/deleteUser/:id", userController.deleteUser);
+
 export const UsersRouter = router;
