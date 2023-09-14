@@ -30,7 +30,25 @@ const getAllProducts = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// Get Products by Category
+const getProductsByCategory = catchAsync(
+  async (req: Request, res: Response) => {
+    const { category } = req.query; // Use req.query to access query parameters
+    const products = await ProductService.getProductsByCategory(
+      category as string
+    );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Products Retrieved Successfully",
+      data: products,
+    });
+  }
+);
+
 export const ProductController = {
   uploadProduct,
   getAllProducts,
+  getProductsByCategory,
 };

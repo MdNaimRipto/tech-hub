@@ -4,7 +4,7 @@ import { IProduct } from "./products.interface";
 import { generateProductCode } from "./products.utils";
 import { Products } from "./products.schema";
 
-// Upload Product Api
+//* Upload Product Api
 const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
   // Saving Product Code
   const code = generateProductCode();
@@ -41,7 +41,7 @@ const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
   return result;
 };
 
-// Get All Products
+//* Get All Products
 const getAllProducts = async (): Promise<IProduct[]> => {
   const products = await Products.find();
 
@@ -51,8 +51,19 @@ const getAllProducts = async (): Promise<IProduct[]> => {
   return products;
 };
 
+//* Get Product By Category
+const getProductsByCategory = async (category: string): Promise<IProduct[]> => {
+  const products = await Products.find({ category });
+  if (products.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
+  }
+
+  return products;
+};
+
 // * Product Service Export
 export const ProductService = {
   uploadProduct,
   getAllProducts,
+  getProductsByCategory,
 };
