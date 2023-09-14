@@ -19,6 +19,12 @@ const userRegister = async (payload: IUser): Promise<IUser> => {
 
   const id = generateUID();
 
+  const checkID = await Users.findOne({ uid: id });
+
+  if (checkID) {
+    throw new ApiError(httpStatus.CONFLICT, "User Already Exists");
+  }
+
   payload.uid = id;
 
   const user = new Users(payload);
