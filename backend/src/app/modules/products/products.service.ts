@@ -21,7 +21,10 @@ const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
   if (payload.discount === 0) {
     payload.discountedPrice = payload.price;
   } else if (payload.discount < 0 || payload.discount > 100) {
-    throw new Error("Discount must be between 0 and 100.");
+    throw new ApiError(
+      httpStatus.NOT_ACCEPTABLE,
+      "Discount must be between 0 and 100."
+    );
   }
   {
     const discountAmount = (payload.price * payload.discount) / 100;
@@ -38,7 +41,18 @@ const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
   return result;
 };
 
+// Get All Products
+const getAllProducts = async (): Promise<IProduct[]> => {
+  const products = await Products.find();
+
+  if (products.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
+  }
+  return products;
+};
+
 // * Product Service Export
 export const ProductService = {
   uploadProduct,
+  getAllProducts,
 };

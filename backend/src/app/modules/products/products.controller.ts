@@ -4,7 +4,7 @@ import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { ProductService } from "./products.service";
 
-// User Registration
+// Upload Product
 const uploadProduct = catchAsync(async (req: Request, res: Response) => {
   const { ...productData } = req.body;
 
@@ -18,6 +18,19 @@ const uploadProduct = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// Get All Product
+const getAllProducts = catchAsync(async (req: Request, res: Response) => {
+  const products = await ProductService.getAllProducts();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Product's Retrieved Successfully",
+    data: products,
+  });
+});
+
 export const ProductController = {
   uploadProduct,
+  getAllProducts,
 };
