@@ -53,7 +53,7 @@ const getAllProducts = async (): Promise<IProduct[]> => {
 
 //* Get Product By Category
 const getProductsByCategory = async (category: string): Promise<IProduct[]> => {
-  const products = await Products.find({ category });
+  const products = await Products.find({ category: category });
   if (products.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
   }
@@ -61,9 +61,31 @@ const getProductsByCategory = async (category: string): Promise<IProduct[]> => {
   return products;
 };
 
+//* Get Product By ID
+const getProductsByID = async (productID: string): Promise<IProduct | null> => {
+  const product = await Products.findById({ _id: productID });
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, "No Product found");
+  }
+
+  return product;
+};
+
+// * Update Product
+const updateProduct = async (
+  productID: string,
+  payload: Partial<IProduct>
+): Promise<IProduct | null> => {
+  const isExistsProduct = await Products.findById({ _id: productID });
+  if (!isExistsProduct) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Product Not Found!");
+  }
+};
+
 // * Product Service Export
 export const ProductService = {
   uploadProduct,
   getAllProducts,
   getProductsByCategory,
+  getProductsByID,
 };

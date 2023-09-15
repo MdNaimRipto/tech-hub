@@ -47,8 +47,23 @@ const getProductsByCategory = catchAsync(
   }
 );
 
+// Get Products by ID
+const getProductsByID = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  console.log(id);
+  const product = await ProductService.getProductsByID(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Product Retrieved Successfully",
+    data: product,
+  });
+});
+
 export const ProductController = {
   uploadProduct,
   getAllProducts,
   getProductsByCategory,
+  getProductsByID,
 };

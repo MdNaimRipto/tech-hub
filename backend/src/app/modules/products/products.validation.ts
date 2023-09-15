@@ -5,21 +5,27 @@ const productsZodSchema = z.object({
     name: z.string({
       required_error: "Name is required",
     }),
-    images: z.array(
-      z.string({
-        required_error: "Images are required",
-      })
-    ),
-    features: z.array(
-      z.string({
-        required_error: "Features are required",
-      })
-    ),
+    images: z.object({
+      i1: z.string({ required_error: "Image 1 is Required" }),
+      i2: z.string({ required_error: "Image 2 is Required" }),
+      i3: z.string({ required_error: "Image 3 is Required" }),
+      i4: z.string({ required_error: "Image 4 is Required" }),
+    }),
+    features: z.object({
+      f1: z.string({ required_error: "Feature 1 is Required" }),
+      f2: z.string({ required_error: "Feature 2 is Required" }),
+      f3: z.string({ required_error: "Feature 3 is Required" }),
+      f4: z.string({ required_error: "Feature 4 is Required" }),
+      f5: z.string({ required_error: "Feature 5 is Required" }),
+    }),
     category: z.string({
       required_error: "Category is required",
     }),
     price: z.number().positive("Price must be a positive number"),
-    discount: z.number().positive("Discount must be a positive number"),
+    discount: z
+      .number()
+      .min(0, "Discount must be At least 0")
+      .max(99, "Discount can be max 99"),
     quantity: z.number().int().positive("Quantity must be a positive integer"),
     status: z
       .boolean({

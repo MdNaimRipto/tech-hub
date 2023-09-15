@@ -4,8 +4,25 @@ import { IProduct } from "./products.interface";
 export const productSchema = new Schema<IProduct>(
   {
     name: { type: String, required: true },
-    images: [{ type: String, required: true }],
-    features: [{ type: String, required: true }],
+    images: {
+      type: {
+        i1: { type: String, required: true },
+        i2: { type: String, required: true },
+        i3: { type: String, required: true },
+        i4: { type: String, required: true },
+      },
+      required: true,
+    },
+    features: {
+      type: {
+        f1: { type: String, required: true },
+        f2: { type: String, required: true },
+        f3: { type: String, required: true },
+        f4: { type: String, required: true },
+        f5: { type: String, required: true },
+      },
+      required: true,
+    },
     category: { type: String, required: true },
     discount: { type: Number, required: true, default: 0, min: 0, max: 99 },
     price: { type: Number, required: true },

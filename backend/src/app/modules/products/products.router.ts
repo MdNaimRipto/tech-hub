@@ -15,4 +15,6 @@ router.get("/getAllProducts", ProductController.getAllProducts);
 
 router.get("/getProducts", ProductController.getProductsByCategory);
 
+router.get("/getProductByID/:id", ProductController.getProductsByID);
+
 export const ProductsRouter = router;
