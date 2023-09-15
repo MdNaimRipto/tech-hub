@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiError";
 import { IProduct } from "./products.interface";
@@ -80,6 +81,42 @@ const updateProduct = async (
   if (!isExistsProduct) {
     throw new ApiError(httpStatus.NOT_FOUND, "Product Not Found!");
   }
+
+  const { status, allRating, rating, code, images, features, ...restData } =
+    payload;
+  const updatedData: Partial<IProduct> = { ...restData };
+
+  if (status || allRating || rating !== undefined || code !== undefined) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      "Failed to Update! Please Try Again."
+    );
+  }
+
+  if (images && Object.keys(images).length > 0) {
+    Object.keys(images).map(key => {
+      const imagesKey = `images.${key}`;
+      (updatedData as any)[imagesKey] = images[key as keyof typeof images];
+    });
+  }
+
+  if (features && Object.keys(features).length > 0) {
+    Object.keys(features).map(key => {
+      const featuresKey = `features.${key}`;
+      (updatedData as any)[featuresKey] =
+        features[key as keyof typeof features];
+    });
+  }
+
+  const result = await Products.findOneAndUpdate(
+    { _id: productID },
+    updatedData,
+    {
+      new: true,
+    }
+  );
+
+  return result;
 };
 
 // * Product Service Export
@@ -88,4 +125,5 @@ export const ProductService = {
   getAllProducts,
   getProductsByCategory,
   getProductsByID,
+  updateProduct,
 };

@@ -17,4 +17,10 @@ router.get("/getProducts", ProductController.getProductsByCategory);
 
 router.get("/getProductByID/:id", ProductController.getProductsByID);
 
+router.patch(
+  "/updateProduct/:id",
+  zodValidationRequest(ProductValidation.updateProductSchema),
+  ProductController.updateProduct
+);
+
 export const ProductsRouter = router;

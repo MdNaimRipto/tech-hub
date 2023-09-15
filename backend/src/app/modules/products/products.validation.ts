@@ -55,6 +55,39 @@ const productsZodSchema = z.object({
   }),
 });
 
+const updateProductSchema = z.object({
+  body: z.object({
+    name: z.string().optional(),
+    images: z
+      .object({
+        i1: z.string().optional(),
+        i2: z.string().optional(),
+        i3: z.string().optional(),
+        i4: z.string().optional(),
+      })
+      .optional(),
+    features: z
+      .object({
+        f1: z.string().optional(),
+        f2: z.string().optional(),
+        f3: z.string().optional(),
+        f4: z.string().optional(),
+        f5: z.string().optional(),
+      })
+      .optional(),
+    category: z.string().optional(),
+    price: z.number().positive().optional(),
+    discount: z.number().min(0).max(99).optional(),
+    quantity: z.number().int().positive().optional(),
+    status: z.boolean().optional().default(true),
+    description: z.string().optional(),
+    allRating: z.array(z.number().default(0)).optional().default([0]),
+    rating: z.number().int().min(0).optional().default(0),
+    brand: z.string().optional(),
+  }),
+});
+
 export const ProductValidation = {
   productsZodSchema,
+  updateProductSchema,
 };
