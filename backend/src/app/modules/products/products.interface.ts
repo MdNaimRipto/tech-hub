@@ -28,4 +28,5 @@ export type IProduct = {
   rating: number;
   brand: string;
   code: string;
+  sellerID: string;
 };

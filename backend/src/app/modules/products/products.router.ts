@@ -23,4 +23,12 @@ router.patch(
   ProductController.updateProduct
 );
 
+router.patch(
+  "/updateRating/:id",
+  zodValidationRequest(ProductValidation.updateRatingZodSchema),
+  ProductController.updateProductRating
+);
+
+router.delete("/deleteProduct/:id", ProductController.deleteProduct);
+
 export const ProductsRouter = router;

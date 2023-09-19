@@ -52,6 +52,9 @@ const productsZodSchema = z.object({
     brand: z.string({
       required_error: "Brand is required",
     }),
+    sellerID: z.string({
+      required_error: "Seller ID is required",
+    }),
   }),
 });
 
@@ -87,7 +90,19 @@ const updateProductSchema = z.object({
   }),
 });
 
+const updateRatingZodSchema = z.object({
+  body: z.object({
+    userID: z.string({
+      required_error: "Seller ID is Required",
+    }),
+    rating: z.number({
+      required_error: "Rating is Required",
+    }),
+  }),
+});
+
 export const ProductValidation = {
   productsZodSchema,
   updateProductSchema,
+  updateRatingZodSchema,
 };

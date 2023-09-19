@@ -4,6 +4,7 @@ import ApiError from "../../../errors/ApiError";
 import { IProduct } from "./products.interface";
 import { generateProductCode } from "./products.utils";
 import { Products } from "./products.schema";
+import { Users } from "../user/user.schema";
 
 //* Upload Product Api
 const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
@@ -82,11 +83,25 @@ const updateProduct = async (
     throw new ApiError(httpStatus.NOT_FOUND, "Product Not Found!");
   }
 
-  const { status, allRating, rating, code, images, features, ...restData } =
-    payload;
+  const {
+    status,
+    allRating,
+    rating,
+    code,
+    sellerID,
+    images,
+    features,
+    ...restData
+  } = payload;
   const updatedData: Partial<IProduct> = { ...restData };
 
-  if (status || allRating || rating !== undefined || code !== undefined) {
+  if (
+    status ||
+    allRating ||
+    rating !== undefined ||
+    code !== undefined ||
+    sellerID !== undefined
+  ) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
       "Failed to Update! Please Try Again."
@@ -119,6 +134,65 @@ const updateProduct = async (
   return result;
 };
 
+// Update Rating Function:
+const updateProductRating = async (
+  id: string,
+  useID: string,
+  newRating: number
+): Promise<IProduct | null> => {
+  const isExists = await Products.findById({ _id: id });
+  if (!isExists) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Book Not Found!");
+  }
+
+  const checkUser = await Users.findById({ _id: useID });
+  if (checkUser?.id === isExists.sellerID) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      "Permission Denied! Please Try Again."
+    );
+  }
+
+  const { allRating } = isExists;
+
+  if (allRating) {
+    allRating.push(newRating);
+    const totalRating = allRating.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    const ratingCount = allRating.length - 1;
+    const avgRating = totalRating / ratingCount;
+    isExists.rating = avgRating >= 5 ? 5 : parseFloat(avgRating.toFixed(1));
+  }
+  const result = await Products.findOneAndUpdate({ _id: id }, isExists, {
+    new: true,
+  });
+  return result;
+};
+
+// Delete Product Function:
+const deleteProduct = async (
+  bookID: string,
+  sellerID: string
+): Promise<IProduct | null> => {
+  const isExists = await Products.findById({ _id: bookID });
+  if (!isExists) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Book Not Found!");
+  }
+
+  const checkSeller = await Users.findById({ _id: sellerID });
+  if (checkSeller?.id !== isExists.sellerID) {
+    throw new ApiError(
+      httpStatus.NOT_ACCEPTABLE,
+      "Permission Denied! Please Try Again."
+    );
+  }
+
+  const result = await Products.findOneAndDelete({ _id: bookID });
+  return result;
+};
+
 // * Product Service Export
 export const ProductService = {
   uploadProduct,
@@ -126,4 +200,6 @@ export const ProductService = {
   getProductsByCategory,
   getProductsByID,
   updateProduct,
+  updateProductRating,
+  deleteProduct,
 };

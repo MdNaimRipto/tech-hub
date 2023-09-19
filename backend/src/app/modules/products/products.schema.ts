@@ -34,6 +34,7 @@ export const productSchema = new Schema<IProduct>(
     rating: { type: Number, required: true, default: 0 },
     brand: { type: String, required: true },
     code: { type: String, required: true },
+    sellerID: { type: String, required: true },
   },
   {
     timestamps: true,
