@@ -13,4 +13,6 @@ router.post(
 
 router.get("/getReviews/:id", ReviewsController.getReviewsByProductID);
 
+router.patch("/updateReview/:id", ReviewsController.updateReview);
+
 export const ReviewsRouter = router;

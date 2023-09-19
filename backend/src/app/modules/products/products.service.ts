@@ -173,10 +173,10 @@ const updateProductRating = async (
 
 // Delete Product Function:
 const deleteProduct = async (
-  bookID: string,
+  productID: string,
   sellerID: string
 ): Promise<IProduct | null> => {
-  const isExists = await Products.findById({ _id: bookID });
+  const isExists = await Products.findById({ _id: productID });
   if (!isExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "Book Not Found!");
   }
@@ -189,7 +189,7 @@ const deleteProduct = async (
     );
   }
 
-  const result = await Products.findOneAndDelete({ _id: bookID });
+  const result = await Products.findOneAndDelete({ _id: productID });
   return result;
 };
 

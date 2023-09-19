@@ -34,7 +34,23 @@ const getReviewsByProductID = catchAsync(
   }
 );
 
+// Get Review's by Product ID
+const updateReview = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { ...reviewPayload } = req.body;
+
+  const reviews = await ReviewsService.updateReview(id, reviewPayload);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Review Updated Successfully",
+    data: reviews,
+  });
+});
+
 export const ReviewsController = {
   addReview,
   getReviewsByProductID,
+  updateReview,
 };

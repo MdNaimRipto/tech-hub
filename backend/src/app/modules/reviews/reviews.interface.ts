@@ -4,3 +4,8 @@ export type IReviews = {
   productId: string;
   review: string;
 };
+
+export type IUpdateReview = {
+  userId: string;
+  newReview: string;
+};
