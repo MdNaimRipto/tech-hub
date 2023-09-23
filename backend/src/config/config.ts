@@ -8,4 +8,6 @@ export default {
   port: process.env.PORT,
   database_url: process.env.DATABASE_URL,
   salt_round: process.env.SALT_ROUND,
+  anonymous_user_uid: process.env.ANONYMOUS_USER_UID,
+  admin_uid: process.env.ADMIN_UID,
 };

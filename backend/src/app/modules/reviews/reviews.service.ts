@@ -77,8 +77,6 @@ const updateReview = async (
   return result;
 };
 
-//
-
 export const ReviewsService = {
   addReview,
   getReviewsByProductID,
