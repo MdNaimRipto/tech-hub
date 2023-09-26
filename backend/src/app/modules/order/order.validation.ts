@@ -27,6 +27,16 @@ const orderZodSchema = z.object({
   }),
 });
 
+const updateOrderStatus = z.object({
+  body: z.object({
+    status: z.enum([...OrderProgressSteps] as [string, ...string[]], {
+      required_error:
+        "Progress must be one of `Pending`, `Processing`, `Verifying`, `Confirmed`, `Delivered`, `Completed`, or `Canceled`",
+    }),
+  }),
+});
+
 export const OrderValidation = {
   orderZodSchema,
+  updateOrderStatus,
 };
