@@ -5,6 +5,9 @@ import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { encryptData } from "./user.utils";
 import { IAuthenticatedUser } from "./user.interface";
+import pick from "../../../shared/shared";
+import { userFilterableFields } from "./user.constant";
+import { paginationFields } from "../../../constants/pagination.constant";
 
 // User Registration
 const userRegister = catchAsync(async (req: Request, res: Response) => {
@@ -40,11 +43,13 @@ const userLogin = catchAsync(async (req: Request, res: Response) => {
 
 // Get all User's
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
-  const user = await UserService.getAllUser();
+  const filters = pick(req.query, userFilterableFields);
+  const options = pick(req.query, paginationFields);
+  const user = await UserService.getAllUser(filters, options);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: "All User's",
+    message: "User's Retrieved",
     data: user,
   });
 });

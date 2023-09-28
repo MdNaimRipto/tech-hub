@@ -6,12 +6,20 @@ import {
   ILoginUser,
   IUpdatePassword,
   IUser,
+  IUserFilters,
 } from "./user.interface";
 import { Users } from "./user.schema";
 import bcrypt from "bcrypt";
 import { generateUID } from "./user.utils";
 import config from "../../../config/config";
 import { omit } from "lodash";
+import {
+  IGenericPaginationResponse,
+  IPaginationOptions,
+} from "../../../interface/pagination";
+import { userSearchableFields } from "./user.constant";
+import { calculatePaginationFunction } from "../../../helpers/paginationHelpers";
+import { SortOrder } from "mongoose";
 
 //* User Register
 const userRegister = async (payload: IUser): Promise<IAuthenticatedUser> => {
@@ -66,22 +74,68 @@ const userLogin = async (
 };
 
 //* Get All User Api [Admin Api]
-const getAllUser = async (): Promise<IUser[]> => {
-  const users = await Users.find(
-    {},
-    {
-      _id: 0,
-      firstName: 1,
-      lastName: 1,
-      email: 1,
-      contactNumber: 1,
-      userProfile: 1,
-    }
-  ).lean();
+const getAllUser = async (
+  filters: IUserFilters,
+  paginationOptions: IPaginationOptions
+): Promise<IGenericPaginationResponse<IUser[]>> => {
+  const { searchTerm, ...filterData } = filters;
+  const andConditions = [];
+  if (searchTerm) {
+    andConditions.push({
+      $or: userSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: "i",
+        },
+      })),
+    });
+  }
+  //
+  if (Object.keys(filterData).length) {
+    andConditions.push({
+      $and: Object.entries(filterData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+  //
+  const { page, limit, skip, sortBy, sortOrder } =
+    calculatePaginationFunction(paginationOptions);
+
+  const sortConditions: { [key: string]: SortOrder } = {};
+
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder;
+  }
+  //
+  const checkAndCondition =
+    andConditions?.length > 0 ? { $and: andConditions } : {};
+
+  const users = await Users.find(checkAndCondition, {
+    _id: 0,
+    name: 1,
+    email: 1,
+    contactNumber: 1,
+    userProfile: 1,
+  })
+    .lean()
+    .sort(sortConditions)
+    .skip(skip)
+    .limit(limit);
   if (users.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Users Found to Show!");
   }
-  return users;
+
+  const total = await Users.countDocuments(checkAndCondition);
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: users,
+  };
 };
 
 //* User Update
@@ -107,7 +161,7 @@ const updateUser = async (
     const isExists = await Users.findOne({ email: payload.email });
     if (isExists) {
       throw new ApiError(
-        httpStatus.UNAUTHORIZED,
+        httpStatus.FORBIDDEN,
         "Email Already Exists! Try Another One."
       );
     }
@@ -122,7 +176,7 @@ const updateUser = async (
 
     if (isPreviousPass) {
       throw new ApiError(
-        httpStatus.UNAUTHORIZED,
+        httpStatus.FORBIDDEN,
         "New Password Cannot be The Previous Password"
       );
     }

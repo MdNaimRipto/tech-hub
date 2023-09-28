@@ -5,8 +5,7 @@ import config from "../../../config/config";
 
 export const usersSchema = new Schema<IUser>(
   {
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    name: { type: String, required: true },
     email: { type: String, required: true },
     contactNumber: { type: String, required: true },
     password: { type: String, required: true },
