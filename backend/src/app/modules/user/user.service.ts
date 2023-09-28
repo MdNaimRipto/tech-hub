@@ -1,66 +1,90 @@
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiError";
-import { ILoginUser, IUser } from "./user.interface";
+import {
+  IAuthenticatedUser,
+  IForgotPasswordValidator,
+  ILoginUser,
+  IUpdatePassword,
+  IUser,
+} from "./user.interface";
 import { Users } from "./user.schema";
 import bcrypt from "bcrypt";
 import { generateUID } from "./user.utils";
 import config from "../../../config/config";
+import { omit } from "lodash";
 
-// User Register
-const userRegister = async (payload: IUser): Promise<IUser> => {
+//* User Register
+const userRegister = async (payload: IUser): Promise<IAuthenticatedUser> => {
   const { email, contactNumber } = payload;
   // Check if the email or contact already exists
-  const existingUser = await Users.findOne({
+  const isExistsUser = await Users.findOne({
     $or: [{ email }, { contactNumber }],
   });
-  if (existingUser) {
+  if (isExistsUser) {
     throw new ApiError(httpStatus.CONFLICT, "Email or Contact Already Exists");
   }
 
-  const id = generateUID();
+  // Generate UID
+  const uid = generateUID();
 
-  const checkID = await Users.findOne({ uid: id });
-
-  if (checkID) {
+  // Check UID Exists or Not
+  const isUIDExists = await Users.findOne({ uid: uid });
+  if (isUIDExists) {
     throw new ApiError(httpStatus.CONFLICT, "User Already Exists");
   }
 
-  payload.uid = id;
+  // Save UID
+  payload.uid = uid;
 
-  const user = new Users(payload);
+  // Create User
+  const user = await Users.create(payload);
 
-  const result = user.save();
-
-  return result;
+  const authenticatedUser = omit(user.toObject(), ["password"]);
+  return authenticatedUser as unknown as IAuthenticatedUser;
 };
 
-// User Login
-const userLogin = async (payload: ILoginUser): Promise<IUser> => {
+//* User Login
+const userLogin = async (
+  payload: ILoginUser
+): Promise<IAuthenticatedUser | null> => {
   const { email, password } = payload;
   const isExists = await Users.findOne({ email: email });
 
   if (!isExists) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Invalid Email Or Password");
+    throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid Email Or Password");
   }
 
   const checkPassword = await bcrypt.compare(password, isExists.password);
 
   if (!checkPassword) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Invalid Email Or Password");
+    throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid Email Or Password");
   }
 
-  return isExists;
+  // Use lodash to omit the password field
+  const authenticatedUser = omit(isExists.toObject(), ["password"]);
+  return authenticatedUser as unknown as IAuthenticatedUser;
 };
 
+//* Get All User Api [Admin Api]
 const getAllUser = async (): Promise<IUser[]> => {
-  const users = await Users.find();
+  const users = await Users.find(
+    {},
+    {
+      _id: 0,
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      contactNumber: 1,
+      userProfile: 1,
+    }
+  ).lean();
   if (users.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Users Found to Show!");
   }
   return users;
 };
 
-// User Update
+//* User Update
 const updateUser = async (
   userID: string,
   payload: Partial<IUser>
@@ -116,41 +140,56 @@ const updateUser = async (
   return result;
 };
 
-// Forgot Password
+// Forgot Password Part-1 Find user via email
+const findUserForForgotPassword = async (
+  email: string
+): Promise<IForgotPasswordValidator> => {
+  const user = await Users.findOne(
+    { email: email },
+    {
+      _id: 0,
+      email: 1,
+    }
+  ).lean();
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
+  }
+
+  return user;
+};
+
+// Forgot Password Part-2
 const forgotPassword = async (
-  userID: string,
-  payload: Partial<IUser>
+  payload: IUpdatePassword
 ): Promise<IUser | null> => {
-  const isExistsUser = await Users.findById({ _id: userID });
+  const { email, password } = payload;
+  const isExistsUser = await Users.findOne({ email: email });
   if (!isExistsUser) {
     throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
   }
 
-  if (!payload.password) {
+  if (!password || !email) {
     throw new ApiError(
-      httpStatus.UNAUTHORIZED,
+      httpStatus.FORBIDDEN,
       "Password Update Failed!. Try Again."
     );
   }
 
   const isPreviousPass = await bcrypt.compare(
-    payload.password,
+    password,
     isExistsUser.password as string
   );
 
   if (isPreviousPass) {
     throw new ApiError(
-      httpStatus.UNAUTHORIZED,
+      httpStatus.FORBIDDEN,
       "New Password Cannot be The Previous Password"
     );
   }
-  const newPass = await bcrypt.hash(
-    payload.password,
-    Number(config.salt_round)
-  );
+  const newPass = await bcrypt.hash(password, Number(config.salt_round));
   payload.password = newPass;
 
-  const result = await Users.findOneAndUpdate({ _id: userID }, payload, {
+  const result = await Users.findOneAndUpdate({ email: email }, payload, {
     new: true,
   });
 
@@ -179,6 +218,7 @@ export const UserService = {
   userLogin,
   getAllUser,
   updateUser,
+  findUserForForgotPassword,
   forgotPassword,
   deleteUser,
 };

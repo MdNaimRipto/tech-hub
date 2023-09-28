@@ -25,7 +25,9 @@ router.post(
   userController.updateUser
 );
 
-router.post("/forgotPassword/:id", userController.forgotPassword);
+router.get("/findUser", userController.findUserForForgotPassword);
+
+router.patch("/forgotPassword", userController.forgotPassword);
 
 router.delete("/deleteUser/:id", userController.deleteUser);
 

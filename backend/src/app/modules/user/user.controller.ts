@@ -3,6 +3,8 @@ import catchAsync from "../../../shared/catchAsync";
 import { UserService } from "./user.service";
 import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
+import { encryptData } from "./user.utils";
+import { IAuthenticatedUser } from "./user.interface";
 
 // User Registration
 const userRegister = catchAsync(async (req: Request, res: Response) => {
@@ -10,11 +12,13 @@ const userRegister = catchAsync(async (req: Request, res: Response) => {
 
   const user = await UserService.userRegister(userInfo);
 
+  const userData = encryptData(user as IAuthenticatedUser);
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Registration Successful",
-    data: user,
+    data: userData,
   });
 });
 
@@ -24,11 +28,13 @@ const userLogin = catchAsync(async (req: Request, res: Response) => {
 
   const user = await UserService.userLogin(loginInfo);
 
+  const userData = encryptData(user as IAuthenticatedUser);
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Login Successful",
-    data: user,
+    data: userData,
   });
 });
 
@@ -57,15 +63,28 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 // Forgot Password
+const findUserForForgotPassword = catchAsync(
+  async (req: Request, res: Response) => {
+    const { email } = req.query;
+    const user = await UserService.findUserForForgotPassword(email as string);
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Email Verified! Please Update Password.",
+      data: user,
+    });
+  }
+);
+
+// Forgot Password
 const forgotPassword = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
   const { ...payload } = req.body;
-  const user = await UserService.forgotPassword(id, payload);
+  await UserService.forgotPassword(payload);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Password Updated Successfully",
-    data: user,
+    data: null,
   });
 });
 
@@ -85,6 +104,7 @@ export const userController = {
   userLogin,
   getAllUser,
   updateUser,
+  findUserForForgotPassword,
   forgotPassword,
   deleteUser,
 };
