@@ -3,7 +3,9 @@ import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { ProductService } from "./products.service";
-import { IProduct } from "./products.interface";
+import { productsFilterableFields } from "./products.constant";
+import { paginationFields } from "../../../constants/pagination.constant";
+import pick from "../../../shared/shared";
 
 // Upload Product
 const uploadProduct = catchAsync(async (req: Request, res: Response) => {
@@ -21,7 +23,9 @@ const uploadProduct = catchAsync(async (req: Request, res: Response) => {
 
 // Get All Product
 const getAllProducts = catchAsync(async (req: Request, res: Response) => {
-  const products = await ProductService.getAllProducts();
+  const filters = pick(req.query, productsFilterableFields);
+  const options = pick(req.query, paginationFields);
+  const products = await ProductService.getAllProducts(filters, options);
 
   sendResponse(res, {
     success: true,
@@ -34,9 +38,13 @@ const getAllProducts = catchAsync(async (req: Request, res: Response) => {
 // Get Products by Category
 const getProductsByCategory = catchAsync(
   async (req: Request, res: Response) => {
-    const { category } = req.query; // Use req.query to access query parameters
+    const { category } = req.query;
+    const filters = pick(req.query, productsFilterableFields);
+    const options = pick(req.query, paginationFields);
     const products = await ProductService.getProductsByCategory(
-      category as string
+      category as string,
+      filters,
+      options
     );
 
     sendResponse(res, {
@@ -65,38 +73,26 @@ const getProductsByID = catchAsync(async (req: Request, res: Response) => {
 const updateProduct = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { ...productData } = req.body;
-  const product = await ProductService.updateProduct(id, productData);
+  await ProductService.updateProduct(id, productData);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Product Updated Successfully",
-    data: product,
+    data: null,
   });
 });
 
 const updateProductRating = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { userID, rating } = req.body;
-  const product = await ProductService.updateProductRating(id, userID, rating);
+  await ProductService.updateProductRating(id, userID, rating);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Rating Added Successfully",
-    data: product,
-  });
-});
-
-const deleteProduct = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { sellerID } = req.body;
-  const result = await ProductService.deleteProduct(id, sellerID);
-  sendResponse<IProduct | null>(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "Product Deleted Successfully",
-    data: result,
+    data: null,
   });
 });
 
@@ -107,5 +103,4 @@ export const ProductController = {
   getProductsByID,
   updateProduct,
   updateProductRating,
-  deleteProduct,
 };

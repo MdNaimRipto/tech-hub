@@ -19,7 +19,7 @@ router.post(
 
 router.get("/getAllUsers", userController.getAllUser);
 
-router.post(
+router.patch(
   "/updateUser/:id",
   zodValidationRequest(userValidation.userUpdateZodSchema),
   userController.updateUser

@@ -25,7 +25,7 @@ export const productSchema = new Schema<IProduct>(
     },
     category: { type: String, required: true },
     discount: { type: Number, required: true, default: 0, min: 0, max: 99 },
-    price: { type: Number, required: true },
+    price: { type: String, required: true },
     discountedPrice: { type: Number, required: true },
     quantity: { type: Number, required: true, min: 0 },
     status: { type: Boolean, required: true, default: true },

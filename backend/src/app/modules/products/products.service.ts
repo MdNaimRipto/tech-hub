@@ -1,10 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiError";
-import { IProduct } from "./products.interface";
+import { IProductsFilters, IProduct } from "./products.interface";
 import { generateProductCode } from "./products.utils";
 import { Products } from "./products.schema";
 import { Users } from "../user/user.schema";
+import {
+  IGenericPaginationResponse,
+  IPaginationOptions,
+} from "../../../interface/pagination";
+import { productsSearchableFields } from "./products.constant";
+import { calculatePaginationFunction } from "../../../helpers/paginationHelpers";
+import { SortOrder } from "mongoose";
 
 //* Upload Product Api
 const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
@@ -13,24 +20,28 @@ const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
   const isExistsCode = await Products.findOne({ code: code });
   if (isExistsCode) {
     throw new ApiError(
-      httpStatus.UNAUTHORIZED,
+      httpStatus.CONFLICT,
       "Product Already Exists! Try Again"
     );
   }
   payload.code = code;
 
   // Saving Discount Price
+  const productPrice = parseFloat(payload.price);
+  if (productPrice <= 0) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Price Must be More then 0.");
+  }
+
   if (payload.discount === 0) {
-    payload.discountedPrice = payload.price;
+    payload.discountedPrice = productPrice;
   } else if (payload.discount < 0 || payload.discount > 100) {
     throw new ApiError(
-      httpStatus.NOT_ACCEPTABLE,
+      httpStatus.BAD_REQUEST,
       "Discount must be between 0 and 100."
     );
-  }
-  {
-    const discountAmount = (payload.price * payload.discount) / 100;
-    const discountPrice = payload.price - discountAmount;
+  } else {
+    const discountAmount = (productPrice * payload.discount) / 100;
+    const discountPrice = productPrice - discountAmount;
     payload.discountedPrice = discountPrice;
   }
 
@@ -43,29 +54,163 @@ const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
   return result;
 };
 
-//* Get All Products
-const getAllProducts = async (): Promise<IProduct[]> => {
-  const products = await Products.find();
+//* Get All Products //! Filter
+const getAllProducts = async (
+  filters: IProductsFilters,
+  paginationOptions: IPaginationOptions
+): Promise<IGenericPaginationResponse<IProduct[]>> => {
+  const { searchTerm, ...filterData } = filters;
+  const andConditions = [];
+  if (searchTerm) {
+    andConditions.push({
+      $or: productsSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: "i",
+        },
+      })),
+    });
+  }
+  //
+  if (Object.keys(filterData).length) {
+    andConditions.push({
+      $and: Object.entries(filterData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+  //
+  const { page, limit, skip, sortBy, sortOrder } =
+    calculatePaginationFunction(paginationOptions);
+
+  const sortConditions: { [key: string]: SortOrder } = {};
+
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder;
+  }
+  //
+  const checkAndCondition =
+    andConditions?.length > 0 ? { $and: andConditions } : {};
+
+  const products = await Products.find(checkAndCondition, {
+    _id: 1,
+    images: {
+      i1: 1,
+    },
+    name: 1,
+    price: 1,
+    discountedPrice: 1,
+  })
+    .sort(sortConditions)
+    .skip(skip)
+    .limit(limit);
 
   if (products.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
   }
-  return products;
+
+  const total = await Products.countDocuments(checkAndCondition);
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: products,
+  };
 };
 
-//* Get Product By Category
-const getProductsByCategory = async (category: string): Promise<IProduct[]> => {
-  const products = await Products.find({ category: category });
+//* Get Product By Category //! Filter
+const getProductsByCategory = async (
+  category: string,
+  filters: IProductsFilters,
+  paginationOptions: IPaginationOptions
+): Promise<IGenericPaginationResponse<IProduct[]>> => {
+  const { searchTerm, ...filterData } = filters;
+  const andConditions = [];
+  if (searchTerm) {
+    andConditions.push({
+      $or: productsSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: "i",
+        },
+      })),
+    });
+  }
+  //
+  if (Object.keys(filterData).length) {
+    andConditions.push({
+      $and: Object.entries(filterData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+  //
+  const { page, limit, skip, sortBy, sortOrder } =
+    calculatePaginationFunction(paginationOptions);
+
+  const sortConditions: { [key: string]: SortOrder } = {};
+
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder;
+  }
+  //
+  const checkAndCondition =
+    andConditions?.length > 0 ? { $and: andConditions } : {};
+
+  const query = {
+    category: category,
+    ...checkAndCondition,
+  };
+
+  const products = await Products.find(query, {
+    _id: 1,
+    images: {
+      i1: 1,
+    },
+    name: 1,
+    features: {
+      f1: 1,
+      f2: 1,
+      f3: 1,
+    },
+    price: 1,
+    discountedPrice: 1,
+    rating: 1,
+  })
+    .sort(sortConditions)
+    .skip(skip)
+    .limit(limit);
   if (products.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
   }
 
-  return products;
+  const total = await Products.countDocuments(checkAndCondition);
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: products,
+  };
 };
 
 //* Get Product By ID
 const getProductsByID = async (productID: string): Promise<IProduct | null> => {
-  const product = await Products.findById({ _id: productID });
+  const product = await Products.findById(
+    { _id: productID },
+    {
+      discount: 0,
+      quantity: 0,
+      allRating: 0,
+      code: 0,
+      sellerID: 0,
+    }
+  );
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Product found");
   }
@@ -73,11 +218,11 @@ const getProductsByID = async (productID: string): Promise<IProduct | null> => {
   return product;
 };
 
-// * Update Product
+//* Update Product
 const updateProduct = async (
   productID: string,
   payload: Partial<IProduct>
-): Promise<IProduct | null> => {
+): Promise<null> => {
   const isExistsProduct = await Products.findById({ _id: productID });
   if (!isExistsProduct) {
     throw new ApiError(httpStatus.NOT_FOUND, "Product Not Found!");
@@ -91,6 +236,7 @@ const updateProduct = async (
     sellerID,
     images,
     features,
+    discount,
     ...restData
   } = payload;
   const updatedData: Partial<IProduct> = { ...restData };
@@ -103,7 +249,7 @@ const updateProduct = async (
     sellerID !== undefined
   ) {
     throw new ApiError(
-      httpStatus.BAD_REQUEST,
+      httpStatus.PRECONDITION_FAILED,
       "Failed to Update! Please Try Again."
     );
   }
@@ -123,23 +269,36 @@ const updateProduct = async (
     });
   }
 
-  const result = await Products.findOneAndUpdate(
-    { _id: productID },
-    updatedData,
-    {
-      new: true,
+  // Saving Discount Price
+  const productPrice = parseFloat(isExistsProduct.price);
+  if (discount) {
+    if (discount === 0) {
+      isExistsProduct.discountedPrice = productPrice;
+    } else if (Number(discount) < 0 || Number(discount) > 100) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "Discount must be between 0 and 100."
+      );
+    } else {
+      const discountAmount = (productPrice * Number(discount)) / 100;
+      const discountPrice = productPrice - discountAmount;
+      updatedData.discountedPrice = discountPrice;
     }
-  );
+  }
 
-  return result;
+  await Products.findOneAndUpdate({ _id: productID }, updatedData, {
+    new: true,
+  });
+
+  return null;
 };
 
-// Update Rating Function:
+//* Update Rating Function:
 const updateProductRating = async (
   id: string,
   useID: string,
   newRating: number
-): Promise<IProduct | null> => {
+): Promise<null> => {
   const isExists = await Products.findById({ _id: id });
   if (!isExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "Book Not Found!");
@@ -148,7 +307,7 @@ const updateProductRating = async (
   const checkUser = await Users.findById({ _id: useID });
   if (checkUser?.id === isExists.sellerID) {
     throw new ApiError(
-      httpStatus.UNAUTHORIZED,
+      httpStatus.FORBIDDEN,
       "Permission Denied! Please Try Again."
     );
   }
@@ -165,32 +324,10 @@ const updateProductRating = async (
     const avgRating = totalRating / ratingCount;
     isExists.rating = avgRating >= 5 ? 5 : parseFloat(avgRating.toFixed(1));
   }
-  const result = await Products.findOneAndUpdate({ _id: id }, isExists, {
+  await Products.findOneAndUpdate({ _id: id }, isExists, {
     new: true,
   });
-  return result;
-};
-
-// Delete Product Function:
-const deleteProduct = async (
-  productID: string,
-  sellerID: string
-): Promise<IProduct | null> => {
-  const isExists = await Products.findById({ _id: productID });
-  if (!isExists) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Book Not Found!");
-  }
-
-  const checkSeller = await Users.findById({ _id: sellerID });
-  if (checkSeller?.id !== isExists.sellerID) {
-    throw new ApiError(
-      httpStatus.NOT_ACCEPTABLE,
-      "Permission Denied! Please Try Again."
-    );
-  }
-
-  const result = await Products.findOneAndDelete({ _id: productID });
-  return result;
+  return null;
 };
 
 // * Product Service Export
@@ -201,5 +338,4 @@ export const ProductService = {
   getProductsByID,
   updateProduct,
   updateProductRating,
-  deleteProduct,
 };

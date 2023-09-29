@@ -18,7 +18,7 @@ export type IProduct = {
   images: Images;
   features: Features;
   category: string;
-  price: number;
+  price: string;
   discount: number;
   discountedPrice: number;
   quantity: number;
@@ -29,4 +29,12 @@ export type IProduct = {
   brand: string;
   code: string;
   sellerID: string;
+};
+
+export type IProductsFilters = {
+  searchTerm?: string;
+  name?: string;
+  category?: string;
+  price?: string;
+  brand?: string;
 };

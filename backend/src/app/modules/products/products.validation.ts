@@ -21,7 +21,7 @@ const productsZodSchema = z.object({
     category: z.string({
       required_error: "Category is required",
     }),
-    price: z.number().positive("Price must be a positive number"),
+    price: z.string({ required_error: "Price is Required" }),
     discount: z
       .number()
       .min(0, "Discount must be At least 0")

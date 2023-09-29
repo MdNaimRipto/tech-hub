@@ -29,6 +29,4 @@ router.patch(
   ProductController.updateProductRating
 );
 
-router.delete("/deleteProduct/:id", ProductController.deleteProduct);
-
 export const ProductsRouter = router;

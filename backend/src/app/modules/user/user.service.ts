@@ -5,6 +5,7 @@ import {
   IForgotPasswordValidator,
   ILoginUser,
   IUpdatePassword,
+  IUpdatedUser,
   IUser,
   IUserFilters,
 } from "./user.interface";
@@ -142,7 +143,7 @@ const getAllUser = async (
 const updateUser = async (
   userID: string,
   payload: Partial<IUser>
-): Promise<IUser | null> => {
+): Promise<IUpdatedUser | null> => {
   const isExistsUser = await Users.findById({ _id: userID });
   if (!isExistsUser) {
     throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
@@ -190,8 +191,10 @@ const updateUser = async (
   const result = await Users.findOneAndUpdate({ _id: userID }, updatePayload, {
     new: true,
   });
+  const updatedUser = omit(result?.toObject(), ["password"]);
+  return updatedUser as unknown as IUpdatedUser;
 
-  return result;
+  // return result;
 };
 
 // Forgot Password Part-1 Find user via email
@@ -213,9 +216,7 @@ const findUserForForgotPassword = async (
 };
 
 // Forgot Password Part-2
-const forgotPassword = async (
-  payload: IUpdatePassword
-): Promise<IUser | null> => {
+const forgotPassword = async (payload: IUpdatePassword): Promise<null> => {
   const { email, password } = payload;
   const isExistsUser = await Users.findOne({ email: email });
   if (!isExistsUser) {
@@ -243,28 +244,28 @@ const forgotPassword = async (
   const newPass = await bcrypt.hash(password, Number(config.salt_round));
   payload.password = newPass;
 
-  const result = await Users.findOneAndUpdate({ email: email }, payload, {
+  await Users.findOneAndUpdate({ email: email }, payload, {
     new: true,
   });
 
-  return result;
+  return null;
 };
 
 // Delete User
-const deleteUser = async (userID: string): Promise<IUser | null> => {
+const deleteUser = async (userID: string): Promise<null> => {
   const isExists = await Users.findById({ _id: userID });
   if (!isExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
   }
 
-  const deleteUser = await Users.findOneAndDelete(
+  await Users.findOneAndDelete(
     { _id: userID },
     {
       new: true,
     }
   );
 
-  return deleteUser;
+  return null;
 };
 
 export const UserService = {

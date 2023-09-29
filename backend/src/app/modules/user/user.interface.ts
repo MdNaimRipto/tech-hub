@@ -14,6 +14,7 @@ export interface IUser {
 }
 
 export interface IAuthenticatedUser extends Omit<IUser, "password"> {}
+export interface IUpdatedUser extends Omit<IUser, "password"> {}
 
 export type ILoginUser = {
   email: string;
