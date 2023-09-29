@@ -36,13 +36,13 @@ const getWishlistsByUserID = catchAsync(async (req: Request, res: Response) => {
 const deleteWishlist = catchAsync(async (req: Request, res: Response) => {
   const { ...deletePayload } = req.body;
 
-  const wishlist = await WishlistService.deleteWishlist(deletePayload);
+  await WishlistService.deleteWishlist(deletePayload);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Product Removed From Wishlist.",
-    data: wishlist,
+    data: null,
   });
 });
 

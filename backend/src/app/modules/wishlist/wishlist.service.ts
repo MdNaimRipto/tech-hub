@@ -32,8 +32,8 @@ const addWishlist = async (payload: IWishlist): Promise<IWishlist> => {
     );
   }
 
-  const question = await Wishlist.create(payload);
-  return question;
+  const newWishlist = await Wishlist.create(payload);
+  return newWishlist;
 };
 
 // Get wishlists By Product ID
@@ -49,9 +49,7 @@ const getWishlistsByUserID = async (userID: string): Promise<IWishlist[]> => {
 };
 
 // Delete Wishlist Product
-const deleteWishlist = async (
-  payload: IDeleteWishlist
-): Promise<IWishlist | null> => {
+const deleteWishlist = async (payload: IDeleteWishlist): Promise<null> => {
   const { userID, wishlistId } = payload;
   const isExistsWishlist = await Wishlist.findById({ _id: wishlistId });
   if (!isExistsWishlist) {
@@ -68,14 +66,14 @@ const deleteWishlist = async (
     );
   }
 
-  const result = await Wishlist.findOneAndDelete(
+  await Wishlist.findOneAndDelete(
     { _id: wishlistId },
     {
       new: true,
     }
   );
 
-  return result;
+  return null;
 };
 
 export const WishlistService = {
