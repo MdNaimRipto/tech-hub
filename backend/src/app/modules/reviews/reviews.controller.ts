@@ -10,13 +10,13 @@ const addReview = catchAsync(async (req: Request, res: Response) => {
   const { ...reviewInfo } = req.body;
   const token = verifyAuthToken(req);
 
-  const reviews = await ReviewsService.addReview(reviewInfo, token);
+  await ReviewsService.addReview(reviewInfo, token);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Review Added Successfully",
-    data: reviews,
+    data: null,
   });
 });
 
@@ -42,13 +42,13 @@ const updateReview = catchAsync(async (req: Request, res: Response) => {
   const { ...reviewPayload } = req.body;
   const token = verifyAuthToken(req);
 
-  const reviews = await ReviewsService.updateReview(id, reviewPayload, token);
+  await ReviewsService.updateReview(id, reviewPayload, token);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Review Updated Successfully",
-    data: reviews,
+    data: null,
   });
 });
 

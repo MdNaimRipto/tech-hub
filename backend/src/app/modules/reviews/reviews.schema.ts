@@ -3,8 +3,7 @@ import { IReviews } from "./reviews.interface";
 
 export const reviewsSchema = new Schema<IReviews>(
   {
-    userId: { type: String, required: true },
-    userName: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, required: true, ref: "Users" },
     productId: { type: String, required: true },
     review: { type: String, required: true },
   },
