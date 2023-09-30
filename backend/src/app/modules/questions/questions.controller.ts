@@ -3,6 +3,7 @@ import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { QuestionsService } from "./questions.service";
+import { verifyAuthToken } from "../../../util/verifyAuthToken";
 
 // Add Review
 const addQuestion = catchAsync(async (req: Request, res: Response) => {
@@ -20,7 +21,9 @@ const addQuestion = catchAsync(async (req: Request, res: Response) => {
 
 // Get all Question's
 const getAllQuestions = catchAsync(async (req: Request, res: Response) => {
-  const questions = await QuestionsService.getAllQuestions();
+  const token = verifyAuthToken(req);
+
+  const questions = await QuestionsService.getAllQuestions(token);
 
   sendResponse(res, {
     success: true,
@@ -50,8 +53,13 @@ const getQuestionsByProductID = catchAsync(
 const updateQuestion = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { ...questionPayload } = req.body;
+  const token = verifyAuthToken(req);
 
-  const question = await QuestionsService.updateQuestion(id, questionPayload);
+  const question = await QuestionsService.updateQuestion(
+    id,
+    questionPayload,
+    token
+  );
 
   sendResponse(res, {
     success: true,
@@ -65,8 +73,13 @@ const updateQuestion = catchAsync(async (req: Request, res: Response) => {
 const answerQuestion = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { ...questionPayload } = req.body;
+  const token = verifyAuthToken(req);
 
-  const answer = await QuestionsService.answerQuestion(id, questionPayload);
+  const answer = await QuestionsService.answerQuestion(
+    id,
+    questionPayload,
+    token
+  );
 
   sendResponse(res, {
     success: true,

@@ -9,12 +9,23 @@ import { Users } from "../user/user.schema";
 import { Products } from "../products/products.schema";
 import { Questions } from "./questions.schema";
 import config from "../../../config/config";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import { Secret } from "jsonwebtoken";
 
 // Add Question:
 const addQuestion = async (payload: IQuestions): Promise<IQuestions> => {
-  const { productId } = payload;
+  const { productId, userUID } = payload;
 
-  const isProductExists = await Products.findById({ _id: productId });
+  if (userUID === config.admin_uid) {
+    throw new ApiError(httpStatus.FORBIDDEN, "Failed to Add Question!");
+  }
+
+  const isProductExists = await Products.findById(
+    { _id: productId },
+    {
+      _id: 1,
+    }
+  ).lean();
   if (!isProductExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "Product Does Not Exist's!");
   }
@@ -24,7 +35,9 @@ const addQuestion = async (payload: IQuestions): Promise<IQuestions> => {
 };
 
 // Get All Questions
-const getAllQuestions = async (): Promise<IQuestions[]> => {
+const getAllQuestions = async (token: string): Promise<IQuestions[]> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const questions = await Questions.find();
   if (questions.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "0 Questions Found");
@@ -48,9 +61,19 @@ const getQuestionsByProductID = async (
 // Update Question
 const updateQuestion = async (
   questionID: string,
-  payload: IUpdateQuestion
+  payload: IUpdateQuestion,
+  token: string
 ): Promise<IQuestions | null> => {
-  const isExistsQuestion = await Questions.findById({ _id: questionID });
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
+  const isExistsQuestion = await Questions.findById(
+    { _id: questionID },
+    {
+      _id: 0,
+      userUID: 1,
+      question: 1,
+    }
+  );
   if (!isExistsQuestion) {
     throw new ApiError(httpStatus.NOT_FOUND, "Question Not Found!");
   }
@@ -92,9 +115,17 @@ const updateQuestion = async (
 // Answer Question
 const answerQuestion = async (
   questionID: string,
-  payload: IAnswerQuestion
+  payload: IAnswerQuestion,
+  token: string
 ): Promise<IQuestions | null> => {
-  const isExistsQuestion = await Questions.findById({ _id: questionID });
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+  const isExistsQuestion = await Questions.findById(
+    { _id: questionID },
+    {
+      _id: 0,
+      answer: 1,
+    }
+  );
   if (!isExistsQuestion) {
     throw new ApiError(httpStatus.NOT_FOUND, "Question Not Found!");
   }
