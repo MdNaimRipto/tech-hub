@@ -35,6 +35,14 @@ const loginUserZodSchema = z.object({
   }),
 });
 
+const getAuthenticatedUserZodSchema = z.object({
+  body: z.object({
+    token: z.string({
+      required_error: "Token is Required",
+    }),
+  }),
+});
+
 const userUpdateZodSchema = z.object({
   body: z.object({
     name: z.string().optional(),
@@ -53,5 +61,6 @@ const userUpdateZodSchema = z.object({
 export const userValidation = {
   usersZodSchema,
   loginUserZodSchema,
+  getAuthenticatedUserZodSchema,
   userUpdateZodSchema,
 };

@@ -3,9 +3,14 @@ import ApiError from "../../../errors/ApiError";
 import { IOrder, OrderProgress } from "./order.interface";
 import { Users } from "../user/user.schema";
 import { Order } from "./order.schema";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import config from "../../../config/config";
+import { Secret } from "jsonwebtoken";
 
 // Add Order
-const addOrder = async (payload: IOrder): Promise<IOrder> => {
+const addOrder = async (payload: IOrder, token: string): Promise<IOrder> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const { userID, products } = payload;
 
   const isUserExists = await Users.findById({ _id: userID });
@@ -22,7 +27,9 @@ const addOrder = async (payload: IOrder): Promise<IOrder> => {
 };
 
 // Get All Orders:
-const getAllOrders = async (): Promise<IOrder[]> => {
+const getAllOrders = async (token: string): Promise<IOrder[]> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const orders = await Order.find().populate([
     {
       path: "userID",
@@ -38,7 +45,13 @@ const getAllOrders = async (): Promise<IOrder[]> => {
   return orders;
 };
 
-const getOrdersByUserID = async (userID: string): Promise<IOrder[]> => {
+// Get Order by User ID
+const getOrdersByUserID = async (
+  userID: string,
+  token: string
+): Promise<IOrder[]> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const orders = await Order.find({ userID: userID }).populate(
     "products.productID"
   );
@@ -52,8 +65,11 @@ const getOrdersByUserID = async (userID: string): Promise<IOrder[]> => {
 
 // Get Orders By Progress Status:
 const getOrdersByProgress = async (
-  progress: OrderProgress
+  progress: OrderProgress,
+  token: string
 ): Promise<IOrder[]> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const orders = await Order.find({ progress: progress }).populate([
     {
       path: "userID",
@@ -72,8 +88,11 @@ const getOrdersByProgress = async (
 // Update Order Status
 const updateOrderStatus = async (
   orderID: string,
-  status: OrderProgress
+  status: OrderProgress,
+  token: string
 ): Promise<IOrder | null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const isOrderExists = await Order.findById({ _id: orderID });
   if (!isOrderExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "Order Does Not Exist's!");

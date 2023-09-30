@@ -4,9 +4,17 @@ import { IDeleteWishlist, IWishlist } from "./wishlist.interface";
 import { Products } from "../products/products.schema";
 import { Users } from "../user/user.schema";
 import { Wishlist } from "./wishlist.schema";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import config from "../../../config/config";
+import { Secret } from "jsonwebtoken";
 
 // Add Wishlist:
-const addWishlist = async (payload: IWishlist): Promise<IWishlist> => {
+const addWishlist = async (
+  payload: IWishlist,
+  token: string
+): Promise<IWishlist> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const { productID, userID } = payload;
 
   if (!productID || !userID) {
@@ -55,7 +63,12 @@ const addWishlist = async (payload: IWishlist): Promise<IWishlist> => {
 };
 
 // Get wishlists By Product ID
-const getWishlistsByUserID = async (userID: string): Promise<IWishlist[]> => {
+const getWishlistsByUserID = async (
+  userID: string,
+  token: string
+): Promise<IWishlist[]> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const wishlists = await Wishlist.find({ userID: userID }).populate({
     path: "productID",
     select: "_id images.i1 name status price",
@@ -68,8 +81,14 @@ const getWishlistsByUserID = async (userID: string): Promise<IWishlist[]> => {
 };
 
 // Delete Wishlist Product
-const deleteWishlist = async (payload: IDeleteWishlist): Promise<null> => {
+const deleteWishlist = async (
+  payload: IDeleteWishlist,
+  token: string
+): Promise<null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const { userID, wishlistId } = payload;
+
   const isExistsWishlist = await Wishlist.findById(
     { _id: wishlistId },
     {

@@ -3,12 +3,14 @@ import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { ReviewsService } from "./reviews.service";
+import { verifyAuthToken } from "../../../util/verifyAuthToken";
 
 // Add Review
 const addReview = catchAsync(async (req: Request, res: Response) => {
   const { ...reviewInfo } = req.body;
+  const token = verifyAuthToken(req);
 
-  const reviews = await ReviewsService.addReview(reviewInfo);
+  const reviews = await ReviewsService.addReview(reviewInfo, token);
 
   sendResponse(res, {
     success: true,
@@ -38,8 +40,9 @@ const getReviewsByProductID = catchAsync(
 const updateReview = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { ...reviewPayload } = req.body;
+  const token = verifyAuthToken(req);
 
-  const reviews = await ReviewsService.updateReview(id, reviewPayload);
+  const reviews = await ReviewsService.updateReview(id, reviewPayload, token);
 
   sendResponse(res, {
     success: true,

@@ -3,25 +3,22 @@ import catchAsync from "../../../shared/catchAsync";
 import { UserService } from "./user.service";
 import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
-import { encryptData } from "./user.utils";
-import { IAuthenticatedUser } from "./user.interface";
 import pick from "../../../shared/shared";
 import { userFilterableFields } from "./user.constant";
 import { paginationFields } from "../../../constants/pagination.constant";
+import { verifyAuthToken } from "../../../util/verifyAuthToken";
 
 // User Registration
 const userRegister = catchAsync(async (req: Request, res: Response) => {
   const { ...userInfo } = req.body;
 
-  const user = await UserService.userRegister(userInfo);
-
-  const userData = encryptData(user as IAuthenticatedUser);
+  const result = await UserService.userRegister(userInfo);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Registration Successful",
-    data: userData,
+    data: result?.accessToken,
   });
 });
 
@@ -29,15 +26,27 @@ const userRegister = catchAsync(async (req: Request, res: Response) => {
 const userLogin = catchAsync(async (req: Request, res: Response) => {
   const { ...loginInfo } = req.body;
 
-  const user = await UserService.userLogin(loginInfo);
-
-  const userData = encryptData(user as IAuthenticatedUser);
+  const result = await UserService.userLogin(loginInfo);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Login Successful",
-    data: userData,
+    data: result?.accessToken,
+  });
+});
+
+// User Login
+const getAuthenticatedUser = catchAsync(async (req: Request, res: Response) => {
+  const token = verifyAuthToken(req);
+
+  const result = await UserService.getAuthenticatedUser(token);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Login Successful",
+    data: result,
   });
 });
 
@@ -45,7 +54,9 @@ const userLogin = catchAsync(async (req: Request, res: Response) => {
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, userFilterableFields);
   const options = pick(req.query, paginationFields);
-  const user = await UserService.getAllUser(filters, options);
+  const token = verifyAuthToken(req);
+
+  const user = await UserService.getAllUser(filters, options, token);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -58,7 +69,9 @@ const getAllUser = catchAsync(async (req: Request, res: Response) => {
 const updateUser = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { ...payload } = req.body;
-  const user = await UserService.updateUser(id, payload);
+  const token = verifyAuthToken(req);
+
+  const user = await UserService.updateUser(id, payload, token);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -96,7 +109,9 @@ const forgotPassword = catchAsync(async (req: Request, res: Response) => {
 // Delete User
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  await UserService.deleteUser(id);
+  const token = verifyAuthToken(req);
+
+  await UserService.deleteUser(id, token);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -104,9 +119,11 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
     data: null,
   });
 });
+
 export const userController = {
   userRegister,
   userLogin,
+  getAuthenticatedUser,
   getAllUser,
   updateUser,
   findUserForForgotPassword,

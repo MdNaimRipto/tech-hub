@@ -10,5 +10,6 @@ export default {
   salt_round: process.env.SALT_ROUND,
   anonymous_user_uid: process.env.ANONYMOUS_USER_UID,
   admin_uid: process.env.ADMIN_UID,
-  secret: process.env.SECRET,
+  jwt_secret: process.env.JWT_SECRET,
+  jwt_expires_in: process.env.JWT_EXPIRES_IN,
 };

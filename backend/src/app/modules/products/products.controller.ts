@@ -6,12 +6,14 @@ import { ProductService } from "./products.service";
 import { productsFilterableFields } from "./products.constant";
 import { paginationFields } from "../../../constants/pagination.constant";
 import pick from "../../../shared/shared";
+import { verifyAuthToken } from "../../../util/verifyAuthToken";
 
 // Upload Product
 const uploadProduct = catchAsync(async (req: Request, res: Response) => {
   const { ...productData } = req.body;
+  const token = verifyAuthToken(req);
 
-  const product = await ProductService.uploadProduct(productData);
+  const product = await ProductService.uploadProduct(productData, token);
 
   sendResponse(res, {
     success: true,
@@ -73,7 +75,9 @@ const getProductsByID = catchAsync(async (req: Request, res: Response) => {
 const updateProduct = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { ...productData } = req.body;
-  await ProductService.updateProduct(id, productData);
+  const token = verifyAuthToken(req);
+
+  await ProductService.updateProduct(id, productData, token);
 
   sendResponse(res, {
     success: true,
@@ -86,7 +90,9 @@ const updateProduct = catchAsync(async (req: Request, res: Response) => {
 const updateProductRating = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { userID, rating } = req.body;
-  await ProductService.updateProductRating(id, userID, rating);
+  const token = verifyAuthToken(req);
+
+  await ProductService.updateProductRating(id, userID, rating, token);
 
   sendResponse(res, {
     success: true,

@@ -4,9 +4,17 @@ import { IReviews, IUpdateReview } from "./reviews.interface";
 import { Users } from "../user/user.schema";
 import { Products } from "../products/products.schema";
 import { Reviews } from "./reviews.schema";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import config from "../../../config/config";
+import { Secret } from "jsonwebtoken";
 
 // Add Review:
-const addReview = async (payload: IReviews): Promise<IReviews> => {
+const addReview = async (
+  payload: IReviews,
+  token: string
+): Promise<IReviews> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const { userId, productId } = payload;
 
   const isExistsUser = await Users.findById({ _id: userId });
@@ -43,8 +51,11 @@ const getReviewsByProductID = async (
 // Update Review
 const updateReview = async (
   reviewID: string,
-  payload: IUpdateReview
+  payload: IUpdateReview,
+  token: string
 ): Promise<IReviews | null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const isExistsReview = await Reviews.findById({ _id: reviewID });
   if (!isExistsReview) {
     throw new ApiError(httpStatus.NOT_FOUND, "Review Not Found!");

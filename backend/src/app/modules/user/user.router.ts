@@ -17,6 +17,12 @@ router.post(
   userController.userLogin
 );
 
+router.get(
+  "/getAuthenticatedUser",
+  zodValidationRequest(userValidation.getAuthenticatedUserZodSchema),
+  userController.getAuthenticatedUser
+);
+
 router.get("/getAllUsers", userController.getAllUser);
 
 router.patch(

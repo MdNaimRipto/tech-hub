@@ -3,12 +3,14 @@ import catchAsync from "../../../shared/catchAsync";
 import { PcBuilderService } from "./pcBuilder.service";
 import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
+import { verifyAuthToken } from "../../../util/verifyAuthToken";
 
 // Build PC
 const buildPc = catchAsync(async (req: Request, res: Response) => {
   const { ...payload } = req.body;
+  const token = verifyAuthToken(req);
 
-  await PcBuilderService.buildPc(payload);
+  await PcBuilderService.buildPc(payload, token);
 
   sendResponse(res, {
     success: true,
@@ -21,8 +23,9 @@ const buildPc = catchAsync(async (req: Request, res: Response) => {
 // Get Saved Pc By User ID
 const getBuildPcByUserId = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
+  const token = verifyAuthToken(req);
 
-  const savedBuilds = await PcBuilderService.getBuildPcByUserId(id);
+  const savedBuilds = await PcBuilderService.getBuildPcByUserId(id, token);
 
   sendResponse(res, {
     success: true,
@@ -35,8 +38,9 @@ const getBuildPcByUserId = catchAsync(async (req: Request, res: Response) => {
 // Get Saved Pc By ID
 const getBuildPcById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
+  const token = verifyAuthToken(req);
 
-  const savedBuild = await PcBuilderService.getBuildPcById(id);
+  const savedBuild = await PcBuilderService.getBuildPcById(id, token);
 
   sendResponse(res, {
     success: true,
@@ -50,8 +54,9 @@ const getBuildPcById = catchAsync(async (req: Request, res: Response) => {
 const deleteBuild = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { userId } = req.body;
+  const token = verifyAuthToken(req);
 
-  const savedBuild = await PcBuilderService.deleteBuild(id, userId);
+  const savedBuild = await PcBuilderService.deleteBuild(id, userId, token);
 
   sendResponse(res, {
     success: true,

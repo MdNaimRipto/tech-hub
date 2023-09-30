@@ -12,9 +12,16 @@ import {
 import { productsSearchableFields } from "./products.constant";
 import { calculatePaginationFunction } from "../../../helpers/paginationHelpers";
 import { SortOrder } from "mongoose";
+import { Secret } from "jsonwebtoken";
+import config from "../../../config/config";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
 
 //* Upload Product Api
-const uploadProduct = async (payload: IProduct): Promise<IProduct> => {
+const uploadProduct = async (
+  payload: IProduct,
+  token: string
+): Promise<IProduct> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
   // Saving Product Code
   const code = generateProductCode();
   const isExistsCode = await Products.findOne({ code: code });
@@ -221,8 +228,11 @@ const getProductsByID = async (productID: string): Promise<IProduct | null> => {
 //* Update Product
 const updateProduct = async (
   productID: string,
-  payload: Partial<IProduct>
+  payload: Partial<IProduct>,
+  token: string
 ): Promise<null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const isExistsProduct = await Products.findById({ _id: productID });
   if (!isExistsProduct) {
     throw new ApiError(httpStatus.NOT_FOUND, "Product Not Found!");
@@ -297,11 +307,14 @@ const updateProduct = async (
 const updateProductRating = async (
   id: string,
   useID: string,
-  newRating: number
+  newRating: number,
+  token: string
 ): Promise<null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const isExists = await Products.findById({ _id: id });
   if (!isExists) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Book Not Found!");
+    throw new ApiError(httpStatus.NOT_FOUND, "Product Not Found!");
   }
 
   const checkUser = await Users.findById({ _id: useID });

@@ -13,7 +13,9 @@ export interface IUser {
   uid: string;
 }
 
-export interface IAuthenticatedUser extends Omit<IUser, "password"> {}
+export type IAuthenticatedUser = {
+  accessToken: string;
+};
 export interface IUpdatedUser extends Omit<IUser, "password"> {}
 
 export type ILoginUser = {

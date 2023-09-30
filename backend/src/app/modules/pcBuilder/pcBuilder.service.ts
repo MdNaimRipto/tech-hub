@@ -4,8 +4,16 @@ import { IPcBuilder } from "./pcBuilder.interface";
 import ApiError from "../../../errors/ApiError";
 import { PcBuilder } from "./pcBuilder.schema";
 import { pcBuilderPopulatePaths } from "./pcBuilder.populatePaths";
+import { Secret } from "jsonwebtoken";
+import config from "../../../config/config";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
 
-const buildPc = async (payload: IPcBuilder): Promise<IPcBuilder> => {
+const buildPc = async (
+  payload: IPcBuilder,
+  token: string
+): Promise<IPcBuilder> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const { userID } = payload;
   const isUserExists = await Users.findById({ _id: userID });
   if (!isUserExists) {
@@ -16,7 +24,12 @@ const buildPc = async (payload: IPcBuilder): Promise<IPcBuilder> => {
   return pc;
 };
 
-const getBuildPcByUserId = async (userID: string): Promise<IPcBuilder[]> => {
+const getBuildPcByUserId = async (
+  userID: string,
+  token: string
+): Promise<IPcBuilder[]> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const savedPCs = await PcBuilder.find({ userID }).populate(
     pcBuilderPopulatePaths
   );
@@ -27,7 +40,12 @@ const getBuildPcByUserId = async (userID: string): Promise<IPcBuilder[]> => {
   return savedPCs;
 };
 
-const getBuildPcById = async (buildId: string): Promise<IPcBuilder | null> => {
+const getBuildPcById = async (
+  buildId: string,
+  token: string
+): Promise<IPcBuilder | null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const savedPC = await PcBuilder.findById({ _id: buildId }).populate(
     pcBuilderPopulatePaths
   );
@@ -40,8 +58,11 @@ const getBuildPcById = async (buildId: string): Promise<IPcBuilder | null> => {
 
 const deleteBuild = async (
   buildId: string,
-  userID: string
+  userID: string,
+  token: string
 ): Promise<IPcBuilder | null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const isUserExists = await Users.findById({ _id: userID });
   if (!isUserExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "User Does Not Exist's!");

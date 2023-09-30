@@ -21,6 +21,8 @@ import {
 import { userSearchableFields } from "./user.constant";
 import { calculatePaginationFunction } from "../../../helpers/paginationHelpers";
 import { SortOrder } from "mongoose";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import { Secret } from "jsonwebtoken";
 
 //* User Register
 const userRegister = async (payload: IUser): Promise<IAuthenticatedUser> => {
@@ -48,8 +50,19 @@ const userRegister = async (payload: IUser): Promise<IAuthenticatedUser> => {
   // Create User
   const user = await Users.create(payload);
 
-  const authenticatedUser = omit(user.toObject(), ["password"]);
-  return authenticatedUser as unknown as IAuthenticatedUser;
+  const { _id } = user;
+
+  const accessToken = jwtHelpers.createToken(
+    {
+      id: _id,
+    },
+    config.jwt_secret as Secret,
+    config.jwt_expires_in as string
+  );
+
+  return {
+    accessToken,
+  };
 };
 
 //* User Login
@@ -57,7 +70,13 @@ const userLogin = async (
   payload: ILoginUser
 ): Promise<IAuthenticatedUser | null> => {
   const { email, password } = payload;
-  const isExists = await Users.findOne({ email: email });
+  const isExists = await Users.findOne(
+    { email: email },
+    {
+      _id: 1,
+      password: 1,
+    }
+  );
 
   if (!isExists) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid Email Or Password");
@@ -69,16 +88,46 @@ const userLogin = async (
     throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid Email Or Password");
   }
 
-  // Use lodash to omit the password field
-  const authenticatedUser = omit(isExists.toObject(), ["password"]);
-  return authenticatedUser as unknown as IAuthenticatedUser;
+  const accessToken = jwtHelpers.createToken(
+    {
+      id: isExists._id,
+    },
+    config.jwt_secret as Secret,
+    config.jwt_expires_in as string
+  );
+
+  return {
+    accessToken,
+  };
+};
+
+const getAuthenticatedUser = async (token: string): Promise<IUser | null> => {
+  const decodedToken = jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
+  const userId = decodedToken.id;
+
+  const user = await Users.findById(
+    { _id: userId },
+    {
+      password: 0,
+    }
+  );
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
+  }
+
+  return user;
 };
 
 //* Get All User Api [Admin Api]
 const getAllUser = async (
   filters: IUserFilters,
-  paginationOptions: IPaginationOptions
+  paginationOptions: IPaginationOptions,
+  token: string
 ): Promise<IGenericPaginationResponse<IUser[]>> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const { searchTerm, ...filterData } = filters;
   const andConditions = [];
   if (searchTerm) {
@@ -142,8 +191,11 @@ const getAllUser = async (
 //* User Update
 const updateUser = async (
   userID: string,
-  payload: Partial<IUser>
+  payload: Partial<IUser>,
+  token: string
 ): Promise<IUpdatedUser | null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const isExistsUser = await Users.findById({ _id: userID });
   if (!isExistsUser) {
     throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
@@ -197,7 +249,7 @@ const updateUser = async (
   // return result;
 };
 
-// Forgot Password Part-1 Find user via email
+//* Forgot Password Part-1 Find user via email
 const findUserForForgotPassword = async (
   email: string
 ): Promise<IForgotPasswordValidator> => {
@@ -215,7 +267,7 @@ const findUserForForgotPassword = async (
   return user;
 };
 
-// Forgot Password Part-2
+//* Forgot Password Part-2
 const forgotPassword = async (payload: IUpdatePassword): Promise<null> => {
   const { email, password } = payload;
   const isExistsUser = await Users.findOne({ email: email });
@@ -251,8 +303,10 @@ const forgotPassword = async (payload: IUpdatePassword): Promise<null> => {
   return null;
 };
 
-// Delete User
-const deleteUser = async (userID: string): Promise<null> => {
+//* Delete User
+const deleteUser = async (userID: string, token: string): Promise<null> => {
+  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
+
   const isExists = await Users.findById({ _id: userID });
   if (!isExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "User Not Found");
@@ -271,6 +325,7 @@ const deleteUser = async (userID: string): Promise<null> => {
 export const UserService = {
   userRegister,
   userLogin,
+  getAuthenticatedUser,
   getAllUser,
   updateUser,
   findUserForForgotPassword,

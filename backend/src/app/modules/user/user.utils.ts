@@ -1,7 +1,3 @@
-import config from "../../../config/config";
-import CryptoJS from "crypto-js";
-import { IAuthenticatedUser } from "./user.interface";
-
 export function generateUID() {
   const uidLength = 20;
   const characters =
@@ -14,12 +10,4 @@ export function generateUID() {
   }
 
   return uid;
-}
-
-export function encryptData(data: IAuthenticatedUser) {
-  const encryptedData = CryptoJS.AES.encrypt(
-    JSON.stringify(data),
-    String(config.secret)
-  ).toString();
-  return encryptedData;
 }
