@@ -7,11 +7,12 @@ const pcBuilderSchema = new Schema<IPcBuilder>({
     ref: "Users",
     required: true,
   },
+  buildName: { type: String, required: true },
+  code: { type: String, required: true },
   build: {
     cpu: {
       type: Schema.Types.ObjectId,
       ref: "Products",
-      required: true,
     },
     cpuCooler: {
       type: Schema.Types.ObjectId,
@@ -20,12 +21,10 @@ const pcBuilderSchema = new Schema<IPcBuilder>({
     motherboard: {
       type: Schema.Types.ObjectId,
       ref: "Products",
-      required: true,
     },
     ram1: {
       type: Schema.Types.ObjectId,
       ref: "Products",
-      required: true,
     },
     ram2: {
       type: Schema.Types.ObjectId,
@@ -42,7 +41,6 @@ const pcBuilderSchema = new Schema<IPcBuilder>({
     storage1: {
       type: Schema.Types.ObjectId,
       ref: "Products",
-      required: true,
     },
     storage2: {
       type: Schema.Types.ObjectId,
@@ -55,12 +53,10 @@ const pcBuilderSchema = new Schema<IPcBuilder>({
     psu: {
       type: Schema.Types.ObjectId,
       ref: "Products",
-      required: true,
     },
     casing: {
       type: Schema.Types.ObjectId,
       ref: "Products",
-      required: true,
     },
     monitor: {
       type: Schema.Types.ObjectId,

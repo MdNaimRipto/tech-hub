@@ -56,13 +56,13 @@ const deleteBuild = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.body;
   const token = verifyAuthToken(req);
 
-  const savedBuild = await PcBuilderService.deleteBuild(id, userId, token);
+  await PcBuilderService.deleteBuild(id, userId, token);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Build Deleted.",
-    data: savedBuild,
+    data: null,
   });
 });
 

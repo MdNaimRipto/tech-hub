@@ -5,31 +5,22 @@ const pcBuilderSchema = z.object({
     userID: z.string({
       required_error: "User Id is Required",
     }),
+    buildName: z.string({
+      required_error: "Build Name is Required",
+    }),
     build: z.object({
-      cpu: z.string({
-        required_error: "CPU is Required",
-      }),
+      cpu: z.string().optional(),
       cpuCooler: z.string().optional(),
-      motherboard: z.string({
-        required_error: "Motherboard is Required",
-      }),
-      ram1: z.string({
-        required_error: "RAM1 is Required",
-      }),
+      motherboard: z.string().optional(),
+      ram1: z.string().optional(),
       ram2: z.string().optional(),
       ram3: z.string().optional(),
       ram4: z.string().optional(),
-      storage1: z.string({
-        required_error: "Storage1 is Required",
-      }),
+      storage1: z.string().optional(),
       storage2: z.string().optional(),
       gpu: z.string().optional(),
-      psu: z.string({
-        required_error: "PSU is Required",
-      }),
-      casing: z.string({
-        required_error: "Casing is Required",
-      }),
+      psu: z.string().optional(),
+      casing: z.string().optional(),
       monitor: z.string().optional(),
       casingCooler: z.string().optional(),
       keyboard: z.string().optional(),
