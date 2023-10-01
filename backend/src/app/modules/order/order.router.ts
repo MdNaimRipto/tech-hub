@@ -15,6 +15,8 @@ router.get("/getAllOrders", OrderController.getAllOrders);
 
 router.get("/getUsersOrder/:id", OrderController.getOrdersByUserID);
 
+router.get("/getOrderDetails/:id", OrderController.getOrdersByOrderID);
+
 router.get("/getOrdersByProgress", OrderController.getOrdersByProgress);
 
 router.patch(

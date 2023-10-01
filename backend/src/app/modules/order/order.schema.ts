@@ -16,6 +16,7 @@ export const orderSchema = new Schema<IOrder>(
       },
     ],
     totalPrice: { type: Number, required: true, min: 1 },
+    code: { type: String, required: true, unique: true },
     progress: { type: String, enum: OrderProgressSteps, default: "Pending" },
   },
   {

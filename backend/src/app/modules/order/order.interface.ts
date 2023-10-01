@@ -20,5 +20,6 @@ export type IOrder = {
   userID: Types.ObjectId | IUser;
   products: Products[];
   totalPrice: number;
+  code: string;
   progress: OrderProgress;
 };
