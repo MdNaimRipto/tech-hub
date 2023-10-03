@@ -20,7 +20,7 @@ import { jwtHelpers } from "../../../helpers/jwtHelpers";
 const uploadProduct = async (
   payload: IProduct,
   token: string
-): Promise<IProduct> => {
+): Promise<null> => {
   jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
   // Saving Product Code
   const code = generateProductCode();
@@ -56,9 +56,8 @@ const uploadProduct = async (
   payload.allRating = [0];
 
   // Save Product
-  const product = new Products(payload);
-  const result = await product.save();
-  return result;
+  await Products.create(payload);
+  return null;
 };
 
 //* Get All Products //! Filter
@@ -209,14 +208,14 @@ const getProductsByCategory = async (
 //* Get Product By ID
 const getProductsByID = async (productID: string): Promise<IProduct | null> => {
   const product = await Products.findById(
-    { _id: productID },
-    {
-      discount: 0,
-      quantity: 0,
-      allRating: 0,
-      code: 0,
-      sellerID: 0,
-    }
+    { _id: productID }
+    // {
+    //   discount: 0,
+    //   quantity: 0,
+    //   allRating: 0,
+    //   code: 0,
+    //   sellerID: 0,
+    // }
   );
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Product found");

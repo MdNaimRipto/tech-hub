@@ -22,6 +22,7 @@ export type IProduct = {
   discount: number;
   discountedPrice: number;
   quantity: number;
+  totalSale: number;
   status: boolean;
   description: string;
   allRating: number[];

@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UsersRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const user_controller_1 = require("./user.controller");
+const zodValidationRequest_1 = __importDefault(require("../../../middleware/zodValidationRequest"));
+const user_validation_1 = require("./user.validation");
+const router = express_1.default.Router();
+router.post("/userRegister", (0, zodValidationRequest_1.default)(user_validation_1.userValidation.usersZodSchema), user_controller_1.userController.userRegister);
+router.post("/userLogin", (0, zodValidationRequest_1.default)(user_validation_1.userValidation.loginUserZodSchema), user_controller_1.userController.userLogin);
+router.get("/getAuthenticatedUser", (0, zodValidationRequest_1.default)(user_validation_1.userValidation.getAuthenticatedUserZodSchema), user_controller_1.userController.getAuthenticatedUser);
+router.get("/getAllUsers", user_controller_1.userController.getAllUser);
+router.patch("/updateUser/:id", (0, zodValidationRequest_1.default)(user_validation_1.userValidation.userUpdateZodSchema), user_controller_1.userController.updateUser);
+router.get("/findUser", user_controller_1.userController.findUserForForgotPassword);
+router.patch("/forgotPassword", user_controller_1.userController.forgotPassword);
+router.delete("/deleteUser/:id", user_controller_1.userController.deleteUser);
+exports.UsersRouter = router;

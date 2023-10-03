@@ -12,13 +12,13 @@ const addOrder = catchAsync(async (req: Request, res: Response) => {
   const { ...orderPayload } = req.body;
   const token = verifyAuthToken(req);
 
-  await OrderService.addOrder(orderPayload, token);
+  const order = await OrderService.addOrder(orderPayload, token);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Products Ordered.",
-    data: null,
+    data: order,
   });
 });
 
@@ -89,13 +89,13 @@ const updateOrderStatus = catchAsync(async (req: Request, res: Response) => {
   const { status } = req.body;
   const token = verifyAuthToken(req);
 
-  await OrderService.updateOrderStatus(id, status, token);
+  const order = await OrderService.updateOrderStatus(id, status, token);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Order Updated.",
-    data: null,
+    data: order,
   });
 });
 

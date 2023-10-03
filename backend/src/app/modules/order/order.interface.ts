@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 import { IProduct } from "../products/products.interface";
 import { IUser } from "../user/user.interface";
 
-export type Products = {
+export type OrderedProducts = {
   productID: Types.ObjectId | IProduct;
   quantity: number;
 };
@@ -18,7 +18,7 @@ export type OrderProgress =
 
 export type IOrder = {
   userID: Types.ObjectId | IUser;
-  products: Products[];
+  products: OrderedProducts[];
   totalPrice: number;
   code: string;
   progress: OrderProgress;

@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiError";
-import { IOrder, OrderProgress } from "./order.interface";
+import { IOrder, OrderProgress, OrderedProducts } from "./order.interface";
 import { Users } from "../user/user.schema";
 import { Order } from "./order.schema";
 import { jwtHelpers } from "../../../helpers/jwtHelpers";
@@ -13,6 +13,8 @@ import {
 import { calculatePaginationFunction } from "../../../helpers/paginationHelpers";
 import { SortOrder } from "mongoose";
 import { generateOrderCode } from "./order.utils";
+import { IProduct } from "../products/products.interface";
+import { Products } from "../products/products.schema";
 
 //* Add Order
 const addOrder = async (payload: IOrder, token: string): Promise<IOrder> => {
@@ -34,6 +36,14 @@ const addOrder = async (payload: IOrder, token: string): Promise<IOrder> => {
     throw new ApiError(httpStatus.FORBIDDEN, "Product Cart Cannot Be Empty!");
   }
 
+  for (const orderProduct of products as OrderedProducts[]) {
+    const productId = orderProduct.productID;
+    const product = (await Products.findOne({ _id: productId })) as IProduct;
+    if (product.quantity <= 0 || product.status === false) {
+      throw new ApiError(httpStatus.BAD_REQUEST, "Product is Out Of Stock!");
+    }
+  }
+
   const code = generateOrderCode();
 
   const isCodeExists = await Order.findOne(
@@ -49,7 +59,10 @@ const addOrder = async (payload: IOrder, token: string): Promise<IOrder> => {
 
   payload.code = code;
 
-  const order = await Order.create(payload);
+  const order = (await Order.create(payload)).populate({
+    path: "products.productID",
+    select: "-_id quantity totalSale status",
+  });
   return order;
 };
 
@@ -194,26 +207,69 @@ const updateOrderStatus = async (
   orderID: string,
   status: OrderProgress,
   token: string
-): Promise<null> => {
+): Promise<IOrder | null> => {
   jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
 
   const isOrderExists = await Order.findById(
     { _id: orderID },
     {
       progress: 1,
+      products: 1,
     }
-  ).lean();
+  )
+    .populate({
+      path: "products.productID",
+      select: "quantity totalSale status",
+    })
+    .lean();
+
   if (!isOrderExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "Order Does Not Exist's!");
   }
 
+  if (isOrderExists.progress === "Completed") {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      "Cannot Update! Order Has Been Completed."
+    );
+  }
+
+  if (isOrderExists.progress === "Canceled") {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      "Cannot Update! Order Has Been Canceled."
+    );
+  }
+
   isOrderExists.progress = status;
 
-  await Order.findOneAndUpdate({ _id: orderID }, isOrderExists, {
+  if (isOrderExists?.progress === "Completed") {
+    for (const orderProduct of isOrderExists?.products as OrderedProducts[]) {
+      const productId = orderProduct.productID;
+      const product = (await Products.findOne({ _id: productId })) as IProduct;
+      if (product.quantity <= 0 || product.status === false) {
+        throw new ApiError(
+          httpStatus.BAD_REQUEST,
+          "Cannot Update Product Which is Out Of Stock!"
+        );
+      }
+
+      product.quantity = product.quantity - orderProduct.quantity;
+      product.totalSale += 1;
+      if (product.quantity === 0) {
+        product.status = false;
+      }
+      await Products.findOneAndUpdate({ code: product.code }, product, {
+        new: true,
+      });
+    }
+  }
+
+  const result = await Order.findOneAndUpdate({ _id: orderID }, isOrderExists, {
     new: true,
   });
 
-  return null;
+  return result;
 };
 
 export const OrderService = {
