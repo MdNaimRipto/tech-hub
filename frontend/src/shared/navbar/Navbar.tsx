@@ -1,8 +1,12 @@
+import MainNav from "./MainNav";
+import SubNav from "./SubNav";
+
 const Navbar = () => {
   return (
-    <div>
-      <h2>Navbar</h2>
-    </div>
+    <>
+      <SubNav />
+      <MainNav />
+    </>
   );
 };
 

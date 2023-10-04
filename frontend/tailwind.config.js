@@ -6,12 +6,15 @@ module.exports = {
     extend: {},
     // our colors theme
     colors: {
-      primary: "#c00a27",
-      secondary: "#f4b618",
+      primary: "#ff7a1a",
+      secondary: "#f15700",
       white: "#ffffff",
       black: "#3a3a3a",
       gray: "#686464",
+      "light-gray": "#80808075",
+      input: "#e2e2e2",
       yellow: "#F4B618",
+      red: "#EB2606",
     },
 
     container: {
