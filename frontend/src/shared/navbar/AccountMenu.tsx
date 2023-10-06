@@ -26,7 +26,7 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   return (
-    <>
+    <React.Fragment>
       <Tooltip title="Account settings">
         <button
           onClick={handleClick}
@@ -34,7 +34,7 @@ export default function AccountMenu() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <AccountCircleOutlinedIcon />
+          <AccountCircleOutlinedIcon className="text-3xl lg:text-2xl" />
         </button>
       </Tooltip>
       <Menu
@@ -79,7 +79,7 @@ export default function AccountMenu() {
         </MenuItem>
         <Divider />
         {!user ? (
-          <>
+          <div>
             <Link href="/login">
               <MenuItem onClick={handleClose}>
                 <ListItemIcon>
@@ -96,7 +96,7 @@ export default function AccountMenu() {
                 Register
               </MenuItem>
             </Link>
-          </>
+          </div>
         ) : (
           <MenuItem onClick={handleClose}>
             <ListItemIcon>
@@ -106,6 +106,6 @@ export default function AccountMenu() {
           </MenuItem>
         )}
       </Menu>
-    </>
+    </React.Fragment>
   );
 }

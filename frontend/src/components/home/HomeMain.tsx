@@ -9,6 +9,7 @@ const HomeMain = () => {
       <Banner />
       <SmallInfo />
       <GamingZone />
+      <h2>Hello</h2>
     </div>
   );
 };

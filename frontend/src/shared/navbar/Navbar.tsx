@@ -1,4 +1,5 @@
 import MainNav from "./MainNav";
+import ResponsiveMobileNav from "./ResponsiveMobileNav";
 import SubNav from "./SubNav";
 
 const Navbar = () => {
@@ -6,6 +7,7 @@ const Navbar = () => {
     <>
       <SubNav />
       <MainNav />
+      <ResponsiveMobileNav />
     </>
   );
 };

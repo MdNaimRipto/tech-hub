@@ -1,7 +1,7 @@
 const SubNav = () => {
   return (
     <div className="pb-2 border-b border-b-[#ebebeb]">
-      <div className="flex items-center justify-between h-10 leading-8 text-xs container xl:px-4">
+      <div className="flex items-center justify-between h-10 leading-8 text-[8px] md:text-xs container px-4 xl:px-0">
         <>
           <h6 className="text-black font-semibold">Welcome To Tech-Hub</h6>
         </>
