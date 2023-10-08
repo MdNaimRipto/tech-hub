@@ -1,5 +1,4 @@
-import MainLayout from "@/layouts/MainLayout";
-import Banner from "./Banner";
+import Banner from "./banner/Banner";
 import GamingZone from "./GamingZone";
 import SmallInfo from "./SmallInfo";
 
@@ -9,7 +8,6 @@ const HomeMain = () => {
       <Banner />
       <SmallInfo />
       <GamingZone />
-      <h2>Hello</h2>
     </div>
   );
 };

@@ -29,31 +29,31 @@ const ResponsiveMobileNav = () => {
     {
       icon: <PcBuilder sx={{ fontSize: "20px" }} />,
       name: "PC Builder",
-      path: "pc-builder",
+      path: "/pc-builder",
     },
   ];
   return (
-    <div className="lg:hidden">
+    <div className="lg:hidden z-50">
       {searchBarVisible && (
         <ResponsiveSearchPage setSearchBarVisible={setSearchBarVisible} />
       )}
-      <div className="flex items-center justify-around absolute bottom-2 transform -translate-x-1/2 left-1/2 w-[96%] py-3 text-xs rounded-xl text-white font-semibold gradient-menu">
+      <div className="flex items-center justify-around fixed bottom-0 w-full py-2 text-white font-semibold gradient-menu z-40">
         {menuOptions.map((o, i) => (
           <Link
             key={i + 1}
             href={o.path}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center w-1/5"
           >
             <>{o.icon}</>
-            <p className="text-xm">{o.name}</p>
+            <p className="text-xs">{o.name}</p>
           </Link>
         ))}
         <button
-          className="flex flex-col items-center"
+          className="flex flex-col items-center w-1/5"
           onClick={() => setSearchBarVisible(true)}
         >
           <SearchSharpIcon sx={{ fontSize: "20px" }} />
-          <p className="text-sm">Search</p>
+          <p className="text-xs">Search</p>
         </button>
       </div>
     </div>

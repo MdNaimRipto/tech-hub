@@ -8,7 +8,7 @@ import AccountMenu from "./AccountMenu";
 
 const MainNav = () => {
   return (
-    <div className="bg-[#e2e2e2]">
+    <div className="bg-[#e7e7e7] sticky top-0 z-50">
       <div className="flex items-center justify-between h-18 py-3 container px-4 xl:px-0">
         <Link href="/" className="h-full w-2/5 md:w-1/5 lg:w-[16%]">
           <Image
@@ -38,7 +38,7 @@ const MainNav = () => {
           </Tooltip>
           <AccountMenu />
           <Link href="/pc-builder">
-            <Button className="gradient-button px-4 py-3 font-semibold text-white rounded">
+            <Button className="gradient-button p-2 xl:px-4 xl:py-3 font-semibold text-white rounded text-xs xl:text-base">
               PC BUILDER
             </Button>
           </Link>
