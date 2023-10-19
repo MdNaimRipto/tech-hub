@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // Basic get function
 app.get("/", async (req: Request, res: Response) => {
   res.status(httpStatus.OK).send({
-    message: "Tech-hub Server running successfully",
+    message: "Tech-Mart Server running successfully",
     statusCode: httpStatus.OK,
   });
 });

@@ -28,6 +28,7 @@ exports.productSchema = new mongoose_1.Schema({
     price: { type: String, required: true },
     discountedPrice: { type: Number, required: true },
     quantity: { type: Number, required: true, min: 0 },
+    totalSale: { type: Number, required: true, default: 0, min: 0 },
     status: { type: Boolean, required: true, default: true },
     description: { type: String, required: true },
     allRating: [{ type: Number, required: true, default: 0, min: 0, max: 5 }],

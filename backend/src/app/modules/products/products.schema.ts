@@ -7,9 +7,9 @@ export const productSchema = new Schema<IProduct>(
     images: {
       type: {
         i1: { type: String, required: true },
-        i2: { type: String, required: true },
-        i3: { type: String, required: true },
-        i4: { type: String, required: true },
+        i2: { type: String },
+        i3: { type: String },
+        i4: { type: String },
       },
       required: true,
     },

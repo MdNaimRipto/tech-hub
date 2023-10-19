@@ -42,6 +42,13 @@ const addOrder = async (payload: IOrder, token: string): Promise<IOrder> => {
     if (product.quantity <= 0 || product.status === false) {
       throw new ApiError(httpStatus.BAD_REQUEST, "Product is Out Of Stock!");
     }
+
+    if (product.quantity < orderProduct.quantity) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "Not Enough Product in Stock!"
+      );
+    }
   }
 
   const code = generateOrderCode();

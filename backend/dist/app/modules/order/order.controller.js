@@ -35,12 +35,12 @@ const shared_1 = __importDefault(require("../../../shared/shared"));
 const addOrder = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const orderPayload = __rest(req.body, []);
     const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
-    yield order_service_1.OrderService.addOrder(orderPayload, token);
+    const order = yield order_service_1.OrderService.addOrder(orderPayload, token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Products Ordered.",
-        data: null,
+        data: order,
     });
 }));
 // Get All Orders
@@ -97,12 +97,12 @@ const updateOrderStatus = (0, catchAsync_1.default)((req, res) => __awaiter(void
     const { id } = req.params;
     const { status } = req.body;
     const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
-    yield order_service_1.OrderService.updateOrderStatus(id, status, token);
+    const order = yield order_service_1.OrderService.updateOrderStatus(id, status, token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Order Updated.",
-        data: null,
+        data: order,
     });
 }));
 exports.OrderController = {

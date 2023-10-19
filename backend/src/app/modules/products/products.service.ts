@@ -20,7 +20,7 @@ import { jwtHelpers } from "../../../helpers/jwtHelpers";
 const uploadProduct = async (
   payload: IProduct,
   token: string
-): Promise<null> => {
+): Promise<IProduct | null> => {
   jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
   // Saving Product Code
   const code = generateProductCode();
@@ -49,15 +49,17 @@ const uploadProduct = async (
   } else {
     const discountAmount = (productPrice * payload.discount) / 100;
     const discountPrice = productPrice - discountAmount;
-    payload.discountedPrice = discountPrice;
+    payload.discountedPrice = Math.floor(discountPrice);
   }
 
   // Saving all Rating:
   payload.allRating = [0];
 
+  payload.brand = payload.brand.toLocaleLowerCase();
+
   // Save Product
-  await Products.create(payload);
-  return null;
+  const result = await Products.create(payload);
+  return result;
 };
 
 //* Get All Products //! Filter
@@ -178,13 +180,14 @@ const getProductsByCategory = async (
     },
     name: 1,
     features: {
-      f1: 1,
       f2: 1,
       f3: 1,
+      f4: 1,
+      f5: 1,
     },
     price: 1,
     discountedPrice: 1,
-    rating: 1,
+    status: 1,
   })
     .sort(sortConditions)
     .skip(skip)
@@ -208,14 +211,14 @@ const getProductsByCategory = async (
 //* Get Product By ID
 const getProductsByID = async (productID: string): Promise<IProduct | null> => {
   const product = await Products.findById(
-    { _id: productID }
-    // {
-    //   discount: 0,
-    //   quantity: 0,
-    //   allRating: 0,
-    //   code: 0,
-    //   sellerID: 0,
-    // }
+    { _id: productID },
+    {
+      discount: 0,
+      quantity: 0,
+      allRating: 0,
+      code: 0,
+      sellerID: 0,
+    }
   );
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Product found");
@@ -246,6 +249,7 @@ const updateProduct = async (
     images,
     features,
     discount,
+    price,
     ...restData
   } = payload;
   const updatedData: Partial<IProduct> = { ...restData };
@@ -280,9 +284,10 @@ const updateProduct = async (
 
   // Saving Discount Price
   const productPrice = parseFloat(isExistsProduct.price);
+
   if (discount) {
     if (discount === 0) {
-      isExistsProduct.discountedPrice = productPrice;
+      updatedData.discountedPrice = productPrice;
     } else if (Number(discount) < 0 || Number(discount) > 100) {
       throw new ApiError(
         httpStatus.BAD_REQUEST,
@@ -291,7 +296,29 @@ const updateProduct = async (
     } else {
       const discountAmount = (productPrice * Number(discount)) / 100;
       const discountPrice = productPrice - discountAmount;
-      updatedData.discountedPrice = discountPrice;
+      updatedData.discountedPrice = Math.floor(discountPrice);
+    }
+  }
+
+  if (price) {
+    const convertedPrice = parseFloat(price);
+    if (isExistsProduct.discount === 0) {
+      updatedData.discountedPrice = convertedPrice;
+    } else if (
+      Number(isExistsProduct.discount) < 0 ||
+      Number(isExistsProduct.discount) > 100
+    ) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "Discount must be between 0 and 100."
+      );
+    } else {
+      console.log(isExistsProduct.discount);
+      const discountAmount =
+        (convertedPrice * Number(isExistsProduct.discount)) / 100;
+      const discountPrice = convertedPrice - discountAmount;
+      updatedData.price = price;
+      updatedData.discountedPrice = Math.floor(discountPrice);
     }
   }
 

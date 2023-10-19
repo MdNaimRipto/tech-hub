@@ -25,7 +25,7 @@ app.use(express_1.default.urlencoded({ extended: true }));
 // Basic get function
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(http_status_1.default.OK).send({
-        message: "Tech-hub Server running successfully",
+        message: "Tech-Mart Server running successfully",
         statusCode: http_status_1.default.OK,
     });
 }));

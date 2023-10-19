@@ -5,5 +5,5 @@ export const productsFilterableFields = [
   "name",
   "category",
   "brand",
-  "price",
+  "discountedPrice",
 ];

@@ -63,9 +63,8 @@ const uploadProduct = (payload, token) => __awaiter(void 0, void 0, void 0, func
     // Saving all Rating:
     payload.allRating = [0];
     // Save Product
-    const product = new products_schema_1.Products(payload);
-    const result = yield product.save();
-    return result;
+    yield products_schema_1.Products.create(payload);
+    return null;
 });
 //* Get All Products //! Filter
 const getAllProducts = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {

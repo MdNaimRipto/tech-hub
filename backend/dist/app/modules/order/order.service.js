@@ -21,6 +21,7 @@ const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
 const config_1 = __importDefault(require("../../../config/config"));
 const paginationHelpers_1 = require("../../../helpers/paginationHelpers");
 const order_utils_1 = require("./order.utils");
+const products_schema_1 = require("../products/products.schema");
 //* Add Order
 const addOrder = (payload, token) => __awaiter(void 0, void 0, void 0, function* () {
     jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_secret);
@@ -34,6 +35,16 @@ const addOrder = (payload, token) => __awaiter(void 0, void 0, void 0, function*
     if (!products.length) {
         throw new ApiError_1.default(http_status_1.default.FORBIDDEN, "Product Cart Cannot Be Empty!");
     }
+    for (const orderProduct of products) {
+        const productId = orderProduct.productID;
+        const product = (yield products_schema_1.Products.findOne({ _id: productId }));
+        if (product.quantity <= 0 || product.status === false) {
+            throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Product is Out Of Stock!");
+        }
+        if (product.quantity < orderProduct.quantity) {
+            throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Not Enough Product in Stock!");
+        }
+    }
     const code = (0, order_utils_1.generateOrderCode)();
     const isCodeExists = yield order_schema_1.Order.findOne({ code: code }, {
         code: 1,
@@ -42,7 +53,10 @@ const addOrder = (payload, token) => __awaiter(void 0, void 0, void 0, function*
         throw new ApiError_1.default(http_status_1.default.CONFLICT, "Failed To Order! Try Again");
     }
     payload.code = code;
-    const order = yield order_schema_1.Order.create(payload);
+    const order = (yield order_schema_1.Order.create(payload)).populate({
+        path: "products.productID",
+        select: "-_id quantity totalSale status",
+    });
     return order;
 });
 //* Get All Orders:
@@ -146,15 +160,44 @@ const updateOrderStatus = (orderID, status, token) => __awaiter(void 0, void 0, 
     jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_secret);
     const isOrderExists = yield order_schema_1.Order.findById({ _id: orderID }, {
         progress: 1,
-    }).lean();
+        products: 1,
+    })
+        .populate({
+        path: "products.productID",
+        select: "quantity totalSale status",
+    })
+        .lean();
     if (!isOrderExists) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Order Does Not Exist's!");
     }
+    if (isOrderExists.progress === "Completed") {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Cannot Update! Order Has Been Completed.");
+    }
+    if (isOrderExists.progress === "Canceled") {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Cannot Update! Order Has Been Canceled.");
+    }
     isOrderExists.progress = status;
-    yield order_schema_1.Order.findOneAndUpdate({ _id: orderID }, isOrderExists, {
+    if ((isOrderExists === null || isOrderExists === void 0 ? void 0 : isOrderExists.progress) === "Completed") {
+        for (const orderProduct of isOrderExists === null || isOrderExists === void 0 ? void 0 : isOrderExists.products) {
+            const productId = orderProduct.productID;
+            const product = (yield products_schema_1.Products.findOne({ _id: productId }));
+            if (product.quantity <= 0 || product.status === false) {
+                throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Cannot Update Product Which is Out Of Stock!");
+            }
+            product.quantity = product.quantity - orderProduct.quantity;
+            product.totalSale += 1;
+            if (product.quantity === 0) {
+                product.status = false;
+            }
+            yield products_schema_1.Products.findOneAndUpdate({ code: product.code }, product, {
+                new: true,
+            });
+        }
+    }
+    const result = yield order_schema_1.Order.findOneAndUpdate({ _id: orderID }, isOrderExists, {
         new: true,
     });
-    return null;
+    return result;
 });
 exports.OrderService = {
     addOrder,

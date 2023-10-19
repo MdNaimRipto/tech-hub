@@ -36,12 +36,12 @@ const verifyAuthToken_1 = require("../../../util/verifyAuthToken");
 const uploadProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const productData = __rest(req.body, []);
     const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
-    const product = yield products_service_1.ProductService.uploadProduct(productData, token);
+    yield products_service_1.ProductService.uploadProduct(productData, token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Product Uploaded Successfully",
-        data: product,
+        data: null,
     });
 }));
 // Get All Product

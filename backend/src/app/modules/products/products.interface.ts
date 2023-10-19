@@ -1,8 +1,8 @@
 type Images = {
   i1: string;
-  i2: string;
-  i3: string;
-  i4: string;
+  i2?: string;
+  i3?: string;
+  i4?: string;
 };
 
 type Features = {
@@ -36,6 +36,6 @@ export type IProductsFilters = {
   searchTerm?: string;
   name?: string;
   category?: string;
-  price?: string;
+  discountedPrice?: number;
   brand?: string;
 };

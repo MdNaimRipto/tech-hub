@@ -13,13 +13,13 @@ const uploadProduct = catchAsync(async (req: Request, res: Response) => {
   const { ...productData } = req.body;
   const token = verifyAuthToken(req);
 
-  await ProductService.uploadProduct(productData, token);
+  const result = await ProductService.uploadProduct(productData, token);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Product Uploaded Successfully",
-    data: null,
+    data: result,
   });
 });
 
