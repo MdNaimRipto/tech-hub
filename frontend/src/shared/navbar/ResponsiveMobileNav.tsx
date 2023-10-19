@@ -12,23 +12,23 @@ const ResponsiveMobileNav = () => {
 
   const menuOptions = [
     {
-      icon: <HomeOutlinedIcon sx={{ fontSize: "20px" }} />,
+      icon: <HomeOutlinedIcon className="text-lg md:text-xl" />,
       name: "Home",
       path: "/",
     },
     {
-      icon: <FavoriteBorderIcon sx={{ fontSize: "20px" }} />,
+      icon: <FavoriteBorderIcon className="text-lg md:text-xl" />,
       name: "Wishlist",
       path: "/wishlist",
     },
     {
-      icon: <ShoppingBasketOutlinedIcon sx={{ fontSize: "20px" }} />,
+      icon: <ShoppingBasketOutlinedIcon className="text-lg md:text-xl" />,
       name: "Cart",
       path: "/cart",
     },
     {
-      icon: <PcBuilder sx={{ fontSize: "20px" }} />,
-      name: "PC Builder",
+      icon: <PcBuilder className="text-lg md:text-xl" />,
+      name: "PcBuilder",
       path: "/pc-builder",
     },
   ];
@@ -37,7 +37,7 @@ const ResponsiveMobileNav = () => {
       {searchBarVisible && (
         <ResponsiveSearchPage setSearchBarVisible={setSearchBarVisible} />
       )}
-      <div className="flex items-center justify-around fixed bottom-0 w-full py-2 text-white font-semibold gradient-menu z-40">
+      <div className="grid grid-cols-5 fixed w-full bottom-0 py-[6px] md:py-2 items-center justify-items-center text-white font-semibold gradient-menu z-40">
         {menuOptions.map((o, i) => (
           <Link
             key={i + 1}
@@ -45,15 +45,15 @@ const ResponsiveMobileNav = () => {
             className="flex flex-col items-center w-1/5"
           >
             <>{o.icon}</>
-            <p className="text-xs">{o.name}</p>
+            <p className="text-xs md:textxm">{o.name}</p>
           </Link>
         ))}
         <button
           className="flex flex-col items-center w-1/5"
           onClick={() => setSearchBarVisible(true)}
         >
-          <SearchSharpIcon sx={{ fontSize: "20px" }} />
-          <p className="text-xs">Search</p>
+          <SearchSharpIcon className="text-lg md:text-xl" />
+          <p className="text-xs md:textxm">Search</p>
         </button>
       </div>
     </div>

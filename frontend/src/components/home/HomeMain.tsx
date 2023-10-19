@@ -1,5 +1,5 @@
 import Banner from "./banner/Banner";
-import GamingZone from "./GamingZone";
+import GamingZone from "./gamingZone/GamingZone";
 import SmallInfo from "./SmallInfo";
 
 const HomeMain = () => {

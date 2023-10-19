@@ -6,7 +6,7 @@ import BannerSlider from "./BannerSlider";
 
 const Banner = () => {
   return (
-    <div className="flex flex-col xl:flex-row gap-[15px] md:gap-[10px] xl:gap-[15px] mt-4 px-4 lg:px-0 mb-40 relative">
+    <div className="flex flex-col xl:flex-row gap-[15px] md:gap-[10px] xl:gap-[15px] mt-4 px-4 lg:px-0 mb-16 relative">
       <SideNav />
       <div className="flex flex-col md:flex-row gap-[15px] md:gap-[10px] xl:gap-[15px] w-full mt-16 xl:mt-0">
         <div className="w-full">

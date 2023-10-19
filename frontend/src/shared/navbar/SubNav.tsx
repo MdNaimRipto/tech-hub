@@ -8,13 +8,13 @@ const SubNav = () => {
         <div className="flex items-center text-black font-medium">
           <a
             href="mailto:mdnaimurrahman681@gmail.com"
-            className="border-r border-r-light-gray border-l border-l-light-gray px-1"
+            className="border-r border-r-light-gray border-l border-l-light-gray px-1 hover:text-secondary"
           >
             mdnaimurrahman681@gmail.com
           </a>
           <a
             href="tel:+8801632970990"
-            className="border-r border-r-light-gray h-full px-1 "
+            className="border-r border-r-light-gray h-full px-1 hover:text-secondary"
           >
             +8801632970990
           </a>

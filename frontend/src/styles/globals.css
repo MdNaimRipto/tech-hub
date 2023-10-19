@@ -50,6 +50,7 @@
 }
 /** PC Builder Gradient Button End*/
 
+/** Banner side Scroll Remove style */
 .side-nav-scroll {
   overflow-y: scroll; /* Add the ability to scroll */
 }
@@ -63,4 +64,20 @@
 .side-nav-scroll {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/** Material UI Custom Styles */
+
+.MuiTabs-indicator {
+  display: none;
+}
+
+.css-heg063-MuiTabs-flexContainer {
+  justify-content: left !important;
+}
+
+@media screen and (max-width: 576px) {
+  .css-heg063-MuiTabs-flexContainer {
+    justify-content: center !important;
+  }
 }

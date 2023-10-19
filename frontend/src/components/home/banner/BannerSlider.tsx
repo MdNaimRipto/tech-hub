@@ -50,7 +50,7 @@ const Slider = () => {
         <div
           key={index}
           className={`flex flex-col-reverse md:flex-row items-center justify-around ${
-            index === currentSlide ? "opacity-100 block" : "opacity-0 hidden"
+            index === currentSlide ? "block" : "hidden"
           } bg-gradient-to-l ${p.bg} h-full pb-16 md:pb-0`}
         >
           <div className="w-[85%] md:w-full lg:w-[95%] md:pl-8 lg:pl-16">
@@ -79,19 +79,19 @@ const Slider = () => {
       ))}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
         <button
-          className={`w-5 h-2 ${
+          className={`w-6 h-2 ${
             currentSlide === 0 ? "bg-primary" : "bg-white"
           }  mx-1`}
           onClick={() => setCurrentSlide(0)}
         ></button>
         <button
-          className={`w-5 h-2 ${
+          className={`w-6 h-2 ${
             currentSlide === 1 ? "bg-primary" : "bg-white"
           }  mx-1`}
           onClick={() => setCurrentSlide(1)}
         ></button>
         <button
-          className={`w-5 h-2 ${
+          className={`w-6 h-2 ${
             currentSlide === 2 ? "bg-primary" : "bg-white"
           }  mx-1`}
           onClick={() => setCurrentSlide(2)}

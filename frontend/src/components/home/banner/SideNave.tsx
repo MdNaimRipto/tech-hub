@@ -140,7 +140,7 @@ const SideNav = () => {
         {menuList.map((list, i) => (
           <li
             key={i + 1}
-            className="py-3 mb-1 w-full text-[#252525] font-medium cursor-pointer flex items-center gap-3"
+            className="py-3 mb-1 w-full text-[#252525] font-medium cursor-pointer flex items-center gap-3 hover:text-secondary"
           >
             <>{list.icon}</>
             <p>{list.name}</p>
