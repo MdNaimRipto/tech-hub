@@ -1,7 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { IProducts } from "@/types/productTypes/productsTypes";
 import React from "react";
-import GridCardButton from "../buttons/GridCardButton";
+import GridAddToCartBtn from "../buttons/GridAddToCardBtn";
+import Link from "next/link";
+import { Tooltip } from "@mui/material";
+import GridAddToWishlistBtn from "../buttons/GridAddToWishlistBtn";
 
 const GridProductCard = ({ product }: { product: IProducts }) => {
   console.log(product);
@@ -19,10 +22,14 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
       <div className="p-5">
         <img src={product.images.i1} alt="Product Image" className="w-full" />
       </div>
-      <h2 className="text-sm lg:text-base font-medium leading-5 text-black">
-        {product.name.slice(0, 42)}
-        <span className="text-xl">{product.name.length > 42 && `...`}</span>
-      </h2>
+      <Tooltip title="View Details">
+        <Link href={""}>
+          <h2 className="text-sm lg:text-base font-medium leading-5 text-black hover:text-primary duration-300">
+            {product.name.slice(0, 42)}
+            <span className="text-xl">{product.name.length > 42 && `...`}</span>
+          </h2>
+        </Link>
+      </Tooltip>
       <ul className="mt-2 text-xs 2xl:text-sm text-[#666]">
         {productFeatures.map((f, i) => (
           <li
@@ -43,11 +50,11 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
             {product.price}Tk
           </p>
         </div>
-        <p className="text-sm md:text-xs 2xl:text-base text-[#009a00]">
-          {product.status && "In Stock"}
-        </p>
+        <div className="flex items-center gap-2">
+          <GridAddToWishlistBtn />
+          <GridAddToCartBtn status={product.status} />
+        </div>
       </div>
-      <GridCardButton status={product.status} />
     </div>
   );
 };

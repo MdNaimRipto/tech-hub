@@ -50,14 +50,21 @@ const GridSkeletonLoaderCard = () => {
                 highlightColor="#d3d3d3"
               />
             </div>
-            <Skeleton width={50} baseColor="#bbbbbb" highlightColor="#d3d3d3" />
+            <div className="flex items-center gap-2">
+              <Skeleton
+                width={40}
+                height={40}
+                baseColor="#bbbbbb"
+                highlightColor="#d3d3d3"
+              />
+              <Skeleton
+                width={40}
+                height={40}
+                baseColor="#bbbbbb"
+                highlightColor="#d3d3d3"
+              />
+            </div>
           </div>
-          <Skeleton
-            height={40}
-            className="w-full mt-3"
-            baseColor="#bbbbbb"
-            highlightColor="#d3d3d3"
-          />
         </div>
       ))}
     </div>
