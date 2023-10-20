@@ -7,7 +7,6 @@ import { Tooltip } from "@mui/material";
 import GridAddToWishlistBtn from "../buttons/GridAddToWishlistBtn";
 
 const GridProductCard = ({ product }: { product: IProducts }) => {
-  console.log(product);
   const { features } = product;
   const productFeatures = [features.f2, features.f3, features.f4, features.f5];
   return (
@@ -43,10 +42,10 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
       </ul>
       <div className="flex items-center justify-between gap-2 mt-3 pr-6">
         <div className="flex items-center gap-2">
-          <p className="line-through text-gray font-medium text-sm md:text-xs 2xl:text-base">
+          <p className="line-through text-gray font-medium text-sm 2xl:text-base">
             {product.price}Tk
           </p>
-          <p className="text-primary font-semibold text-sm md:text-xs 2xl:text-base">
+          <p className="text-primary font-semibold text-sm 2xl:text-base">
             {product.price}Tk
           </p>
         </div>

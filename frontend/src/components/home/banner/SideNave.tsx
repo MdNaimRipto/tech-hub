@@ -18,37 +18,42 @@ import { PiHardDrivesBold } from "react-icons/pi";
 import { LuPcCase } from "react-icons/lu";
 import { GrMonitor } from "react-icons/gr";
 import { SiPcgamingwiki } from "react-icons/si";
+import { useMediaQuery } from "react-responsive";
 
 const SideNav = () => {
-  const [sideNavOpen, setSideNavOpen] = useState(true);
-  const [fixedSideNav, setFixedSideNav] = useState(true);
-  const [responsiveStyle, setResponsiveStyle] = useState("");
+  // const [sideNavOpen, setSideNavOpen] = useState(true);
+  // const [fixedSideNav, setFixedSideNav] = useState(true);
+  // const [responsiveStyle, setResponsiveStyle] = useState("");
+
+  const isOpenableNav = useMediaQuery({ query: "(max-width: 1279px)" });
+  const isNotOpenableNav = useMediaQuery({ query: "(min-width: 1280px)" });
+
+  const [sideNavOpen, setSideNavOpen] = useState(!isOpenableNav); // Open by default on desktop
+  const [fixedSideNav, setFixedSideNav] = useState(!isOpenableNav); // Fixed by default on desktop
+  const [responsiveStyle, setResponsiveStyle] = useState(
+    isOpenableNav ? "absolute transform -translate-x-1/2 left-1/2" : ""
+  );
+
+  // // Toggle side navigation
+  // const toggleSideNav = () => {
+  //   setSideNavOpen(!sideNavOpen);
+  // };
+  // toggleSideNav();
 
   // Detect screen size and set sideNavOpen accordingly
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1025) {
-        // Mobile and tablet view
-        setSideNavOpen(false);
-        setFixedSideNav(false);
-        setResponsiveStyle("absolute transform -translate-x-1/2 left-1/2");
-      } else {
-        // Desktop view
-        setFixedSideNav(true);
-        setSideNavOpen(true);
-      }
-    };
-
-    // Initial check
-    handleResize();
-    // Add event listener to update on window resize
-    window.addEventListener("resize", handleResize);
-
-    // Clean up the event listener on unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    if (isOpenableNav) {
+      // Mobile and tablet view
+      setSideNavOpen(false);
+      setFixedSideNav(false);
+      setResponsiveStyle("absolute transform -translate-x-1/2 left-1/2");
+    } else {
+      // Desktop view
+      setFixedSideNav(true);
+      setSideNavOpen(true);
+      setResponsiveStyle("");
+    }
+  }, [isOpenableNav, isNotOpenableNav]);
 
   const menuList = [
     {
