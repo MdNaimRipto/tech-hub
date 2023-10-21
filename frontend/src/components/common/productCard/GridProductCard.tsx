@@ -5,6 +5,7 @@ import GridAddToCartBtn from "../buttons/GridAddToCardBtn";
 import Link from "next/link";
 import { Tooltip } from "@mui/material";
 import GridAddToWishlistBtn from "../buttons/GridAddToWishlistBtn";
+import Image from "next/image";
 
 const GridProductCard = ({ product }: { product: IProducts }) => {
   const { features } = product;
@@ -19,7 +20,13 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
         </div>
       )}
       <div className="p-5">
-        <img src={product.images.i1} alt="Product Image" className="w-full" />
+        <Image
+          width={400}
+          height={400}
+          src={product.images.i1}
+          alt="Product Image"
+          className="w-full"
+        />
       </div>
       <Tooltip title="View Details">
         <Link href={""}>

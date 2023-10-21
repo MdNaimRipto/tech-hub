@@ -13,8 +13,11 @@ module.exports = {
       gray: "#686464",
       "light-gray": "#80808075",
       input: "#e2e2e2",
+      red: "#EB5757",
+      blue: "#2F80ED",
       yellow: "#F4B618",
-      red: "#EB2606",
+      green: "#219653",
+      pink: "#EF5DA8",
     },
 
     container: {

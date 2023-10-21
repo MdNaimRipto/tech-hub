@@ -1,4 +1,5 @@
 import Banner from "./banner/Banner";
+import FlashSaleAndGetApp from "./FlashSaleAndGetApp/FlashSaleAndGetApp";
 import GamingZone from "./gamingZone/GamingZone";
 import SmallInfo from "./SmallInfo";
 import TopSellingProducts from "./topSellingProducts/TopSellingProducts";
@@ -10,6 +11,7 @@ const HomeMain = () => {
       <SmallInfo />
       <GamingZone />
       <TopSellingProducts />
+      <FlashSaleAndGetApp />
     </div>
   );
 };

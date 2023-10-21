@@ -3,7 +3,7 @@ import image1 from "../../../assets/banner/banner-Image1.png";
 import image2 from "../../../assets/banner/banner-Image2.png";
 import image3 from "../../../assets/banner/banner-Image3.png";
 import Image from "next/image";
-import { Button } from "@mui/material";
+import BuyNowBtn from "@/components/common/buttons/BuyNowBtn";
 
 const products = [
   {
@@ -63,9 +63,7 @@ const Slider = () => {
             <h2 className="text-xl md:text-[22px] lg:text-3xl text-white font-bold mt-3 mb-4">
               {p.title2}
             </h2>
-            <Button className="bg-white text-primary px-5 hover:bg-input duration-300 font-semibold">
-              Buy Now
-            </Button>
+            <BuyNowBtn title="Buy Now" colorStyle="bg-white text-primary" />
           </div>
           <div>
             <Image
