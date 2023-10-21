@@ -31,8 +31,17 @@ const productsApi = api.injectEndpoints({
       },
       providesTags: [],
     }),
+    getTopSellingProducts: builder.query({
+      query: () => ({
+        url: `${config.PRODUCTS.GET_TOP_SELLING_PRODUCTS}`,
+      }),
+      providesTags: [],
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useGetProductsByCategoryQuery } =
-  productsApi;
+export const {
+  useGetAllProductsQuery,
+  useGetProductsByCategoryQuery,
+  useGetTopSellingProductsQuery,
+} = productsApi;

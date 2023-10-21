@@ -1,10 +1,15 @@
 import React from "react";
 
-const Title = ({ title }: { title: string }) => {
+type ITitle = { title: string; subTitle: string };
+
+const Title = ({ title, subTitle }: ITitle) => {
   return (
-    <h2 className="text-3xl text-black mb-12 font-semibold text-center">
-      {title}
-    </h2>
+    <div className="mb-6">
+      <h2 className="text-2xl text-black mb-3 font-semibold text-center">
+        {title}
+      </h2>
+      <p className="text-lg text-black text-center">{subTitle}</p>
+    </div>
   );
 };
 

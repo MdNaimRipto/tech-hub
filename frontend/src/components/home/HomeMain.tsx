@@ -1,6 +1,7 @@
 import Banner from "./banner/Banner";
 import GamingZone from "./gamingZone/GamingZone";
 import SmallInfo from "./SmallInfo";
+import TopSellingProducts from "./topSellingProducts/TopSellingProducts";
 
 const HomeMain = () => {
   return (
@@ -8,6 +9,7 @@ const HomeMain = () => {
       <Banner />
       <SmallInfo />
       <GamingZone />
+      <TopSellingProducts />
     </div>
   );
 };

@@ -23,9 +23,13 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
       </div>
       <Tooltip title="View Details">
         <Link href={""}>
-          <h2 className="text-sm lg:text-base font-medium leading-5 text-black hover:text-primary duration-300">
-            {product.name.slice(0, 42)}
-            <span className="text-xl">{product.name.length > 42 && `...`}</span>
+          <h2 className="text-sm lg:text-base font-medium leading-5 text-black hover:text-primary duration-300 h-[55px] flex items-start">
+            <span className="mt-0">
+              {product.name.slice(0, 42)}
+              <span className="text-xl">
+                {product.name.length > 42 && `...`}
+              </span>
+            </span>
           </h2>
         </Link>
       </Tooltip>
@@ -35,8 +39,8 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
             key={i + 1}
             className="mb-2 leading-5 font-extralight list-disc ml-4"
           >
-            {f.slice(0, 28)}
-            {f.length > 28 && `...`}
+            {f.slice(0, 25)}
+            {f.length > 25 && `...`}
           </li>
         ))}
       </ul>

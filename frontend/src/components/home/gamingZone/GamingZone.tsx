@@ -23,7 +23,7 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box>
           <Box>{children}</Box>
         </Box>
       )}
@@ -48,16 +48,19 @@ const GamingZone = () => {
   const commonStyle = {
     marginRight: "6px",
     "&.Mui-selected": {
-      backgroundColor: "#f15700",
       color: "#ffffff",
-      transitionDuration: "0.7s",
+      background: "linear-gradient(to bottom left, #f15700, #ff7a1a)",
+      transitionDuration: "0.4s",
     },
   };
-  const commonClass = `bg-input text-black font-medium p-1 md:p-3 text-sm`;
+  const commonClass = `bg-input text-black font-medium p-1 md:p-3 text-xs md:text-sm`;
 
   return (
-    <Box className="w-full mb-16">
-      <Title title={"Gaming Zone"} />
+    <Box className="w-full mb-16 px-4">
+      <Title
+        title={"Gaming Zone"}
+        subTitle="Immerse Yourself in the Ultimate Gaming Experience"
+      />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
