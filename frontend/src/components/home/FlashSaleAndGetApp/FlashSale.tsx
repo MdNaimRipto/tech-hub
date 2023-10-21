@@ -13,14 +13,20 @@ const FlashSale = () => {
         backgroundSize: "cover",
         transform: "rotate(180deg)",
       }}
-      className="flex items-end pb-14 justify-center text-black"
+      className="flex items-center justify-center text-black py-12 md:py-16 lg:py-0"
     >
-      <div className="rotate-180">
-        <p className="uppercase mb-4 font-semibold bg-input text-sm rounded-full p-1 w-1/4 text-center">
+      <div className="rotate-180 w-[94%] md:w-4/5">
+        <p className="uppercase mb-4 font-semibold bg-input text-sm rounded-full p-1 w-2/5 md:w-1/4 text-center">
           Flash Sale
         </p>
         <CountDown />
-        <h2 className="text-4xl mb-8 pt-3">Quick-Fire Flash Sale</h2>
+        <h2 className="text-2xl xl:text-4xl mb-4 pt-3">
+          Quick-Fire Flash Sale
+        </h2>
+        <p className="mb-4 font-medium text-sm xl:text-base">
+          Get ready for lightning-fast savings! Our Quick-Fire Flash Sale is
+          here for a limited time. Don”t miss out on incredible deals.
+        </p>
         <BuyNowBtn
           title="Shop Now!"
           colorStyle="bg-gradient-to-bl from-secondary to-primary text-white"

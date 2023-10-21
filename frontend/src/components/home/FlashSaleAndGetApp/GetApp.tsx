@@ -15,16 +15,18 @@ const GetApp = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className="flex items-center justify-center text-black"
+      className="flex items-center justify-center text-black py-12 md:py-16 lg:py-0"
     >
-      <div>
-        <p className="uppercase mb-4 font-semibold bg-input text-sm rounded-full p-1 w-1/4 text-center">
+      <div className="w-[94%] md:w-4/5">
+        <p className="uppercase mb-4 font-semibold bg-input text-sm rounded-full p-1 w-2/5 md:w-1/4 text-center">
           Get App
         </p>
-        <h2 className="text-3xl font-medium">
+        <h2 className="text-xl xl:text-3xl font-medium">
           Get Our <span className="text-secondary underline">Mobile App</span>
         </h2>
-        <h2 className="text-3xl my-3">And Make Life Faster And Easier!</h2>
+        <h2 className="text-xl xl:text-3xl my-3">
+          And Make Life Faster And Easier!
+        </h2>
         <div className="flex items-center gap-4 mb-4">
           <Link href={"/"}>
             <Image src={plaStore} alt="Play Store App" />
