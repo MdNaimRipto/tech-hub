@@ -35,7 +35,7 @@ const SmallInfo = () => {
     },
   ];
   return (
-    <div className="hidden lg:grid grid-cols-1 md:grid-cols-4 items-center justify-items-center gap-4 mb-16 py-8 px-4 border border-light-gray">
+    <div className="hidden lg:grid grid-cols-1 md:grid-cols-4 items-center justify-items-center gap-4 mb-16 py-8 border border-light-gray container px-4">
       {infos.map((info, i) => (
         <div key={i + 1} className="flex items-center gap-4">
           <>{info.icon}</>

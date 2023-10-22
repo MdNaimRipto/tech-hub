@@ -17,7 +17,7 @@ const TopSellingProducts = () => {
 
   console.log(products);
   return (
-    <div className="mb-16 px-4">
+    <div className="mb-16 container px-4">
       <Title
         title="Top Selling Products"
         subTitle="Discover Our Best Selling Products"

@@ -56,7 +56,7 @@ const GamingZone = () => {
   const commonClass = `bg-input text-black font-medium p-1 md:p-3 text-xs md:text-sm`;
 
   return (
-    <Box className="w-full mb-16 px-4">
+    <Box className="w-full mb-16 container px-4">
       <Title
         title={"Gaming Zone"}
         subTitle="Immerse Yourself in the Ultimate Gaming Experience"
