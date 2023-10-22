@@ -74,10 +74,17 @@
 
 .css-heg063-MuiTabs-flexContainer {
   justify-content: left !important;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  /* width: 100%; */
 }
 
-@media screen and (max-width: 576px) {
+/* .css-heg063-MuiTabs-flexContainer {
+  
+} */
+
+/* @media screen and (max-width: 576px) {
   .css-heg063-MuiTabs-flexContainer {
     justify-content: center !important;
   }
-}
+} */

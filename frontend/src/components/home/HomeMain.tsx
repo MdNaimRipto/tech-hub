@@ -1,4 +1,5 @@
 import Banner from "./banner/Banner";
+import FeaturedAccessories from "./featuredAccessories/FeaturedAccessories";
 import FlashSaleAndGetApp from "./FlashSaleAndGetApp/FlashSaleAndGetApp";
 import GamingZone from "./gamingZone/GamingZone";
 import SmallInfo from "./SmallInfo";
@@ -12,6 +13,7 @@ const HomeMain = () => {
       <GamingZone />
       <TopSellingProducts />
       <FlashSaleAndGetApp />
+      <FeaturedAccessories />
     </div>
   );
 };

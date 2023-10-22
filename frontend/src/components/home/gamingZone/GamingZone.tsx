@@ -66,6 +66,7 @@ const GamingZone = () => {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          className="flex"
         >
           <Tab
             label="Controllers"

@@ -20,10 +20,10 @@ const FlashSale = () => {
           Flash Sale
         </p>
         <CountDown />
-        <h2 className="text-2xl xl:text-4xl mb-4 pt-3">
+        <h2 className="text-2xl xl:text-4xl mb-5 pt-3">
           Quick-Fire Flash Sale
         </h2>
-        <p className="mb-4 font-medium text-sm xl:text-base">
+        <p className="mb-5 font-medium text-sm xl:text-base">
           Get ready for lightning-fast savings! Our Quick-Fire Flash Sale is
           here for a limited time. Don”t miss out on incredible deals.
         </p>

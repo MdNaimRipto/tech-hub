@@ -11,7 +11,7 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
   const { features } = product;
   const productFeatures = [features.f2, features.f3, features.f4, features.f5];
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {!product.status && (
         <div className="w-full absolute top-1/2 bg-opacity-25 bg-white h-full -translate-y-1/2">
           <p className="text-center bg-[#e5e5e5] text-lg py-5 absolute top-1/2 w-full">
@@ -30,13 +30,10 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
       </div>
       <Tooltip title="View Details">
         <Link href={""}>
-          <h2 className="text-sm lg:text-base font-medium leading-5 text-black hover:text-primary duration-300 h-[55px] flex items-start">
-            <span className="mt-0">
-              {product.name.slice(0, 42)}
-              <span className="text-xl">
-                {product.name.length > 42 && `...`}
-              </span>
-            </span>
+          <h2 className="text-sm font-medium leading-6 text-black hover:text-primary duration-300 flex items-start h-[45px] overflow-hidden">
+            {product.name.length >= 50
+              ? product.name.slice(0, 50) + "..."
+              : product.name}
           </h2>
         </Link>
       </Tooltip>
@@ -45,9 +42,9 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
           <li
             key={i + 1}
             className="mb-2 leading-5 font-extralight list-disc ml-4"
+            style={{ whiteSpace: "nowrap" }}
           >
-            {f.slice(0, 25)}
-            {f.length > 25 && `...`}
+            {f.length > 25 ? f.slice(0, 25) + "..." : f}
           </li>
         ))}
       </ul>
@@ -57,7 +54,7 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
             {product.price}Tk
           </p>
           <p className="text-primary font-semibold text-sm 2xl:text-base">
-            {product.price}Tk
+            {product.discountedPrice}Tk
           </p>
         </div>
         <div className="flex items-center gap-2">
