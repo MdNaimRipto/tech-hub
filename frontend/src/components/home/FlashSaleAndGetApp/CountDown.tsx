@@ -30,22 +30,22 @@ const CountDown = () => {
 
   return (
     <div className="mb-6">
-      <div className="text-lg md:text-3xl flex font-semibold">
+      <div className="text-lg md:text-3xl grid grid-cols-4 gap-4 font-semibold">
         <div className="flex flex-col items-center mr-6">
           <span className="text-red mr-2 mb-3">{days}</span>
-          <span className="text-lg xl:text-3xl text-black">days</span>
+          <span className="text-base xl:text-3xl text-black">days</span>
         </div>
         <div className="flex flex-col items-center mr-6">
           <span className="text-blue mr-2 mb-3">{hours}</span>
-          <span className="text-lg xl:text-3xl text-black">hours</span>
+          <span className="text-base xl:text-3xl text-black">hours</span>
         </div>
         <div className="flex flex-col items-center mr-6">
           <span className="text-green mr-2 mb-3">{minutes}</span>
-          <span className="text-lg xl:text-3xl text-black">minutes</span>
+          <span className="text-base xl:text-3xl text-black">minutes</span>
         </div>
         <div className="flex flex-col items-center">
           <span className="text-pink mr-2 mb-3">{seconds}</span>
-          <span className="text-lg xl:text-3xl text-black">seconds</span>
+          <span className="text-base xl:text-3xl text-black">seconds</span>
         </div>
       </div>
     </div>
