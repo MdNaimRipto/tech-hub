@@ -21,13 +21,23 @@ const FeaturedAccessories = () => {
 
   const commonStyle = {
     marginRight: "6px",
+    background: "#e2e2e2 !important",
+    color: "#1c1c1c",
+    fontWeight: 500,
+    padding: "12px",
+    fontSize: "14px",
+    sm: {
+      padding: "4px",
+      fontSize: "12px",
+    },
     "&.Mui-selected": {
       color: "#ffffff",
-      background: "linear-gradient(to bottom left, #f15700, #ff7a1a)",
+      background:
+        "linear-gradient(to bottom left, #f15700, #ff7a1a) !important",
       transitionDuration: "0.4s",
     },
   };
-  const commonClass = `bg-input text-black font-medium p-1 md:p-3 text-xs md:text-sm`;
+  // const commonClass = `bg-input text-black font-medium p-1 md:p-3 text-xs md:text-sm`;
 
   return (
     <Box className="w-full mb-16 container px-4">
@@ -57,7 +67,7 @@ const FeaturedAccessories = () => {
               }
               {...a11yProps(tab.i)}
               sx={commonStyle}
-              className={commonClass}
+              // className={commonClass}
             />
           ))}
         </Tabs>

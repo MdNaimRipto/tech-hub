@@ -38,7 +38,20 @@ const MainNav = () => {
           </Tooltip>
           <AccountMenu />
           <Link href="/pc-builder">
-            <Button className="gradient-button p-2 xl:px-4 xl:py-3 font-semibold text-white rounded text-xs xl:text-base">
+            <Button
+              className="gradient-button"
+              sx={{
+                padding: "10px",
+                xl: {
+                  padding: "12px",
+                  fontSize: "16px",
+                },
+                fontWeight: "bold",
+                color: "white",
+                borderRadius: "4px",
+                fontSize: "14px",
+              }}
+            >
               PC BUILDER
             </Button>
           </Link>

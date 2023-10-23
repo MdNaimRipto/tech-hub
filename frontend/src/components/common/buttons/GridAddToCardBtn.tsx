@@ -6,10 +6,28 @@ const GridAddToCardBtn = ({ status }: { status: boolean }) => {
     <Tooltip title="Add To Cart">
       <IconButton
         aria-label="cart"
-        className="bg-gradient-to-bl from-secondary to-primary text-white disabled:text-gray disabled:bg-input rounded"
+        sx={{
+          background:
+            "linear-gradient(to bottom left, #f15700, #ff7a1a) !important",
+          color: "#ffffff",
+          "&:disabled": {
+            color: "#686464",
+            background: "#e2e2e2 !important",
+          },
+          borderRadius: "4px",
+        }}
+        // className="bg-gradient-to-bl from-secondary to-primary text-white disabled:text-gray disabled:bg-input rounded"
         disabled={!status}
       >
-        <ShoppingCartOutlinedIcon className="text-xl 2xl:text-2xl" />
+        <ShoppingCartOutlinedIcon
+          // className="text-xl 2xl:text-2xl"
+          sx={{
+            fontSize: "20px",
+            xl: {
+              fontSize: "24px",
+            },
+          }}
+        />
       </IconButton>
     </Tooltip>
   );

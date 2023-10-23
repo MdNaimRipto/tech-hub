@@ -27,10 +27,7 @@ const FlashSale = () => {
           Get ready for lightning-fast savings! Our Quick-Fire Flash Sale is
           here for a limited time. Don”t miss out on incredible deals.
         </p>
-        <BuyNowBtn
-          title="Shop Now!"
-          colorStyle="bg-gradient-to-bl from-secondary to-primary text-white"
-        />
+        <BuyNowBtn title="Shop Now!" background="#ff7a1a" color="#ffffff" />
       </div>
     </div>
   );

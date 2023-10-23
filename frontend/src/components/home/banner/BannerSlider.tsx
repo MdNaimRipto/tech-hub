@@ -63,7 +63,12 @@ const Slider = () => {
             <h2 className="text-xl md:text-[22px] lg:text-3xl text-white font-bold mt-3 mb-4">
               {p.title2}
             </h2>
-            <BuyNowBtn title="Buy Now" colorStyle="bg-white text-primary" />
+            <BuyNowBtn
+              title="Buy Now"
+              background="#ffffff"
+              color="#ff7a1a"
+              hover="#e2e2e2"
+            />
           </div>
           <div>
             <Image

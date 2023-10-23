@@ -18,6 +18,7 @@ import { PiHardDrivesBold } from "react-icons/pi";
 import { LuPcCase } from "react-icons/lu";
 import { GrMonitor } from "react-icons/gr";
 import { SiPcgamingwiki } from "react-icons/si";
+import Link from "next/link";
 
 const SideNav = () => {
   const [sideNavOpen, setSideNavOpen] = useState(true);
@@ -55,66 +56,77 @@ const SideNav = () => {
     {
       name: "Laptop",
       icon: <LaptopIcon />,
+      path: "LAPTOP",
     },
     {
       name: "Processor",
       icon: <ProcessorIcon />,
+      path: "CPU",
     },
     {
       name: "CPU Cooler",
       icon: <BsFan />,
+      path: "COOLER",
     },
     {
       name: "Motherboard",
       icon: <BsMotherboard />,
+      path: "MOTHERBOARD",
     },
     {
       name: "RAM",
       icon: <GiTicket />,
+      path: "RAM",
     },
     {
-      name: "Hard Disk (HDD)",
+      name: "Storage (HDD & SSD)",
       icon: <PiHardDrivesBold />,
-    },
-    {
-      name: "SSD",
-      icon: <BsDeviceSsd />,
+      path: "STORAGE",
     },
     {
       name: "Graphics Card",
       icon: <BsGpuCard />,
+      path: "GPU",
     },
     {
       name: "Power Supply",
       icon: <BsPower />,
+      path: "PSU",
     },
     {
       name: "Casing",
       icon: <LuPcCase />,
+      path: "CASING",
     },
     {
       name: "Monitor",
       icon: <GrMonitor />,
+      path: "MONITOR",
     },
     {
       name: "Keyboard",
       icon: <BsKeyboard />,
+      path: "KEYBOARD",
     },
     {
       name: "Mouse",
       icon: <BsMouse />,
+      path: "MOUSE",
     },
     {
       name: "Headphone",
       icon: <BsHeadphones />,
+      path: "HEADPHONE",
     },
     {
       name: "Controller",
       icon: <BsController />,
+      path: "CONTROLLER",
     },
     {
       name: "Gaming Console",
       icon: <SiPcgamingwiki />,
+      path: "CONSOLE",
     },
   ];
 
@@ -125,7 +137,20 @@ const SideNav = () => {
       }`}
     >
       <Button
-        className="w-full bg-gradient-to-bl from-secondary to-primary rounded-none py-2 xl:py-3 text-white font-semibold disabled:text-white"
+        sx={{
+          width: "100%",
+          background: "linear-gradient(to bottom, #f15700, #ff7a1a) !important",
+          borderRadius: 0,
+          py: "8px",
+          xl: {
+            py: 3,
+          },
+          color: "#ffffff",
+          fontWeight: "bold",
+          "&.Mui-disabled": {
+            color: "#ffffff",
+          },
+        }}
         disabled={fixedSideNav}
         onClick={() => setSideNavOpen(!sideNavOpen)}
       >
@@ -141,10 +166,15 @@ const SideNav = () => {
         {menuList.map((list, i) => (
           <li
             key={i + 1}
-            className="py-3 mb-1 w-full text-[#252525] font-medium cursor-pointer flex items-center gap-3 hover:text-secondary"
+            className="py-3 mb-1 w-full text-[#252525] font-medium cursor-pointer hover:text-secondary duration-300"
           >
-            <>{list.icon}</>
-            <p>{list.name}</p>
+            <Link
+              href={`/products?category=${list.path}`}
+              className="flex items-center gap-3"
+            >
+              <>{list.icon}</>
+              <p>{list.name}</p>
+            </Link>
           </li>
         ))}
       </ul>

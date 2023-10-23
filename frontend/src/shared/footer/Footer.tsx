@@ -96,7 +96,17 @@ const Footer = () => {
                     className="py-3 px-3 w-full mt-6 mb-3 rounded border border-input"
                     placeholder="demo@gmail.com"
                   />
-                  <Button className="py-3 w-full rounded bg-gradient-to-bl from-secondary to-primary text-white">
+                  <Button
+                    sx={{
+                      paddingY: "12px",
+                      width: "100%",
+                      borderRadius: "4px",
+                      fontWeight: 500,
+                      background:
+                        "linear-gradient(to bottom left, #f15700, #ff7a1a) !important",
+                      color: "white",
+                    }}
+                  >
                     Subscribe
                   </Button>
                 </div>

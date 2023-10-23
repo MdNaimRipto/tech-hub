@@ -5,7 +5,14 @@ const GridAddToWishlistBtn = () => {
   return (
     <Tooltip title="Add To Wishlist">
       <IconButton aria-label="wishlist">
-        <FavoriteBorderOutlinedIcon className="text-xl 2xl:text-2xl" />
+        <FavoriteBorderOutlinedIcon
+          sx={{
+            fontSize: "20px",
+            xl: {
+              fontSize: "24px",
+            },
+          }}
+        />
       </IconButton>
     </Tooltip>
   );
