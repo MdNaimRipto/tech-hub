@@ -141,9 +141,12 @@ const SideNav = () => {
           width: "100%",
           background: "linear-gradient(to bottom, #f15700, #ff7a1a) !important",
           borderRadius: 0,
-          py: "8px",
-          xl: {
-            py: 3,
+          py: {
+            sx: "8px",
+            sm: "8px",
+            md: "8px",
+            lg: "12px",
+            xl: "12px",
           },
           color: "#ffffff",
           fontWeight: "bold",

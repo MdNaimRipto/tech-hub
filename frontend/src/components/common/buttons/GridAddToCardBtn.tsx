@@ -22,9 +22,12 @@ const GridAddToCardBtn = ({ status }: { status: boolean }) => {
         <ShoppingCartOutlinedIcon
           // className="text-xl 2xl:text-2xl"
           sx={{
-            fontSize: "20px",
-            xl: {
-              fontSize: "24px",
+            fontSize: {
+              xs: "20px",
+              sm: "20px",
+              md: "20px",
+              lg: "20px",
+              xl: "24px",
             },
           }}
         />

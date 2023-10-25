@@ -13,6 +13,9 @@ const productsApi = api.injectEndpoints({
     getProductsByCategory: builder.query({
       query: (data: IProductsByCategoryFilter) => {
         const queryParameters = new URLSearchParams();
+        if (data.category) {
+          queryParameters.append("category", data.category);
+        }
         if (data.searchTerm) {
           queryParameters.append("searchTerm", data.searchTerm);
         }
@@ -25,9 +28,21 @@ const productsApi = api.injectEndpoints({
         if (data.limit) {
           queryParameters.append("limit", data.limit);
         }
-        return `${config.PRODUCTS.GET_PRODUCTS_BY_CATEGORY}?category=${
-          data.category
-        }&${queryParameters.toString()}`;
+        if (data.minPrice) {
+          queryParameters.append("minPrice", data.minPrice);
+        }
+        if (data.maxPrice) {
+          queryParameters.append("maxPrice", data.maxPrice);
+        }
+        if (data.status) {
+          queryParameters.append("status", data.status);
+        }
+        if (data.brand) {
+          queryParameters.append("brand", data.brand);
+        }
+        return `${
+          config.PRODUCTS.GET_PRODUCTS_BY_CATEGORY
+        }?${queryParameters.toString()}`;
       },
       providesTags: [],
     }),

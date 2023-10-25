@@ -26,6 +26,7 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
           src={product.images.i1}
           alt="Product Image"
           className="w-full"
+          priority
         />
       </div>
       <Tooltip title="View Details">
@@ -41,7 +42,7 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
         {productFeatures.map((f, i) => (
           <li
             key={i + 1}
-            className="mb-2 leading-5 font-extralight list-disc ml-4"
+            className="mb-2 leading-5 font-normal list-disc ml-4"
             style={{ whiteSpace: "nowrap" }}
           >
             {f.length > 25 ? f.slice(0, 25) + "..." : f}
@@ -54,7 +55,7 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
             {product.price}Tk
           </p>
           <p className="text-primary font-semibold text-sm 2xl:text-base">
-            {product.discountedPrice}Tk
+            {Math.floor(product.discountedPrice)}Tk
           </p>
         </div>
         <div className="flex items-center gap-2">

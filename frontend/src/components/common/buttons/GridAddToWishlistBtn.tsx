@@ -7,9 +7,12 @@ const GridAddToWishlistBtn = () => {
       <IconButton aria-label="wishlist">
         <FavoriteBorderOutlinedIcon
           sx={{
-            fontSize: "20px",
-            xl: {
-              fontSize: "24px",
+            fontSize: {
+              xs: "20px",
+              sm: "20px",
+              md: "20px",
+              lg: "20px",
+              xl: "24px",
             },
           }}
         />

@@ -16,7 +16,7 @@ const FlashSale = () => {
       className="flex items-center justify-center text-black py-12 md:py-16 lg:py-0"
     >
       <div className="rotate-180 w-[94%] md:w-4/5">
-        <p className="uppercase mb-4 font-semibold bg-input text-sm rounded-full p-1 w-2/5 md:w-1/4 text-center">
+        <p className="uppercase mb-4 font-semibold bg-input text-sm rounded-full p-1 w-2/5 md:w-1/4 lg:w-[34%] text-center">
           Flash Sale
         </p>
         <CountDown />

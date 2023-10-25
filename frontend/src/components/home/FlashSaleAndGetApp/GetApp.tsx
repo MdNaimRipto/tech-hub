@@ -21,13 +21,13 @@ const GetApp = () => {
         <p className="uppercase mb-4 font-semibold bg-input text-sm rounded-full p-1 w-2/5 md:w-1/4 text-center">
           Get App
         </p>
-        <h2 className="text-xl xl:text-3xl font-medium">
+        <h2 className="text-lg xl:text-3xl font-medium">
           Get Our <span className="text-secondary underline">Mobile App</span>
         </h2>
-        <h2 className="text-xl xl:text-3xl my-3">
+        <h2 className="text-lg xl:text-3xl my-4 xl:my-3">
           And Make Life Faster And Easier!
         </h2>
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex items-center gap-4 mb-5 xl:mb-4">
           <Link href={"/"}>
             <Image src={plaStore} alt="Play Store App" />
           </Link>

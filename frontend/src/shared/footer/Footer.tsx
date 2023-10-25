@@ -118,7 +118,7 @@ const Footer = () => {
           <div className="container flex items-center justify-between">
             <div className="items-center grid-flow-col">
               <p className="text-xs md:text-base">
-                Copyright © 2023. All Right Reserved to Recycle Hub.
+                Copyright © 2023. All Right Reserved to Tech-Mart.
               </p>
             </div>
             <div className="md:place-self-center md:justify-self-end">

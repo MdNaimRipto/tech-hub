@@ -50,11 +50,13 @@ const GamingZone = () => {
     background: "#e2e2e2 !important",
     color: "#1c1c1c",
     fontWeight: 500,
-    padding: "12px",
-    fontSize: "14px",
-    sm: {
-      padding: "4px",
-      fontSize: "12px",
+    padding: "14px",
+    fontSize: {
+      xs: "12px",
+      sm: "14px",
+      md: "14px",
+      lg: "14px",
+      xl: "14px",
     },
     "&.Mui-selected": {
       color: "#ffffff",

@@ -78,8 +78,13 @@
   grid-template-columns: repeat(6, 1fr) !important;
 }
 
-/* @media screen and (max-width: 576px) {
-  .css-heg063-MuiTabs-flexContainer {
-    justify-content: center !important;
+/** Rotating button */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
-} */
+  to {
+    transform: rotate(360deg);
+  }
+}

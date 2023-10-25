@@ -1,0 +1,69 @@
+import Products from "@/pages/products";
+import { useGetProductsByCategoryQuery } from "@/redux/features/products/productsApi";
+import Footer from "@/shared/footer/Footer";
+import Navbar from "@/shared/navbar/Navbar";
+import ProductsPageSubNav from "@/shared/subNavs/ProductsPageSubNav";
+import {
+  IProducts,
+  IProductsByCategoryFilter,
+} from "@/types/productTypes/productsTypes";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+const ProductsPageLayout = () => {
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const router = useRouter();
+  const { category } = router.query;
+
+  const [filterValues, setFilterValues] = useState({
+    status: "",
+    brand: "",
+    sortOrder: "desc",
+    minPrice: 0,
+    maxPrice: 500000,
+  });
+  const option: IProductsByCategoryFilter = {
+    category: `${category}`,
+    limit: "15",
+    sortBy: "discountedPrice",
+    sortOrder: filterValues.sortOrder,
+    minPrice: `${filterValues.minPrice}`,
+    maxPrice: `${filterValues.maxPrice}`,
+    status: filterValues?.status,
+    brand: filterValues?.brand,
+  };
+  const { data, isLoading, isError } = useGetProductsByCategoryQuery(option);
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+
+  const products = data?.data?.data;
+
+  return (
+    <>
+      <Navbar />
+      <div className={`lg:grid grid-cols-5 container px-4 min-h-[700px] my-12`}>
+        <ProductsPageSubNav
+          isSideBarOpen={isSideBarOpen}
+          category={category as string}
+          filterValues={filterValues}
+          setFilterValues={setFilterValues}
+        />
+        <main className="col-span-4 relative">
+          <Products
+            setIsSideBarOpen={setIsSideBarOpen}
+            isSideBarOpen={isSideBarOpen}
+            products={products}
+            category={category as string}
+            setFilterValues={setFilterValues}
+            isError={isError}
+          />
+        </main>
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+export default ProductsPageLayout;

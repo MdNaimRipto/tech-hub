@@ -5,6 +5,10 @@ export type IProductsByCategoryFilter = {
   sortBy?: string;
   sortOrder?: string;
   limit?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  status?: string;
+  brand?: string;
 };
 
 // * Product Type
@@ -23,4 +27,5 @@ export type IProducts = {
     f4: string;
     f5: string;
   };
+  brand: string;
 };
