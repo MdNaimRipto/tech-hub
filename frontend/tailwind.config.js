@@ -14,6 +14,7 @@ module.exports = {
       "light-gray": "#80808075",
       input: "#e2e2e2",
       red: "#EB5757",
+      error: "#ff1a1a",
       blue: "#2F80ED",
       yellow: "#F4B618",
       green: "#219653",

@@ -80,7 +80,7 @@ export default function AccountMenu() {
         <Divider />
         {!user ? (
           <div>
-            <Link href="/login">
+            <Link href="/authentication/login">
               <MenuItem onClick={handleClose}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
@@ -88,7 +88,7 @@ export default function AccountMenu() {
                 Login
               </MenuItem>
             </Link>
-            <Link href="register">
+            <Link href="/authentication/register">
               <MenuItem onClick={handleClose}>
                 <ListItemIcon>
                   <Logout fontSize="small" />

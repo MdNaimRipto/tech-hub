@@ -88,3 +88,16 @@
     transform: rotate(360deg);
   }
 }
+
+/** Login Register Styles */
+
+.pageBg {
+  background-image: url(../assets/login-register-bg.png);
+}
+
+@media screen and (max-width: 992px) {
+  .pageBg {
+    background: none;
+    background-color: white;
+  }
+}

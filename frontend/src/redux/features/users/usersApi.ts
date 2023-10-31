@@ -11,18 +11,6 @@ const usersApi = api.injectEndpoints({
       }),
       providesTags: [],
     }),
-
-    // updatePassword: builder.mutation({
-    //   query: ({ data }) => ({
-    //     url: config.HOSPITAL.UPDATE_PASSWORD,
-    //     method: "PATCH",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     },
-    //     body: data,
-    //   }),
-    //   invalidatesTags: [],
-    // }),
   }),
 });
 
