@@ -52,6 +52,12 @@ const productsApi = api.injectEndpoints({
       }),
       providesTags: [],
     }),
+    getProductsByIDL: builder.query({
+      query: ({ id }) => ({
+        url: `${config.PRODUCTS.GET_PRODUCTS_BY_ID}/${id}`,
+      }),
+      providesTags: [],
+    }),
   }),
 });
 
@@ -59,4 +65,5 @@ export const {
   useGetAllProductsQuery,
   useGetProductsByCategoryQuery,
   useGetTopSellingProductsQuery,
+  useGetProductsByIDLQuery,
 } = productsApi;

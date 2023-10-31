@@ -4,6 +4,8 @@ import { IProducts } from "@/types/productTypes/productsTypes";
 import { IconButton, Tooltip } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
+import { Breadcrumbs, Link } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
 
 interface IProductsContent {
   setIsSideBarOpen: any;
@@ -25,7 +27,18 @@ const Products = ({
   return (
     <div className="lg:ml-4 lg:mt-5">
       <div className="flex items-center justify-between pb-4 mb-6 w-full border-b border-b-input">
-        <h4 className="text-lg md:text-xl text-black mt-2">{category}</h4>
+        <Breadcrumbs aria-label="breadcrumb" sx={{ marginTop: "12px" }}>
+          <Link underline="hover" color="#1c1c1c" href="/">
+            <HomeIcon />
+          </Link>
+          <Link
+            underline="hover"
+            color="#1c1c1c"
+            href={`/products?category=${category}`}
+          >
+            {category.toLocaleLowerCase()}
+          </Link>
+        </Breadcrumbs>
         <select
           onChange={e => {
             const selectedValue = e.target.value;

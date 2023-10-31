@@ -6,17 +6,19 @@ const BuyNowBtn = ({
   background,
   color,
   hover,
+  py,
 }: {
   title: string;
   background: string;
   color: string;
   hover?: string;
+  py?: string;
 }) => {
   return (
     <Button
       sx={{
-        paddingLeft: "20px",
-        paddingRight: "20px",
+        paddingX: "20px",
+        paddingY: py,
         transition: "300ms",
         fontWeight: 600,
         background: `${background} !important`,
@@ -25,7 +27,6 @@ const BuyNowBtn = ({
           background: `${hover} !important`,
         },
       }}
-      // className={`${colorStyle} px-5 hover:bg-input duration-300 font-semibold`}
     >
       {title}
     </Button>

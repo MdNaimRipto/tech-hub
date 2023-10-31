@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Image from "next/image";
 import logo from "../../assets/logo.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -10,14 +11,14 @@ const MainNav = () => {
   return (
     <div className="bg-[#e7e7e7] sticky top-0 z-50">
       <div className="flex items-center justify-between h-18 py-3 container px-4 xl:px-0">
-        <Link href="/" className="h-full w-2/5 md:w-1/5 lg:w-[16%]">
+        <a href="/" className="h-full w-2/5 md:w-1/5 lg:w-[16%]">
           <Image
             src={logo}
             alt="Website-Logo"
             priority={true}
             className="w-full"
           />
-        </Link>
+        </a>
         <div className="w-1/2 hidden lg:block">
           <input
             type="text"

@@ -6,8 +6,12 @@ import Link from "next/link";
 import { Tooltip } from "@mui/material";
 import GridAddToWishlistBtn from "../buttons/GridAddToWishlistBtn";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const GridProductCard = ({ product }: { product: IProducts }) => {
+  const router = useRouter();
+  const { category } = router.query;
+
   const { features } = product;
   const productFeatures = [features.f2, features.f3, features.f4, features.f5];
   return (
@@ -30,7 +34,7 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
         />
       </div>
       <Tooltip title="View Details">
-        <Link href={""}>
+        <Link href={`/products/${product._id}`}>
           <h2 className="text-sm font-medium leading-6 text-black hover:text-primary duration-300 flex items-start h-[45px] overflow-hidden">
             {product.name.length >= 50
               ? product.name.slice(0, 50) + "..."
