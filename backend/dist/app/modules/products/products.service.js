@@ -58,13 +58,14 @@ const uploadProduct = (payload, token) => __awaiter(void 0, void 0, void 0, func
     else {
         const discountAmount = (productPrice * payload.discount) / 100;
         const discountPrice = productPrice - discountAmount;
-        payload.discountedPrice = discountPrice;
+        payload.discountedPrice = Math.floor(discountPrice);
     }
     // Saving all Rating:
     payload.allRating = [0];
+    payload.brand = payload.brand.toLocaleLowerCase();
     // Save Product
-    yield products_schema_1.Products.create(payload);
-    return null;
+    const result = yield products_schema_1.Products.create(payload);
+    return result;
 });
 //* Get All Products //! Filter
 const getAllProducts = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {
@@ -96,18 +97,20 @@ const getAllProducts = (filters, paginationOptions) => __awaiter(void 0, void 0,
     }
     //
     const checkAndCondition = (andConditions === null || andConditions === void 0 ? void 0 : andConditions.length) > 0 ? { $and: andConditions } : {};
-    const products = yield products_schema_1.Products.find(checkAndCondition, {
-        _id: 1,
-        images: {
-            i1: 1,
-        },
-        name: 1,
-        price: 1,
-        discountedPrice: 1,
-    })
+    const products = yield products_schema_1.Products.find(checkAndCondition
+    // {
+    // _id: 1,
+    // images: {
+    //   i1: 1,
+    // },
+    // name: 1,
+    // price: 1,
+    // discountedPrice: 1,
+    // }
+    )
         .sort(sortConditions)
         .skip(skip)
-        .limit(limit);
+        .limit(180);
     if (products.length === 0) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "No Products to Show");
     }
@@ -159,13 +162,14 @@ const getProductsByCategory = (category, filters, paginationOptions) => __awaite
         },
         name: 1,
         features: {
-            f1: 1,
             f2: 1,
             f3: 1,
+            f4: 1,
+            f5: 1,
         },
         price: 1,
         discountedPrice: 1,
-        rating: 1,
+        status: 1,
     })
         .sort(sortConditions)
         .skip(skip)
@@ -182,6 +186,17 @@ const getProductsByCategory = (category, filters, paginationOptions) => __awaite
         },
         data: products,
     };
+});
+const getTopSellingProducts = () => __awaiter(void 0, void 0, void 0, function* () {
+    const products = yield products_schema_1.Products.find({ status: true })
+        .sort({
+        totalSale: -1,
+    })
+        .limit(8);
+    if (products.length === 0) {
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "No Products to Show");
+    }
+    return products;
 });
 //* Get Product By ID
 const getProductsByID = (productID) => __awaiter(void 0, void 0, void 0, function* () {
@@ -204,7 +219,7 @@ const updateProduct = (productID, payload, token) => __awaiter(void 0, void 0, v
     if (!isExistsProduct) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Product Not Found!");
     }
-    const { status, allRating, rating, code, sellerID, images, features, discount } = payload, restData = __rest(payload, ["status", "allRating", "rating", "code", "sellerID", "images", "features", "discount"]);
+    const { status, allRating, rating, code, sellerID, images, features, discount, price } = payload, restData = __rest(payload, ["status", "allRating", "rating", "code", "sellerID", "images", "features", "discount", "price"]);
     const updatedData = Object.assign({}, restData);
     if (status ||
         allRating ||
@@ -230,7 +245,7 @@ const updateProduct = (productID, payload, token) => __awaiter(void 0, void 0, v
     const productPrice = parseFloat(isExistsProduct.price);
     if (discount) {
         if (discount === 0) {
-            isExistsProduct.discountedPrice = productPrice;
+            updatedData.discountedPrice = productPrice;
         }
         else if (Number(discount) < 0 || Number(discount) > 100) {
             throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Discount must be between 0 and 100.");
@@ -238,7 +253,24 @@ const updateProduct = (productID, payload, token) => __awaiter(void 0, void 0, v
         else {
             const discountAmount = (productPrice * Number(discount)) / 100;
             const discountPrice = productPrice - discountAmount;
-            updatedData.discountedPrice = discountPrice;
+            updatedData.discountedPrice = Math.floor(discountPrice);
+        }
+    }
+    if (price) {
+        const convertedPrice = parseFloat(price);
+        if (isExistsProduct.discount === 0) {
+            updatedData.discountedPrice = convertedPrice;
+        }
+        else if (Number(isExistsProduct.discount) < 0 ||
+            Number(isExistsProduct.discount) > 100) {
+            throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Discount must be between 0 and 100.");
+        }
+        else {
+            console.log(isExistsProduct.discount);
+            const discountAmount = (convertedPrice * Number(isExistsProduct.discount)) / 100;
+            const discountPrice = convertedPrice - discountAmount;
+            updatedData.price = price;
+            updatedData.discountedPrice = Math.floor(discountPrice);
         }
     }
     yield products_schema_1.Products.findOneAndUpdate({ _id: productID }, updatedData, {
@@ -275,6 +307,7 @@ exports.ProductService = {
     uploadProduct,
     getAllProducts,
     getProductsByCategory,
+    getTopSellingProducts,
     getProductsByID,
     updateProduct,
     updateProductRating,

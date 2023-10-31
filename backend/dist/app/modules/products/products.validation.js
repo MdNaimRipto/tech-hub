@@ -9,9 +9,9 @@ const productsZodSchema = zod_1.z.object({
         }),
         images: zod_1.z.object({
             i1: zod_1.z.string({ required_error: "Image 1 is Required" }),
-            i2: zod_1.z.string({ required_error: "Image 2 is Required" }),
-            i3: zod_1.z.string({ required_error: "Image 3 is Required" }),
-            i4: zod_1.z.string({ required_error: "Image 4 is Required" }),
+            i2: zod_1.z.string().optional(),
+            i3: zod_1.z.string().optional(),
+            i4: zod_1.z.string().optional(),
         }),
         features: zod_1.z.object({
             f1: zod_1.z.string({ required_error: "Feature 1 is Required" }),
@@ -78,7 +78,7 @@ const updateProductSchema = zod_1.z.object({
         })
             .optional(),
         category: zod_1.z.string().optional(),
-        price: zod_1.z.number().positive().optional(),
+        price: zod_1.z.string().optional(),
         discount: zod_1.z.number().min(0).max(99).optional(),
         quantity: zod_1.z.number().int().positive().optional(),
         status: zod_1.z.boolean().optional().default(true),

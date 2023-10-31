@@ -10,13 +10,13 @@ const addReview = catchAsync(async (req: Request, res: Response) => {
   const { ...reviewInfo } = req.body;
   const token = verifyAuthToken(req);
 
-  await ReviewsService.addReview(reviewInfo, token);
+  const review = await ReviewsService.addReview(reviewInfo, token);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Review Added Successfully",
-    data: null,
+    data: review,
   });
 });
 

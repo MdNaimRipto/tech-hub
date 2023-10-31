@@ -58,10 +58,23 @@ const getProductsByCategory = catchAsync(
   }
 );
 
+// Get All Product
+const getTopSellingProducts = catchAsync(
+  async (req: Request, res: Response) => {
+    const products = await ProductService.getTopSellingProducts();
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Product's Retrieved Successfully",
+      data: products,
+    });
+  }
+);
+
 // Get Products by ID
 const getProductsByID = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log(id);
   const product = await ProductService.getProductsByID(id);
 
   sendResponse(res, {
@@ -87,26 +100,11 @@ const updateProduct = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateProductRating = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { userID, rating } = req.body;
-  const token = verifyAuthToken(req);
-
-  await ProductService.updateProductRating(id, userID, rating, token);
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "Rating Added Successfully",
-    data: null,
-  });
-});
-
 export const ProductController = {
   uploadProduct,
   getAllProducts,
   getProductsByCategory,
+  getTopSellingProducts,
   getProductsByID,
   updateProduct,
-  updateProductRating,
 };

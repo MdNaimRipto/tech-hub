@@ -7,5 +7,5 @@ exports.productsFilterableFields = [
     "name",
     "category",
     "brand",
-    "price",
+    "discountedPrice",
 ];

@@ -9,7 +9,10 @@ import config from "../../../config/config";
 import { Secret } from "jsonwebtoken";
 
 // Add Review:
-const addReview = async (payload: IReviews, token: string): Promise<null> => {
+const addReview = async (
+  payload: IReviews,
+  token: string
+): Promise<IReviews | null> => {
   jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
 
   const { userId, productId } = payload;
@@ -39,9 +42,9 @@ const addReview = async (payload: IReviews, token: string): Promise<null> => {
     throw new ApiError(httpStatus.FORBIDDEN, "Failed to Add Review!");
   }
 
-  await Reviews.create(payload);
+  const result = await Reviews.create(payload);
 
-  return null;
+  return result;
 };
 
 // Get Reviews By Product ID

@@ -15,18 +15,14 @@ router.get("/getAllProducts", ProductController.getAllProducts);
 
 router.get("/getProducts", ProductController.getProductsByCategory);
 
+router.get("/getTopSellingProducts", ProductController.getTopSellingProducts);
+
 router.get("/getProductByID/:id", ProductController.getProductsByID);
 
 router.patch(
   "/updateProduct/:id",
   zodValidationRequest(ProductValidation.updateProductSchema),
   ProductController.updateProduct
-);
-
-router.patch(
-  "/updateRating/:id",
-  zodValidationRequest(ProductValidation.updateRatingZodSchema),
-  ProductController.updateProductRating
 );
 
 export const ProductsRouter = router;

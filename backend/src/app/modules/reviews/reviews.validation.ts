@@ -11,6 +11,9 @@ const reviewsZodSchema = z.object({
     review: z.string({
       required_error: "Review is Required",
     }),
+    rating: z.number({
+      required_error: "Rating is Required",
+    }),
   }),
 });
 

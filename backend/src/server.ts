@@ -15,6 +15,7 @@ let server: Server;
 async function main() {
   try {
     const uri = config.database_url;
+    // const uri = `mongodb://127.0.0.1:27017/tech-mart`;
     await mongoose.connect(`${uri}`);
     console.log(`🛢 Database Connected Successfully`);
 

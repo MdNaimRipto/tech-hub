@@ -5,6 +5,7 @@ export type IReviews = {
   userId: Types.ObjectId | IUser;
   productId: string;
   review: string;
+  rating: number;
 };
 
 export type IUpdateReview = {

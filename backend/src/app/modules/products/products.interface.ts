@@ -38,4 +38,7 @@ export type IProductsFilters = {
   category?: string;
   discountedPrice?: number;
   brand?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  status?: boolean;
 };

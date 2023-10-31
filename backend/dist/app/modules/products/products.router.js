@@ -12,6 +12,7 @@ const router = express_1.default.Router();
 router.post("/uploadProduct", (0, zodValidationRequest_1.default)(products_validation_1.ProductValidation.productsZodSchema), products_controller_1.ProductController.uploadProduct);
 router.get("/getAllProducts", products_controller_1.ProductController.getAllProducts);
 router.get("/getProducts", products_controller_1.ProductController.getProductsByCategory);
+router.get("/getTopSellingProducts", products_controller_1.ProductController.getTopSellingProducts);
 router.get("/getProductByID/:id", products_controller_1.ProductController.getProductsByID);
 router.patch("/updateProduct/:id", (0, zodValidationRequest_1.default)(products_validation_1.ProductValidation.updateProductSchema), products_controller_1.ProductController.updateProduct);
 router.patch("/updateRating/:id", (0, zodValidationRequest_1.default)(products_validation_1.ProductValidation.updateRatingZodSchema), products_controller_1.ProductController.updateProductRating);

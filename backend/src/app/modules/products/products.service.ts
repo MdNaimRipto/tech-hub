@@ -2,9 +2,8 @@
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiError";
 import { IProductsFilters, IProduct } from "./products.interface";
-import { generateProductCode } from "./products.utils";
+import { generateProductCode, getProductRating } from "./products.utils";
 import { Products } from "./products.schema";
-import { Users } from "../user/user.schema";
 import {
   IGenericPaginationResponse,
   IPaginationOptions,
@@ -82,9 +81,16 @@ const getAllProducts = async (
   //
   if (Object.keys(filterData).length) {
     andConditions.push({
-      $and: Object.entries(filterData).map(([field, value]) => ({
-        [field]: value,
-      })),
+      $and: Object.entries(filterData).map(([field, value]) => {
+        if (field === "minPrice") {
+          return { discountedPrice: { $gte: value } };
+        }
+        if (field === "maxPrice") {
+          return { discountedPrice: { $lte: value } };
+        } else {
+          return { [field]: value };
+        }
+      }),
     });
   }
   //
@@ -111,7 +117,7 @@ const getAllProducts = async (
   })
     .sort(sortConditions)
     .skip(skip)
-    .limit(limit);
+    .limit(180);
 
   if (products.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
@@ -150,9 +156,16 @@ const getProductsByCategory = async (
   //
   if (Object.keys(filterData).length) {
     andConditions.push({
-      $and: Object.entries(filterData).map(([field, value]) => ({
-        [field]: value,
-      })),
+      $and: Object.entries(filterData).map(([field, value]) => {
+        if (field === "minPrice") {
+          return { discountedPrice: { $gte: value } };
+        }
+        if (field === "maxPrice") {
+          return { discountedPrice: { $lte: value } };
+        } else {
+          return { [field]: value };
+        }
+      }),
     });
   }
   //
@@ -188,6 +201,7 @@ const getProductsByCategory = async (
     price: 1,
     discountedPrice: 1,
     status: 1,
+    brand: 1,
   })
     .sort(sortConditions)
     .skip(skip)
@@ -208,6 +222,20 @@ const getProductsByCategory = async (
   };
 };
 
+const getTopSellingProducts = async () => {
+  const products = await Products.find({ status: true })
+    .sort({
+      totalSale: -1,
+    })
+    .limit(8);
+
+  if (products.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
+  }
+
+  return products;
+};
+
 //* Get Product By ID
 const getProductsByID = async (productID: string): Promise<IProduct | null> => {
   const product = await Products.findById(
@@ -216,12 +244,18 @@ const getProductsByID = async (productID: string): Promise<IProduct | null> => {
       discount: 0,
       quantity: 0,
       allRating: 0,
-      code: 0,
       sellerID: 0,
     }
   );
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Product found");
+  }
+
+  const rating = await getProductRating(productID);
+  if (!rating) {
+    product.rating = 0;
+  } else {
+    product.rating = rating;
   }
 
   return product;
@@ -329,52 +363,12 @@ const updateProduct = async (
   return null;
 };
 
-//* Update Rating Function:
-const updateProductRating = async (
-  id: string,
-  useID: string,
-  newRating: number,
-  token: string
-): Promise<null> => {
-  jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
-
-  const isExists = await Products.findById({ _id: id });
-  if (!isExists) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Product Not Found!");
-  }
-
-  const checkUser = await Users.findById({ _id: useID });
-  if (checkUser?.id === isExists.sellerID) {
-    throw new ApiError(
-      httpStatus.FORBIDDEN,
-      "Permission Denied! Please Try Again."
-    );
-  }
-
-  const { allRating } = isExists;
-
-  if (allRating) {
-    allRating.push(newRating);
-    const totalRating = allRating.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
-    const ratingCount = allRating.length - 1;
-    const avgRating = totalRating / ratingCount;
-    isExists.rating = avgRating >= 5 ? 5 : parseFloat(avgRating.toFixed(1));
-  }
-  await Products.findOneAndUpdate({ _id: id }, isExists, {
-    new: true,
-  });
-  return null;
-};
-
 // * Product Service Export
 export const ProductService = {
   uploadProduct,
   getAllProducts,
   getProductsByCategory,
+  getTopSellingProducts,
   getProductsByID,
   updateProduct,
-  updateProductRating,
 };

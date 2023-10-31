@@ -36,12 +36,12 @@ const verifyAuthToken_1 = require("../../../util/verifyAuthToken");
 const uploadProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const productData = __rest(req.body, []);
     const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
-    yield products_service_1.ProductService.uploadProduct(productData, token);
+    const result = yield products_service_1.ProductService.uploadProduct(productData, token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Product Uploaded Successfully",
-        data: null,
+        data: result,
     });
 }));
 // Get All Product
@@ -66,6 +66,16 @@ const getProductsByCategory = (0, catchAsync_1.default)((req, res) => __awaiter(
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Products Retrieved Successfully",
+        data: products,
+    });
+}));
+// Get All Product
+const getTopSellingProducts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const products = yield products_service_1.ProductService.getTopSellingProducts();
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Product's Retrieved Successfully",
         data: products,
     });
 }));
@@ -109,6 +119,7 @@ exports.ProductController = {
     uploadProduct,
     getAllProducts,
     getProductsByCategory,
+    getTopSellingProducts,
     getProductsByID,
     updateProduct,
     updateProductRating,
