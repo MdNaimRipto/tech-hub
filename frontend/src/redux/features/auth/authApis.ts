@@ -3,6 +3,17 @@ import { api } from "../../apis/apiSlice";
 
 const authApis = api.injectEndpoints({
   endpoints: builder => ({
+    userRegister: builder.mutation({
+      query: ({ data }) => ({
+        url: config.AUTH.REGISTER,
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: data,
+      }),
+      invalidatesTags: ["getAuthenticatedUser"],
+    }),
     userLogin: builder.mutation({
       query: ({ data }) => ({
         url: config.AUTH.LOGIN,
@@ -12,15 +23,23 @@ const authApis = api.injectEndpoints({
         },
         body: data,
       }),
-      invalidatesTags: [],
+      invalidatesTags: ["getAuthenticatedUser"],
     }),
     getAuthenticatedUser: builder.query({
-      query: () => ({
-        url: `${config.PRODUCTS.GET_ALL_PRODUCT}`,
+      query: ({ token }) => ({
+        url: `${config.AUTH.GET_AUTHENTICATED_DATA}`,
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
       }),
-      providesTags: [],
+      providesTags: ["getAuthenticatedUser"],
     }),
   }),
 });
 
-export const { useUserLoginMutation, useGetAuthenticatedUserQuery } = authApis;
+export const {
+  useUserRegisterMutation,
+  useUserLoginMutation,
+  useGetAuthenticatedUserQuery,
+} = authApis;

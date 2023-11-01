@@ -13,7 +13,8 @@ const AuthenticationBtn = ({
     <Button
       type="submit"
       sx={{
-        background: "#2f4eb4 !important",
+        // background: "#2f4eb4 !important",
+        background: "linear-gradient(#f15700, #ff7a1a) !important",
         width: "100%",
         color: "#ffffff",
         paddingY: "10px",

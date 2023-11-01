@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import AuthenticationBtn from "@/components/common/buttons/AuthenticationBtn";
 import { useUserLoginMutation } from "@/redux/features/auth/authApis";
 import PasswordInputField from "@/components/common/authInputFields/PasswordInputField";
 import GeneralInputField from "@/components/common/authInputFields/GeneralInputField";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import CryptoJS from "crypto-js";
+import envConfig from "@/config/envConfig";
+import { UserContext } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const { setToken } = useContext(UserContext);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isPassHidden, setIsPassHidden] = useState(true);
+
+  const router = useRouter();
 
   const [value, setValue] = useState({
     email: false,
@@ -24,7 +34,34 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+
+    const loginOption = {
+      data: {
+        email,
+        password,
+      },
+    };
+
+    userLogin(loginOption).then(async (res: any) => {
+      if (res.data) {
+        const data = res.data;
+        toast.success(data.message);
+        setToken(data.data);
+        router.push("/");
+        const secretKey = envConfig.secret_key;
+        const encryptedToken = CryptoJS.AES.encrypt(
+          JSON.stringify(data.data),
+          String(secretKey)
+        ).toString();
+        Cookies.set("token", encryptedToken, { expires: 14 });
+        form.reset();
+        setIsLoading(false);
+      } else if (res.error) {
+        const error = res.error.data;
+        toast.error(error.message);
+        setIsLoading(false);
+      }
+    });
   };
 
   const handleInputBlur =
@@ -47,7 +84,7 @@ const Login = () => {
 
   return (
     <div className="pageBg lg:bg-cover lg:bg-no-repeat lg:bg-center lg:h-screen w-full">
-      <div className="lg:grid grid-cols-3 container px-4 items-center h-full">
+      <div className="lg:grid grid-cols-3 container px-4 items-center h-full md:w-3/5 lg:w-full">
         <div className="col-span-2"></div>
         <div className="py-12 lg:py-0 lg:my-16 w-full">
           <form onSubmit={handleLogin} className="mb-7">

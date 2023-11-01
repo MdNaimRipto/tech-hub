@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import AuthenticationBtn from "@/components/common/buttons/AuthenticationBtn";
 import PasswordInputField from "@/components/common/authInputFields/PasswordInputField";
 import GeneralInputField from "@/components/common/authInputFields/GeneralInputField";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import CryptoJS from "crypto-js";
+import envConfig from "@/config/envConfig";
+import { UserContext } from "@/context/AuthContext";
+import { useRouter } from "next/router";
+import { useUserRegisterMutation } from "@/redux/features/auth/authApis";
 
 const Register = () => {
+  const { setToken } = useContext(UserContext);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isPassHidden, setIsPassHidden] = useState(true);
+
+  const router = useRouter();
 
   const [value, setValue] = useState({
     name: false,
@@ -14,6 +25,8 @@ const Register = () => {
     contact: false,
     password: false,
   });
+
+  const [userRegister] = useUserRegisterMutation();
 
   const handleRegister = (e: any) => {
     e.preventDefault();
@@ -26,7 +39,35 @@ const Register = () => {
     const contact = form.contact.value;
     const password = form.password.value;
 
-    console.log(name, email, contact, password);
+    const registerOption = {
+      data: {
+        name: name,
+        email: email,
+        contactNumber: contact,
+        password: password,
+      },
+    };
+
+    userRegister(registerOption).then(async (res: any) => {
+      if (res.data) {
+        const data = res.data;
+        toast.success(data.message);
+        setToken(data.data);
+        router.push("/");
+        const secretKey = envConfig.secret_key;
+        const encryptedToken = CryptoJS.AES.encrypt(
+          JSON.stringify(data.data),
+          String(secretKey)
+        ).toString();
+        Cookies.set("token", encryptedToken, { expires: 14 });
+        form.reset();
+        setIsLoading(false);
+      } else if (res.error) {
+        const error = res.error.data;
+        toast.error(error.message);
+        setIsLoading(false);
+      }
+    });
   };
 
   const handleInputBlur =
@@ -92,7 +133,7 @@ const Register = () => {
               commonErrorClass={commonErrorClass}
               handleInputBlur={handleInputBlur}
               placeHolder="Enter Contact Number"
-              value={value.email}
+              value={value.contact}
             />
             <PasswordInputField
               commonClass={commonClass}

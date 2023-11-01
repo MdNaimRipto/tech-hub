@@ -15,7 +15,6 @@ const TopSellingProducts = () => {
 
   const products = data.data;
 
-  console.log(products);
   return (
     <div className="mb-16 container px-4">
       <Title
@@ -31,7 +30,6 @@ const TopSellingProducts = () => {
         </div>
       </div>
     </div>
-    // <></>
   );
 };
 

@@ -27,9 +27,9 @@ const PasswordInputField = ({
     <div>
       <label className={commonLabelClass}>
         Password{" "}
-        <span className={commonErrorClass}>
-          {value.password && `Password Required!`}
-        </span>
+        {value.password && (
+          <span className={commonErrorClass}>`Password Required!`</span>
+        )}
       </label>
       <div className="relative">
         <input

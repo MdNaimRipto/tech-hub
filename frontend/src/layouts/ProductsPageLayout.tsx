@@ -32,11 +32,16 @@ const ProductsPageLayout = () => {
     status: filterValues?.status,
     brand: filterValues?.brand,
   };
-  const { data, isLoading, isError } = useGetProductsByCategoryQuery(option);
+  const { data, isLoading, isError, refetch } =
+    useGetProductsByCategoryQuery(option);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
+
+  const handleRefetch = () => {
+    refetch();
+  };
 
   const products = data?.data?.data;
 
@@ -49,6 +54,7 @@ const ProductsPageLayout = () => {
           category={category as string}
           filterValues={filterValues}
           setFilterValues={setFilterValues}
+          handleRefetch={handleRefetch}
         />
         <main className="col-span-4 relative">
           <Products

@@ -14,9 +14,11 @@ import Logout from "@mui/icons-material/Logout";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { UserContext } from "@/context/AuthContext";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 export default function AccountMenu() {
-  const { user } = React.useContext(UserContext);
+  const { user, setUser } = React.useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,6 +26,13 @@ export default function AccountMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    Cookies.remove("token");
+    setUser(null);
+    setAnchorEl(null);
+    toast.success("Logout Successful");
   };
   return (
     <React.Fragment>
@@ -98,7 +107,7 @@ export default function AccountMenu() {
             </Link>
           </div>
         ) : (
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

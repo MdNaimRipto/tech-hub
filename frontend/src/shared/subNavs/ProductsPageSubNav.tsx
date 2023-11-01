@@ -22,6 +22,7 @@ interface IProductsContent {
   category: string;
   filterValues: any;
   setFilterValues: any;
+  handleRefetch: any;
 }
 
 const ProductsPageSubNav = ({
@@ -29,6 +30,7 @@ const ProductsPageSubNav = ({
   category,
   filterValues,
   setFilterValues,
+  handleRefetch,
 }: IProductsContent) => {
   const [priceValue, setPriceValue] = useState<number[]>([0, 500000]);
 
@@ -56,6 +58,7 @@ const ProductsPageSubNav = ({
       minPrice: priceValue[0],
       maxPrice: priceValue[1],
     }));
+    handleRefetch();
   };
 
   return (

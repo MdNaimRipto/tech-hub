@@ -2,9 +2,9 @@ import React from "react";
 
 interface IGeneralInputField {
   label: string;
+  placeHolder: string;
   type: string;
   name: string;
-  placeHolder: string;
   commonClass: any;
   commonLabelClass: string;
   commonErrorClass: string;
@@ -15,9 +15,9 @@ interface IGeneralInputField {
 
 const GeneralInputField = ({
   label,
+  placeHolder,
   type,
   name,
-  placeHolder,
   commonLabelClass,
   commonErrorClass,
   commonError,
@@ -28,7 +28,8 @@ const GeneralInputField = ({
   return (
     <div>
       <label className={commonLabelClass}>
-        {label} <span className={commonErrorClass}>{value && commonError}</span>
+        {label}{" "}
+        {value && <span className={commonErrorClass}>{commonError}</span>}
       </label>
       <input
         name={name}
@@ -36,7 +37,7 @@ const GeneralInputField = ({
         type={type}
         placeholder={placeHolder}
         className={commonClass(value)}
-        onBlur={handleInputBlur({ name })}
+        onBlur={handleInputBlur(name)}
         required
       />
     </div>
