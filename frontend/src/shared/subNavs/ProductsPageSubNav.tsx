@@ -11,7 +11,7 @@ import {
   FormControl,
 } from "@mui/material";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function valuetext(value: number) {
   return value.toString();
@@ -28,18 +28,41 @@ interface IProductsContent {
 const ProductsPageSubNav = ({
   isSideBarOpen,
   category,
-  filterValues,
   setFilterValues,
   handleRefetch,
 }: IProductsContent) => {
-  const [priceValue, setPriceValue] = useState<number[]>([0, 500000]);
-
   const option: IProductsByCategoryFilter = {
     category: category as string,
     limit: "15",
     sortBy: "discountedPrice",
   };
+
   const { data, isLoading } = useGetProductsByCategoryQuery(option);
+
+  const [priceValue, setPriceValue] = useState<number[]>([0, 0]);
+  const [maxPrice, setMaxPrice] = useState(100);
+
+  useEffect(() => {
+    if (!isLoading) {
+      // Calculate maxDiscountedPrice when data is available
+      const products = data?.data?.data;
+      if (products && products.length > 0) {
+        const maxPrice = products.reduce(
+          (maxPrice: number, product: IProducts) => {
+            const discountedPrice = product.discountedPrice;
+            if (!isNaN(discountedPrice) && discountedPrice > maxPrice) {
+              return discountedPrice;
+            } else {
+              return maxPrice;
+            }
+          },
+          0
+        );
+        setMaxPrice(maxPrice + 5000);
+        setPriceValue([0, maxPrice + 5000]);
+      }
+    }
+  }, [data, isLoading, maxPrice]);
 
   if (isLoading) {
     return <h2>loading...</h2>;
@@ -47,7 +70,7 @@ const ProductsPageSubNav = ({
 
   const products = data?.data?.data;
 
-  const uniqueBrands = Array.from(
+  const uniqueBrands: string[] = Array.from(
     new Set(products?.map((product: IProducts) => product.brand))
   );
 
@@ -81,7 +104,7 @@ const ProductsPageSubNav = ({
             color: "#f15700",
           }}
           min={0}
-          max={500000}
+          max={maxPrice}
           getAriaLabel={() => "Price range"}
           value={priceValue}
           onChange={handlePriceChange}
@@ -178,9 +201,9 @@ const ProductsPageSubNav = ({
                   }}
                 />
               }
-              label="None"
+              label="ALL BRANDS"
             />
-            {uniqueBrands.map((b, i) => (
+            {uniqueBrands.map((b: string, i: number) => (
               <FormControlLabel
                 key={i}
                 value={b as string}
@@ -194,7 +217,7 @@ const ProductsPageSubNav = ({
                     }}
                   />
                 }
-                label={b as string}
+                label={b.toUpperCase() as string}
               />
             ))}
           </RadioGroup>
