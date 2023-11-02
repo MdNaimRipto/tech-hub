@@ -5,6 +5,7 @@ import React, {
   SetStateAction,
   Dispatch,
   ReactNode,
+  useContext,
 } from "react";
 import CryptoJS from "crypto-js";
 import envConfig from "@/config/envConfig";
@@ -76,3 +77,7 @@ const AuthContext = ({ children }: { children: ReactNode }) => {
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 export default AuthContext;
+
+export function useUserContext(): UserContextType {
+  return useContext(UserContext);
+}
