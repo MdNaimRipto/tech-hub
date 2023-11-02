@@ -72,7 +72,8 @@
   display: none;
 }
 
-.css-heg063-MuiTabs-flexContainer {
+.css-heg063-MuiTabs-flexContainer,
+.css-k008qs {
   justify-content: left !important;
   display: grid !important;
   grid-template-columns: repeat(6, 1fr) !important;
