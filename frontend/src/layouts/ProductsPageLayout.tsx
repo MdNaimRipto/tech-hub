@@ -12,6 +12,10 @@ import { useEffect, useState } from "react";
 
 const ProductsPageLayout = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [priceValue, setPriceValue] = useState<number[]>([0, maxPrice]);
   const router = useRouter();
   const { category } = router.query;
 
@@ -19,21 +23,41 @@ const ProductsPageLayout = () => {
     status: "",
     brand: "",
     sortOrder: "desc",
-    minPrice: 0,
-    maxPrice: 500000,
+    // minPrice: 0,
+    // maxPrice: 500000,
   });
   const option: IProductsByCategoryFilter = {
     category: `${category}`,
     limit: "15",
     sortBy: "discountedPrice",
     sortOrder: filterValues.sortOrder,
-    minPrice: `${filterValues.minPrice}`,
-    maxPrice: `${filterValues.maxPrice}`,
+    // minPrice: `${filterValues.minPrice}`,
+    // maxPrice: `${filterValues.maxPrice}`,
     status: filterValues?.status,
     brand: filterValues?.brand,
   };
   const { data, isLoading, isError, refetch } =
     useGetProductsByCategoryQuery(option);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setProducts(data?.data?.data);
+    }
+  }, [isLoading, data?.data?.data]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      // Filter the products based on the priceValue
+      const filterProduct = products.filter(
+        (p: IProducts) =>
+          p.discountedPrice >= priceValue[0] &&
+          p.discountedPrice <= priceValue[1]
+      );
+
+      // Set the filtered products
+      setFilteredProducts(filterProduct);
+    }
+  }, [isLoading, priceValue, products]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -42,8 +66,6 @@ const ProductsPageLayout = () => {
   const handleRefetch = () => {
     refetch();
   };
-
-  const products = data?.data?.data;
 
   return (
     <>
@@ -55,12 +77,16 @@ const ProductsPageLayout = () => {
           filterValues={filterValues}
           setFilterValues={setFilterValues}
           handleRefetch={handleRefetch}
+          priceValue={priceValue as [number, number]}
+          setPriceValue={setPriceValue}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
         />
         <main className="col-span-4 relative">
           <Products
             setIsSideBarOpen={setIsSideBarOpen}
             isSideBarOpen={isSideBarOpen}
-            products={products}
+            products={filteredProducts}
             category={category as string}
             setFilterValues={setFilterValues}
             isError={isError}

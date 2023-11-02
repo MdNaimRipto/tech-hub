@@ -23,6 +23,10 @@ interface IProductsContent {
   filterValues: any;
   setFilterValues: any;
   handleRefetch: any;
+  priceValue: [number, number];
+  setPriceValue: any;
+  maxPrice: number;
+  setMaxPrice: any;
 }
 
 const ProductsPageSubNav = ({
@@ -30,39 +34,29 @@ const ProductsPageSubNav = ({
   category,
   setFilterValues,
   handleRefetch,
+  priceValue,
+  setPriceValue,
+  maxPrice,
+  setMaxPrice,
 }: IProductsContent) => {
   const option: IProductsByCategoryFilter = {
     category: category as string,
     limit: "15",
     sortBy: "discountedPrice",
   };
-
   const { data, isLoading } = useGetProductsByCategoryQuery(option);
-
-  const [priceValue, setPriceValue] = useState<number[]>([0, 0]);
-  const [maxPrice, setMaxPrice] = useState(100);
 
   useEffect(() => {
     if (!isLoading) {
-      // Calculate maxDiscountedPrice when data is available
-      const products = data?.data?.data;
-      if (products && products.length > 0) {
-        const maxPrice = products.reduce(
-          (maxPrice: number, product: IProducts) => {
-            const discountedPrice = product.discountedPrice;
-            if (!isNaN(discountedPrice) && discountedPrice > maxPrice) {
-              return discountedPrice;
-            } else {
-              return maxPrice;
-            }
-          },
-          0
-        );
-        setMaxPrice(maxPrice + 5000);
-        setPriceValue([0, maxPrice + 5000]);
-      }
+      const maxPrice = Math.max(
+        ...data?.data?.data.map((product: IProducts) => product.discountedPrice)
+      );
+      setMaxPrice(maxPrice + 5000);
+      setPriceValue([0, maxPrice + 5000]);
     }
-  }, [data, isLoading, maxPrice]);
+  }, [isLoading, data?.data?.data, setMaxPrice, setPriceValue]);
+
+  console.log(maxPrice);
 
   if (isLoading) {
     return <h2>loading...</h2>;
@@ -201,7 +195,7 @@ const ProductsPageSubNav = ({
                   }}
                 />
               }
-              label="ALL BRANDS"
+              label="None"
             />
             {uniqueBrands.map((b: string, i: number) => (
               <FormControlLabel
