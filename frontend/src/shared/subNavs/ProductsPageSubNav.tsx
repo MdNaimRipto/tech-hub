@@ -62,10 +62,6 @@ const ProductsPageSubNav = ({
 
   const products = data?.data?.data;
 
-  const uniqueBrands: string[] = Array.from(
-    new Set(products?.map((product: IProducts) => product.brand))
-  );
-
   const handlePriceChange = (event: Event, newValue: number | number[]) => {
     setPriceValue(newValue as number[]);
     setFilterValues((prevFilterValues: any) => ({
@@ -73,8 +69,27 @@ const ProductsPageSubNav = ({
       minPrice: priceValue[0],
       maxPrice: priceValue[1],
     }));
-    handleRefetch();
+    // handleRefetch();
   };
+
+  const stockStatus = [
+    {
+      status: "",
+      label: "Default",
+    },
+    {
+      status: true,
+      label: "In Stock",
+    },
+    {
+      status: false,
+      label: "Out of Stock",
+    },
+  ];
+
+  const uniqueBrands: string[] = Array.from(
+    new Set(products?.map((product: IProducts) => product.brand))
+  );
 
   return (
     <div
@@ -127,7 +142,7 @@ const ProductsPageSubNav = ({
           </h6>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue={true}
+            defaultValue=""
             name="radio-buttons-group"
             onChange={e => {
               setFilterValues((prevFilterValues: any) => ({
@@ -136,34 +151,23 @@ const ProductsPageSubNav = ({
               }));
             }}
           >
-            <FormControlLabel
-              value={true}
-              control={
-                <Radio
-                  size={"small"}
-                  sx={{
-                    "&.Mui-checked": {
-                      color: "#f15700",
-                    },
-                  }}
-                />
-              }
-              label="In Stock"
-            />
-            <FormControlLabel
-              value={false}
-              control={
-                <Radio
-                  size="small"
-                  sx={{
-                    "&.Mui-checked": {
-                      color: "#f15700",
-                    },
-                  }}
-                />
-              }
-              label="Out of Stock"
-            />
+            {stockStatus.map((s, i) => (
+              <FormControlLabel
+                key={i}
+                value={s.status}
+                control={
+                  <Radio
+                    size={"small"}
+                    sx={{
+                      "&.Mui-checked": {
+                        color: "#f15700",
+                      },
+                    }}
+                  />
+                }
+                label={s.label}
+              />
+            ))}
           </RadioGroup>
         </FormControl>
       </div>

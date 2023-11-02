@@ -20,7 +20,7 @@ const ProductsPageLayout = () => {
   const { category } = router.query;
 
   const [filterValues, setFilterValues] = useState({
-    status: "true",
+    status: "",
     brand: "",
     sortOrder: "desc",
   });
@@ -42,7 +42,7 @@ const ProductsPageLayout = () => {
   }, [isLoading, data?.data?.data]);
 
   useEffect(() => {
-    if (!isLoading && option.status !== "false") {
+    if (!isLoading && !isError) {
       const filterProduct = products.filter(
         (p: IProducts) =>
           p.discountedPrice >= priceValue[0] &&
@@ -54,7 +54,7 @@ const ProductsPageLayout = () => {
     } else {
       setFilteredProducts([]);
     }
-  }, [isLoading, priceValue, products, option.status]);
+  }, [isLoading, priceValue, products, isError]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
