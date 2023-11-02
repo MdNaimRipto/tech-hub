@@ -127,7 +127,7 @@ const ProductsPageSubNav = ({
           </h6>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue=""
+            defaultValue={true}
             name="radio-buttons-group"
             onChange={e => {
               setFilterValues((prevFilterValues: any) => ({
@@ -193,7 +193,7 @@ const ProductsPageSubNav = ({
                   }}
                 />
               }
-              label="None"
+              label="All Brands"
             />
             {uniqueBrands.map((b: string, i: number) => (
               <FormControlLabel
@@ -209,7 +209,7 @@ const ProductsPageSubNav = ({
                     }}
                   />
                 }
-                label={b.toUpperCase() as string}
+                label={`${b.slice(0, 1).toUpperCase()}${b.slice(1)}`}
               />
             ))}
           </RadioGroup>

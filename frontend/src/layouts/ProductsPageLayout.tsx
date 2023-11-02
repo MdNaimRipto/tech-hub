@@ -20,7 +20,7 @@ const ProductsPageLayout = () => {
   const { category } = router.query;
 
   const [filterValues, setFilterValues] = useState({
-    status: "",
+    status: "true",
     brand: "",
     sortOrder: "desc",
   });
