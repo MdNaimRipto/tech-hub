@@ -44,7 +44,7 @@ const Login = () => {
 
     userLogin(loginOption).then(async (res: any) => {
       console.log(res);
-      if (res.data) {
+      if (res && res.data) {
         const data = res.data;
         toast.success(data.message);
         setToken(data.data);
@@ -57,7 +57,7 @@ const Login = () => {
         form.reset();
         setIsLoading(false);
         router.push("/");
-      } else if (res.error) {
+      } else if (res && res.error) {
         const error = res.error.data;
         toast.error(error.message);
         setIsLoading(false);
