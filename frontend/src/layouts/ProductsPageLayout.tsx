@@ -32,8 +32,7 @@ const ProductsPageLayout = () => {
     status: filterValues?.status,
     brand: filterValues?.brand,
   };
-  const { data, isLoading, isError, refetch } =
-    useGetProductsByCategoryQuery(option);
+  const { data, isLoading, isError } = useGetProductsByCategoryQuery(option);
 
   useEffect(() => {
     if (!isLoading) {
@@ -60,10 +59,6 @@ const ProductsPageLayout = () => {
     return <h2>Loading...</h2>;
   }
 
-  const handleRefetch = () => {
-    refetch();
-  };
-
   return (
     <>
       <Navbar />
@@ -73,7 +68,6 @@ const ProductsPageLayout = () => {
           category={category as string}
           filterValues={filterValues}
           setFilterValues={setFilterValues}
-          handleRefetch={handleRefetch}
           priceValue={priceValue as [number, number]}
           setPriceValue={setPriceValue}
           maxPrice={maxPrice}

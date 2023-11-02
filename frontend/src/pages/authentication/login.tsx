@@ -43,11 +43,10 @@ const Login = () => {
     };
 
     userLogin(loginOption).then(async (res: any) => {
-      if (res.data) {
+      try {
         const data = res.data;
         toast.success(data.message);
         setToken(data.data);
-        router.push("/");
         const secretKey = envConfig.secret_key;
         const encryptedToken = CryptoJS.AES.encrypt(
           JSON.stringify(data.data),
@@ -56,7 +55,9 @@ const Login = () => {
         Cookies.set("token", encryptedToken, { expires: 14 });
         form.reset();
         setIsLoading(false);
-      } else if (res.error) {
+        router.push("/");
+      } catch (err) {
+        console.log(err);
         const error = res.error.data;
         toast.error(error.message);
         setIsLoading(false);

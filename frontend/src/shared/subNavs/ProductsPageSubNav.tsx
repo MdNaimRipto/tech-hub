@@ -22,7 +22,6 @@ interface IProductsContent {
   category: string;
   filterValues: any;
   setFilterValues: any;
-  handleRefetch: any;
   priceValue: [number, number];
   setPriceValue: any;
   maxPrice: number;
@@ -33,7 +32,6 @@ const ProductsPageSubNav = ({
   isSideBarOpen,
   category,
   setFilterValues,
-  handleRefetch,
   priceValue,
   setPriceValue,
   maxPrice,
@@ -69,7 +67,6 @@ const ProductsPageSubNav = ({
       minPrice: priceValue[0],
       maxPrice: priceValue[1],
     }));
-    // handleRefetch();
   };
 
   const stockStatus = [
