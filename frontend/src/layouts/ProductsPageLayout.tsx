@@ -23,21 +23,16 @@ const ProductsPageLayout = () => {
     status: "",
     brand: "",
     sortOrder: "desc",
-    // minPrice: 0,
-    // maxPrice: 500000,
   });
   const option: IProductsByCategoryFilter = {
     category: `${category}`,
     limit: "15",
     sortBy: "discountedPrice",
     sortOrder: filterValues.sortOrder,
-    // minPrice: `${filterValues.minPrice}`,
-    // maxPrice: `${filterValues.maxPrice}`,
     status: filterValues?.status,
     brand: filterValues?.brand,
   };
-  const { data, isLoading, isError, refetch } =
-    useGetProductsByCategoryQuery(option);
+  const { data, isLoading, refetch } = useGetProductsByCategoryQuery(option);
 
   useEffect(() => {
     if (!isLoading) {
@@ -89,7 +84,6 @@ const ProductsPageLayout = () => {
             products={filteredProducts}
             category={category as string}
             setFilterValues={setFilterValues}
-            isError={isError}
           />
         </main>
       </div>
