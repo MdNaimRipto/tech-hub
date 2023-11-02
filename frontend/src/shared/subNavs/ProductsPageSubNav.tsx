@@ -56,8 +56,6 @@ const ProductsPageSubNav = ({
     }
   }, [isLoading, data?.data?.data, setMaxPrice, setPriceValue]);
 
-  console.log(maxPrice);
-
   if (isLoading) {
     return <h2>loading...</h2>;
   }

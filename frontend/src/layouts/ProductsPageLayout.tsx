@@ -32,7 +32,8 @@ const ProductsPageLayout = () => {
     status: filterValues?.status,
     brand: filterValues?.brand,
   };
-  const { data, isLoading, refetch } = useGetProductsByCategoryQuery(option);
+  const { data, isLoading, isError, refetch } =
+    useGetProductsByCategoryQuery(option);
 
   useEffect(() => {
     if (!isLoading) {
@@ -41,8 +42,7 @@ const ProductsPageLayout = () => {
   }, [isLoading, data?.data?.data]);
 
   useEffect(() => {
-    if (!isLoading) {
-      // Filter the products based on the priceValue
+    if (!isLoading && option.status !== "false") {
       const filterProduct = products.filter(
         (p: IProducts) =>
           p.discountedPrice >= priceValue[0] &&
@@ -51,8 +51,10 @@ const ProductsPageLayout = () => {
 
       // Set the filtered products
       setFilteredProducts(filterProduct);
+    } else {
+      setFilteredProducts([]);
     }
-  }, [isLoading, priceValue, products]);
+  }, [isLoading, priceValue, products, option.status]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -84,6 +86,7 @@ const ProductsPageLayout = () => {
             products={filteredProducts}
             category={category as string}
             setFilterValues={setFilterValues}
+            isError={isError}
           />
         </main>
       </div>

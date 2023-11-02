@@ -13,6 +13,7 @@ interface IProductsContent {
   products: IProducts[];
   category: string;
   setFilterValues: any;
+  isError: boolean;
 }
 
 const Products = ({
@@ -21,6 +22,7 @@ const Products = ({
   products,
   category,
   setFilterValues,
+  isError,
 }: IProductsContent) => {
   return (
     <div className="lg:ml-4 lg:mt-5">
@@ -52,7 +54,7 @@ const Products = ({
         </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
-        {products.length ? (
+        {!isError && products?.length ? (
           <>
             {products?.map((product: IProducts, i: number) => (
               <GridProductCard key={product._id} product={product} />
