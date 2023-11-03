@@ -17,6 +17,7 @@ interface UserContextType {
   setUser: Dispatch<SetStateAction<null | object>>;
   token: undefined | string;
   setToken: Dispatch<SetStateAction<undefined | string>>;
+  isLoading: boolean;
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -24,6 +25,7 @@ export const UserContext = createContext<UserContextType>({
   setUser: () => {},
   token: undefined,
   setToken: () => {},
+  isLoading: false,
 });
 
 const AuthContext = ({ children }: { children: ReactNode }) => {
@@ -52,19 +54,17 @@ const AuthContext = ({ children }: { children: ReactNode }) => {
   const { data, refetch, isLoading } = useGetAuthenticatedUserQuery(option);
 
   useEffect(() => {
-    if (data === undefined) {
-      setUser(null);
-    } else {
-      setUser(null);
-      refetch().then(() => {
-        setUser(data?.data);
-      });
+    if (!isLoading) {
+      if (data === undefined) {
+        setUser(null);
+      } else {
+        setUser(null);
+        refetch().then(() => {
+          setUser(data?.data);
+        });
+      }
     }
-  }, [data, refetch]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  }, [isLoading, data, refetch]);
 
   console.log(user);
 
@@ -73,6 +73,7 @@ const AuthContext = ({ children }: { children: ReactNode }) => {
     setUser,
     token,
     setToken,
+    isLoading,
   };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

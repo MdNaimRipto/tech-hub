@@ -28,12 +28,6 @@ const productsApi = api.injectEndpoints({
         if (data.limit) {
           queryParameters.append("limit", data.limit);
         }
-        if (data.minPrice) {
-          queryParameters.append("minPrice", data.minPrice);
-        }
-        if (data.maxPrice) {
-          queryParameters.append("maxPrice", data.maxPrice);
-        }
         if (data.status) {
           queryParameters.append("status", data.status);
         }
