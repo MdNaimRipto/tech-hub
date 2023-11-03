@@ -12,15 +12,12 @@ import DetailTabs from "@/components/common/productDetails/productDetailTabs/Det
 const ProductsDetails = () => {
   const router = useRouter();
   const id = router.query.productId;
-  console.log(id);
   const { data, isLoading } = useGetProductsByIDLQuery({ id });
 
   if (isLoading || !data) {
     return <h2>Loading...</h2>;
   }
   const details = data?.data as IProductDetails;
-
-  console.log(details);
 
   return (
     <div className="container px-4 mt-10 mb-16">
@@ -62,7 +59,7 @@ const ProductsDetails = () => {
         <ProductsInfo product={details} />
       </div>
       <div>
-        <DetailTabs description={details.description} />
+        <DetailTabs title={details.name} description={details.description} />
       </div>
     </div>
   );

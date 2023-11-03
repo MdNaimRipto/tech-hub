@@ -1,10 +1,19 @@
 import React from "react";
 
-const ProductDescription = ({ description }: { description: string }) => {
+const ProductDescription = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => {
   return (
-    <p className="mt-12 font-medium leading-8 text-justify min-h-[200px]">
-      {description}
-    </p>
+    <div className="mt-8  min-h-[200px]">
+      <h4 className="mb-6 text-black text-xl font-medium">
+        Details of {title}
+      </h4>
+      <p className="font-medium leading-8 text-justify">{description}</p>
+    </div>
   );
 };
 

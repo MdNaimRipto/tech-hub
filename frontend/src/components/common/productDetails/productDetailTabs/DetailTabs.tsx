@@ -3,8 +3,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import ProductDescription from "./ProductDescription";
-import RatingAndReviews from "./RatingAndReviews";
-import ProductQuestions from "./ProductQuestions";
+import RatingAndReviews from "./ratingAndReviews/RatingAndReviews";
+import ProductQuestions from "./productQuestions/ProductQuestions";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -39,7 +39,13 @@ function a11yProps(index: number) {
   };
 }
 
-const DetailTabs = ({ description }: { description: string }) => {
+const DetailTabs = ({
+  description,
+  title,
+}: {
+  title: string;
+  description: string;
+}) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -69,7 +75,7 @@ const DetailTabs = ({ description }: { description: string }) => {
 
   return (
     <div className="w-full mb-16 mt-12">
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -81,7 +87,7 @@ const DetailTabs = ({ description }: { description: string }) => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <ProductDescription description={description} />
+        <ProductDescription description={description} title={title} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <RatingAndReviews />

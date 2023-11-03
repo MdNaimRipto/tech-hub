@@ -11,10 +11,11 @@ import CryptoJS from "crypto-js";
 import envConfig from "@/config/envConfig";
 import { useGetAuthenticatedUserQuery } from "@/redux/features/auth/authApis";
 import Cookies from "js-cookie";
+import { IUser } from "@/types/userTypes/userTypes";
 
 interface UserContextType {
-  user: null | object;
-  setUser: Dispatch<SetStateAction<null | object>>;
+  user: null | IUser;
+  setUser: Dispatch<SetStateAction<null | IUser>>;
   token: undefined | string;
   setToken: Dispatch<SetStateAction<undefined | string>>;
   isLoading: boolean;
@@ -29,7 +30,7 @@ export const UserContext = createContext<UserContextType>({
 });
 
 const AuthContext = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<null | object>(null);
+  const [user, setUser] = useState<null | IUser>(null);
   const [token, setToken] = useState<undefined | string>();
 
   const decrypt = (encryptedToken: string | CryptoJS.lib.CipherParams) =>
