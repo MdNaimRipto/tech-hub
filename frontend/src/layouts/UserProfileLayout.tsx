@@ -1,4 +1,5 @@
 import UserProfile from "@/pages/user/profile";
+import ResponsiveMobileNav from "@/shared/navbar/ResponsiveMobileNav";
 import ProfileNav from "@/shared/navbar/profileNav/ProfileNav";
 import UserProfileSideNav from "@/shared/sideNavs/UserProfileSideNav";
 import React, { ReactNode, useEffect, useState } from "react";
@@ -49,6 +50,7 @@ const UserProfileLayout = ({ children }: { children: ReactNode }) => {
           {children}
         </div>
       </div>
+      <ResponsiveMobileNav />
     </>
   );
 };

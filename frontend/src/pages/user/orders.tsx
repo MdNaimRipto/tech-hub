@@ -3,7 +3,7 @@ import React, { ReactElement } from "react";
 
 const UserOrders = () => {
   return (
-    <div className="bg-red h-screen">
+    <div className=" h-screen">
       <h2>Orders</h2>
     </div>
   );

@@ -17,7 +17,7 @@ const ProfileNav = ({
   setSideNavOpen: any;
 }) => {
   return (
-    <div className="bg-input sticky top-0">
+    <div className="border-b border-b-input bg-white sticky top-0 z-30">
       <div className="py-3 flex items-center justify-between container px-4">
         <div className="flex items-center gap-4">
           <IconButton

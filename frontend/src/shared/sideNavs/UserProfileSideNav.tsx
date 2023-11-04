@@ -34,8 +34,8 @@ const UserProfileSideNav = ({ sideNavOpen }: { sideNavOpen: boolean }) => {
   const router = useRouter();
   console.log(router.pathname);
   return (
-    <div className="bg-input h-screen">
-      <ul className="pt-8">
+    <div className="h-screen pt-8 bg-white">
+      <ul className="border-r border-r-input ">
         {sideNavOptions.map((o, i) => (
           <Link
             key={i}
@@ -43,7 +43,7 @@ const UserProfileSideNav = ({ sideNavOpen }: { sideNavOpen: boolean }) => {
             className={`py-3 mb-3  w-full block font-medium ${
               router.pathname === o.path
                 ? "bg-gradient-to-bl from-secondary to-primary text-white"
-                : "bg-input text-black"
+                : "bg-white text-black"
             } ${sideNavOpen ? "pl-6" : "pl-4"} duration-200`}
           >
             <Tooltip title={o.name}>
