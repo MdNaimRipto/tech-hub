@@ -102,5 +102,5 @@ const Products = ({
 export default Products;
 
 Products.getLayout = function getLayout() {
-  return <ProductsPageLayout></ProductsPageLayout>;
+  return <ProductsPageLayout />;
 };

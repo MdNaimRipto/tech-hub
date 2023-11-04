@@ -1,5 +1,5 @@
-import ProductImages from "@/components/common/productDetails/ProductImages";
-import ProductsInfo from "@/components/common/productDetails/ProductsInfo";
+import ProductImages from "@/components/productDetails/ProductImages";
+import ProductsInfo from "@/components/productDetails/ProductsInfo";
 import MainLayout from "@/layouts/MainLayout";
 import { useGetProductsByIDLQuery } from "@/redux/features/products/productsApi";
 import { IProductDetails } from "@/types/productTypes/productsTypes";
@@ -7,7 +7,7 @@ import { Breadcrumbs, Link } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import HomeIcon from "@mui/icons-material/Home";
-import DetailTabs from "@/components/common/productDetails/productDetailTabs/DetailTabs";
+import DetailTabs from "@/components/productDetails/productDetailTabs/DetailTabs";
 
 const ProductsDetails = () => {
   const router = useRouter();

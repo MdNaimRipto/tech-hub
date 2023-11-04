@@ -28,7 +28,7 @@ interface IProductsContent {
   setMaxPrice: any;
 }
 
-const ProductsPageSubNav = ({
+const ProductsPageSideNav = ({
   isSideBarOpen,
   category,
   setFilterValues,
@@ -220,4 +220,4 @@ const ProductsPageSubNav = ({
   );
 };
 
-export default ProductsPageSubNav;
+export default ProductsPageSideNav;

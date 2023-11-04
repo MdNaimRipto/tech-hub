@@ -2,9 +2,9 @@ import { IProductDetails } from "@/types/productTypes/productsTypes";
 import { Rating } from "@mui/material";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
-import BuyNowBtn from "../buttons/BuyNowBtn";
+import BuyNowBtn from "@/components/common/buttons/BuyNowBtn";
 import { useState } from "react";
-import GridAddToWishlistBtn from "../buttons/GridAddToWishlistBtn";
+import GridAddToWishlistBtn from "@/components/common/buttons/GridAddToWishlistBtn";
 
 const ProductsInfo = ({ product }: { product: IProductDetails }) => {
   const {

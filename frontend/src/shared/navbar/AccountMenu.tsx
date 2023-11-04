@@ -1,24 +1,27 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { UserContext } from "@/context/AuthContext";
+import { useUserContext } from "@/context/AuthContext";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
-export default function AccountMenu() {
-  const { user, setUser } = React.useContext(UserContext);
+interface IIconSizes {
+  smallIconSize: string;
+  largeIconSize: string;
+}
+
+export default function AccountMenu({
+  smallIconSize,
+  largeIconSize,
+}: IIconSizes) {
+  const { user, setUser } = useUserContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -43,7 +46,14 @@ export default function AccountMenu() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <AccountCircleOutlinedIcon className="text-3xl lg:text-2xl" />
+          <AccountCircleOutlinedIcon
+            sx={{
+              fontSize: {
+                xs: smallIconSize,
+                md: largeIconSize,
+              },
+            }}
+          />
         </button>
       </Tooltip>
       <Menu
@@ -83,9 +93,17 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose} disabled={!user}>
-          <Avatar /> My account
-        </MenuItem>
+        {user ? (
+          <Link href="/user/profile">
+            <MenuItem onClick={handleClose}>
+              <Avatar src={user.userProfile} /> My Profile
+            </MenuItem>
+          </Link>
+        ) : (
+          <MenuItem disabled>
+            <Avatar /> My Profile
+          </MenuItem>
+        )}
         <Divider />
         {!user ? (
           <div>

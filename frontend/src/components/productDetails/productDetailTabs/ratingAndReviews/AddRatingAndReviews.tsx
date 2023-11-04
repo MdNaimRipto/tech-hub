@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SubmitBtn from "../../../buttons/SubmitBtn";
+import SubmitBtn from "@/components/common/buttons/SubmitBtn";
 import { Rating } from "@mui/material";
 
 const AddRatingAndReviews = () => {

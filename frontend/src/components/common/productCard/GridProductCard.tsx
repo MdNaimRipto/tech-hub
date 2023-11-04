@@ -7,6 +7,7 @@ import { Tooltip } from "@mui/material";
 import GridAddToWishlistBtn from "../buttons/GridAddToWishlistBtn";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import errorImage from "@/assets/image-placeholder.jpg";
 
 const GridProductCard = ({ product }: { product: IProducts }) => {
   const router = useRouter();
@@ -30,7 +31,10 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
           src={product.images.i1}
           alt="Product Image"
           className="w-full"
-          priority
+          loading="lazy"
+          onError={(e: any) => {
+            e.target.src = errorImage.src;
+          }}
         />
       </div>
       <Tooltip title="View Details">

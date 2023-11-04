@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Image from "next/image";
-import logo from "../../assets/logo.png";
+import logo from "@/assets/logo.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import Link from "next/link";
 import { Button, Tooltip } from "@mui/material";
-import AccountMenu from "./AccountMenu";
+import AccountMenu from "../AccountMenu";
 
 const MainNav = () => {
   return (
@@ -37,7 +37,7 @@ const MainNav = () => {
               <ShoppingBasketOutlinedIcon />
             </Link>
           </Tooltip>
-          <AccountMenu />
+          <AccountMenu smallIconSize="30px" largeIconSize="24px" />
           <Link href="/pc-builder">
             <Button
               className="gradient-button"
@@ -58,7 +58,7 @@ const MainNav = () => {
           </Link>
         </div>
         <div className="block lg:hidden">
-          <AccountMenu />
+          <AccountMenu smallIconSize="30px" largeIconSize="24px" />
         </div>
       </div>
     </div>

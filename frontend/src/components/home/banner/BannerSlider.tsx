@@ -73,8 +73,8 @@ const Slider = () => {
           <div>
             <Image
               src={p.image}
-              alt={`Slide ${index + 1}`}
-              priority={true}
+              alt={`Slide ${index}`}
+              priority
               className="block mx-auto mt-10 md:mt-0"
             />
           </div>

@@ -1,8 +1,8 @@
 import Products from "@/pages/products";
 import { useGetProductsByCategoryQuery } from "@/redux/features/products/productsApi";
 import Footer from "@/shared/footer/Footer";
-import Navbar from "@/shared/navbar/Navbar";
-import ProductsPageSubNav from "@/shared/subNavs/ProductsPageSubNav";
+import Navbar from "@/shared/navbar/mainNav/Navbar";
+import ProductsPageSideNav from "@/shared/sideNavs/ProductsPageSideNav";
 import {
   IProducts,
   IProductsByCategoryFilter,
@@ -63,7 +63,7 @@ const ProductsPageLayout = () => {
     <>
       <Navbar />
       <div className={`lg:grid grid-cols-5 container px-4 min-h-[700px] my-12`}>
-        <ProductsPageSubNav
+        <ProductsPageSideNav
           isSideBarOpen={isSideBarOpen}
           category={category as string}
           filterValues={filterValues}
