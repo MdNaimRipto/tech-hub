@@ -28,7 +28,7 @@ const Register = () => {
 
   const [userRegister] = useUserRegisterMutation();
 
-  const handleRegister = (e: any) => {
+  const handleRegister = async (e: any) => {
     e.preventDefault();
 
     setIsLoading(true);
@@ -48,26 +48,25 @@ const Register = () => {
       },
     };
 
-    userRegister(registerOption).then(async (res: any) => {
-      if (res.data) {
-        const data = res.data;
-        toast.success(data.message);
-        setToken(data.data);
-        router.push("/");
+    try {
+      const res = await userRegister(registerOption).unwrap();
+      if (res.success) {
+        setToken(res.data);
         const secretKey = envConfig.secret_key;
         const encryptedToken = CryptoJS.AES.encrypt(
-          JSON.stringify(data.data),
+          JSON.stringify(res?.data),
           String(secretKey)
         ).toString();
         Cookies.set("token", encryptedToken, { expires: 14 });
+        router.push("/");
+        toast.success(res?.message);
         form.reset();
         setIsLoading(false);
-      } else if (res.error) {
-        const error = res.error.data;
-        toast.error(error.message);
-        setIsLoading(false);
       }
-    });
+    } catch (error: any) {
+      toast.error(error?.data?.message);
+      setIsLoading(false);
+    }
   };
 
   const handleInputBlur =

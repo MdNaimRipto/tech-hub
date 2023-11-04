@@ -10,7 +10,6 @@ import CryptoJS from "crypto-js";
 import envConfig from "@/config/envConfig";
 import { UserContext } from "@/context/AuthContext";
 import { useRouter } from "next/router";
-import { config } from "@/config/apiConfig";
 
 const Login = () => {
   const { setToken } = useContext(UserContext);
@@ -44,27 +43,23 @@ const Login = () => {
       },
     };
 
-    const res: any = await userLogin(loginOption);
-    if (res.data) {
-      console.log("S", res.data);
-      const data = res.data;
-      router.push("/");
-      toast.success(data.message);
-      setToken(data.data);
-      const secretKey = envConfig.secret_key;
-      const encryptedToken = CryptoJS.AES.encrypt(
-        JSON.stringify(data.data),
-        String(secretKey)
-      ).toString();
-      Cookies.set("token", encryptedToken, { expires: 14 });
-      form.reset();
-      setIsLoading(false);
-    } else if (res.error) {
-      const error = res.error.data;
-      toast.error(error.message);
-      setIsLoading(false);
-    } else {
-      toast.error("Something Went Wrong! Please Try Again Later");
+    try {
+      const res = await userLogin(loginOption).unwrap();
+      if (res.success) {
+        setToken(res.data);
+        const secretKey = envConfig.secret_key;
+        const encryptedToken = CryptoJS.AES.encrypt(
+          JSON.stringify(res?.data),
+          String(secretKey)
+        ).toString();
+        Cookies.set("token", encryptedToken, { expires: 14 });
+        router.push("/");
+        toast.success(res?.message);
+        form.reset();
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      toast.error(error?.data?.message);
       setIsLoading(false);
     }
   };
