@@ -88,7 +88,7 @@ const UserInfoAndUpdateFields = ({ user }: { user: IUser | null }) => {
   };
 
   return (
-    <div className="flex flex-col gap-8 mt-6 font-medium text-black ml-0 lg:ml-5">
+    <div className="flex flex-col gap-4 md:gap-8 mt-6 font-medium text-black ml-0 lg:ml-5">
       {userInfoFields.map((info, i) => (
         <div key={i} className="flex flex-wrap items-center w-full">
           <div className="w-full md:w-1/2">
@@ -96,7 +96,7 @@ const UserInfoAndUpdateFields = ({ user }: { user: IUser | null }) => {
               <span className="text-sm md:text-xl mr-4 block w-1/2">
                 {info.fieldName}:
               </span>{" "}
-              <span className="text-xs md:text-sm block w-1/2 py-[10px]">
+              <span className="text-gray text-xs md:text-sm block w-1/2 py-[10px]">
                 {info.fieldValue}
               </span>
             </p>

@@ -34,7 +34,7 @@ const UserProfileLayout = ({ children }: { children: ReactNode }) => {
       <ProfileNav sideNavOpen={sideNaveOpen} setSideNavOpen={setSideNavOpen} />
       <div className="flex container px-4">
         <div
-          className={`absolute lg:static ${
+          className={`absolute z-40 lg:static ${
             sideNaveOpen
               ? "w-[66%] md:w-2/5 xl:w-[20%] left-0"
               : "w-[6%] -left-96"
