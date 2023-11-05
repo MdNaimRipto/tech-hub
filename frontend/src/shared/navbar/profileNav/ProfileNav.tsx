@@ -37,7 +37,7 @@ const ProfileNav = ({
             <MenuIcon />
           </IconButton>
           <a href="/" className="w-2/5">
-            <Image src={logo} alt="Navbar-logo" className="w-full" />
+            <Image src={logo} alt="Navbar-logo" className="w-full" priority />
           </a>
         </div>
         <div className="w-[10%] hidden lg:flex items-center justify-between">

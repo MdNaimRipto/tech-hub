@@ -32,7 +32,7 @@ const UserProfileLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <ProfileNav sideNavOpen={sideNaveOpen} setSideNavOpen={setSideNavOpen} />
-      <div className="flex items-center container px-4">
+      <div className="flex container px-4">
         <div
           className={`absolute lg:static ${
             sideNaveOpen

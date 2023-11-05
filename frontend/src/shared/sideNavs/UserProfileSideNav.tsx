@@ -32,7 +32,6 @@ const sideNavOptions = [
 
 const UserProfileSideNav = ({ sideNavOpen }: { sideNavOpen: boolean }) => {
   const router = useRouter();
-  console.log(router.pathname);
   return (
     <div className="h-screen pt-8 bg-white">
       <ul className="border-r border-r-input ">
