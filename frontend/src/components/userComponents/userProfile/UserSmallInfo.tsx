@@ -20,11 +20,6 @@ const UserSmallInfo = ({
 
   const [updateUser] = useUpdateUserMutation();
 
-  console.log("IMG-API-KEY:", envConfig.image_api_key);
-  console.log("SECRET-KEY:", envConfig.secret_key);
-  console.log("admin-uid:", envConfig.admin_uid);
-  console.log("ano-uid:", envConfig.anonymous_user_uid);
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoading(true);
     const files = event.target.files;
