@@ -20,6 +20,9 @@ const UserSmallInfo = ({
 
   const [updateUser] = useUpdateUserMutation();
 
+  const imageApiKey = envConfig.image_api_key;
+  console.log("IMG-API-KEY:", imageApiKey);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoading(true);
     const files = event.target.files;
@@ -29,11 +32,6 @@ const UserSmallInfo = ({
 
       const formData = new FormData();
       formData.append("image", img);
-
-      const imageApiKey = envConfig.image_api_key;
-
-      console.log("IMG-API-KEY:", imageApiKey);
-      console.log("test:", envConfig.test_key);
 
       fetch(`https://api.imgbb.com/1/upload?key=${imageApiKey}`, {
         method: "POST",
