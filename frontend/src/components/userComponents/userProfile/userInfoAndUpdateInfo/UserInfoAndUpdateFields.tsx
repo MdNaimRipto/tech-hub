@@ -1,9 +1,18 @@
 import UpdateUserInputField from "@/components/common/updateUserInputFields/UpdateUserInputField";
+import { useUpdateUserMutation } from "@/redux/features/auth/userApis";
 import { IUser } from "@/types/userTypes/userTypes";
-import React from "react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
-const UserInfoAndUpdateFields = ({ user }: { user: IUser | null }) => {
-  const [updateFields, setUpdateFields] = React.useState({
+const UserInfoAndUpdateFields = ({
+  user,
+  token,
+}: {
+  user: IUser | null;
+  token: string | undefined;
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [updateFields, setUpdateFields] = useState({
     name: false,
     email: false,
     contactNumber: false,
@@ -75,16 +84,30 @@ const UserInfoAndUpdateFields = ({ user }: { user: IUser | null }) => {
       placeholder: "Enter District Name",
     },
   ];
-  const handleUserUpdate = (e: any, fieldName: string) => {
+  const [updateUser] = useUpdateUserMutation();
+  const handleUserUpdate = async (e: any, fieldName: string) => {
     e.preventDefault();
+    setIsLoading(true);
     const form = e.target;
     const value = form.updateField.value;
     const option = {
       data: {
         [fieldName]: value,
       },
+      id: user?._id,
+      token: token,
     };
-    console.log(option);
+    try {
+      const res = await updateUser(option).unwrap();
+      if (res.success) {
+        toast.success(res.message);
+        setIsLoading(false);
+        form.reset();
+      }
+    } catch (error: any) {
+      toast.error(error?.data?.message);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -108,6 +131,7 @@ const UserInfoAndUpdateFields = ({ user }: { user: IUser | null }) => {
             setUpdateFields={setUpdateFields}
             handleUserUpdate={handleUserUpdate}
             placeholder={info.placeholder}
+            isLoading={isLoading}
           />
         </div>
       ))}

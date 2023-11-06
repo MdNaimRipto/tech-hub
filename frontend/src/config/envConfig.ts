@@ -6,4 +6,5 @@ dotenv.config({ path: path.join(process.cwd(), ".env.local") });
 
 export default {
   secret_key: process.env.NEXT_PUBLIC_SECRET_KEY,
+  image_api_key: process.env.NEXT_PUBLIC_IMAGE_KEY,
 };

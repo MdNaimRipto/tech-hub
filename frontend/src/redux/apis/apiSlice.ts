@@ -6,6 +6,6 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: config.SERVER_BASE_URL,
   }),
-  tagTypes: ["getAuthenticatedUser"],
+  tagTypes: ["getAuthenticatedUser", "updateUser"],
   endpoints: () => ({}),
 });

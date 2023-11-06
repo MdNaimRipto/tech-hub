@@ -5,14 +5,14 @@ import UserProfileLayout from "@/layouts/UserProfileLayout";
 import React, { ReactElement } from "react";
 
 const UserProfile = () => {
-  const { user, isLoading } = useUserContext();
+  const { user, token, isLoading } = useUserContext();
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
   return (
     <div className="my-12 lg:mx-4">
-      <UserSmallInfo user={user} />
-      <UserInfoAndUpdateInfo user={user} />
+      <UserSmallInfo user={user} token={token} />
+      <UserInfoAndUpdateInfo user={user} token={token} />
     </div>
   );
 };

@@ -11,6 +11,7 @@ interface IUpdateFields {
   handleUserUpdate: any;
   type: string;
   placeholder: string;
+  isLoading: boolean;
 }
 
 const UpdateUserInputField = ({
@@ -20,6 +21,7 @@ const UpdateUserInputField = ({
   handleUserUpdate,
   type,
   placeholder,
+  isLoading,
 }: IUpdateFields) => {
   return (
     <div className="flex items-center gap-4">
@@ -66,7 +68,7 @@ const UpdateUserInputField = ({
             className="border border-light-gray px-2 py-1 focus:outline-none rounded w-[155px] md:w-[200px] lg:w-full"
             placeholder={placeholder}
           />
-          <UpdateUserInfoBtn />
+          <UpdateUserInfoBtn isLoading={isLoading} />
         </form>
       )}
     </div>

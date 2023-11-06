@@ -1,7 +1,8 @@
 import React from "react";
 import { Button } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const UpdateUserInfoBtn = () => {
+const UpdateUserInfoBtn = ({ isLoading }: { isLoading: boolean }) => {
   return (
     <Button
       sx={{
@@ -16,7 +17,11 @@ const UpdateUserInfoBtn = () => {
       }}
       type="submit"
     >
-      Update
+      {isLoading ? (
+        <CircularProgress sx={{ color: "#ffffff" }} size={24} />
+      ) : (
+        "Update"
+      )}
     </Button>
   );
 };

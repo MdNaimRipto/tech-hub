@@ -9,9 +9,9 @@ import React, {
 } from "react";
 import CryptoJS from "crypto-js";
 import envConfig from "@/config/envConfig";
-import { useGetAuthenticatedUserQuery } from "@/redux/features/auth/authApis";
 import Cookies from "js-cookie";
 import { IUser } from "@/types/userTypes/userTypes";
+import { useGetAuthenticatedUserQuery } from "@/redux/features/auth/userApis";
 
 interface UserContextType {
   user: null | IUser;
@@ -38,18 +38,21 @@ const AuthContext = ({ children }: { children: ReactNode }) => {
       CryptoJS.enc.Utf8
     );
 
-  const encryptedValue = Cookies.get("token");
-  function getToken() {
-    if (encryptedValue) {
-      const decryptedToken = decrypt(encryptedValue as string);
-      return decryptedToken;
+  useEffect(() => {
+    const encryptedValue = Cookies.get("token");
+    function getToken() {
+      if (encryptedValue) {
+        const decryptedToken = decrypt(encryptedValue);
+        return decryptedToken;
+      }
     }
-  }
 
-  const authToken = token ? token : getToken()?.slice(1, -1);
+    const token = getToken();
+    setToken(token?.slice(1, -1));
+  }, []);
 
   const option = {
-    token: authToken,
+    token,
   };
 
   const { data, refetch, isLoading } = useGetAuthenticatedUserQuery(option);

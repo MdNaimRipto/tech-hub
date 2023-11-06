@@ -3,7 +3,10 @@ export const config = {
   AUTH: {
     REGISTER: "/user/userRegister",
     LOGIN: "/user/userLogin",
+  },
+  USERS: {
     GET_AUTHENTICATED_DATA: "/user/getAuthenticatedUser",
+    UPDATE_USER: "/user/updateUser",
   },
   PRODUCTS: {
     UPLOAD_PRODUCT: "/products/uploadProduct",
