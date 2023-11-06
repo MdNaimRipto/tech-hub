@@ -8,7 +8,7 @@ const ResponsiveSearchPage: React.FC<ResponsiveSearchPageProps> = ({
   setSearchBarVisible,
 }) => {
   return (
-    <div className="bg-white z-50 h-screen w-full absolute top-0">
+    <div className="bg-white z-50 h-screen w-full fixed top-0">
       <div
         className={`flex items-center w-full h-[50px] border border-input bg-white px-2 mt-2`}
       >

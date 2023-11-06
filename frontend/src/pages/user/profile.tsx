@@ -7,7 +7,7 @@ import React, { ReactElement } from "react";
 const UserProfile = () => {
   const { user, token } = useUserContext();
   return (
-    <div className="my-12 lg:mx-4">
+    <div className="pb-12 lg:pb-0 my-12 lg:mx-4">
       <UserSmallInfo user={user} token={token} />
       <UserInfoAndUpdateInfo user={user} token={token} />
     </div>
