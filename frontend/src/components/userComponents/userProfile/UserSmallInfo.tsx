@@ -32,7 +32,7 @@ const UserSmallInfo = ({
 
       const imageApiKey = envConfig.image_api_key;
 
-      console.log("IMG-KEY:", imageApiKey);
+      console.log("IMG-API-KEY:", imageApiKey);
 
       fetch(`https://api.imgbb.com/1/upload?key=${imageApiKey}`, {
         method: "POST",
