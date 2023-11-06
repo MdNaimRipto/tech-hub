@@ -93,7 +93,7 @@ const UserSmallInfo = ({
         />
         {isHovered && (
           <Tooltip title="Update Profile Picture">
-            <div className="absolute left-1/2 -translate-x-1/2 bg-[#00000050] w-[85%] h-[85%] flex items-center justify-center rounded-full opacity-0 hover:opacity-100 duration-300">
+            <div className="absolute left-1/2 -translate-x-1/2 bg-[#00000050] w-[90%] h-[90%] flex items-center justify-center rounded-full opacity-0 hover:opacity-100 duration-300">
               <EditIcon sx={{ color: "#ffffff", fontSize: "40px" }} />
             </div>
           </Tooltip>

@@ -1,13 +1,27 @@
-import UserProfile from "@/pages/user/profile";
+"use-client";
+import { useUserContext } from "@/context/AuthContext";
 import ResponsiveMobileNav from "@/shared/navbar/ResponsiveMobileNav";
 import ProfileNav from "@/shared/navbar/profileNav/ProfileNav";
 import UserProfileSideNav from "@/shared/sideNavs/UserProfileSideNav";
+import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
 
 const UserProfileLayout = ({ children }: { children: ReactNode }) => {
+  const { token, isLoading: authLoading } = useUserContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [sideNaveOpen, setSideNavOpen] = useState(true);
 
-  // Detect screen size and set sideNavOpen accordingly
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!authLoading) {
+      if (!token) {
+        router.push("/authentication/login");
+      }
+      setIsLoading(true);
+    }
+  }, [authLoading, token, router, isLoading]);
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 1280) {
@@ -28,6 +42,10 @@ const UserProfileLayout = ({ children }: { children: ReactNode }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  if (!isLoading) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <>

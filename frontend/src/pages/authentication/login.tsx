@@ -53,7 +53,7 @@ const Login = () => {
           String(secretKey)
         ).toString();
         Cookies.set("token", encryptedToken, { expires: 14 });
-        router.push("/");
+        router.push("/user/profile");
         toast.success(res?.message);
         form.reset();
         setIsLoading(false);
