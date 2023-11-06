@@ -21,7 +21,6 @@ const UserSmallInfo = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoading(true);
-    const imageApiKey = envConfig.image_api_key;
     const files = event.target.files;
 
     if (files && files.length > 0) {
@@ -29,6 +28,11 @@ const UserSmallInfo = ({
 
       const formData = new FormData();
       formData.append("image", img);
+
+      const imageApiKey = envConfig.image_api_key;
+
+      console.log(imageApiKey);
+      console.log(process.env.NEXT_PUBLIC_IMAGE_KEY);
 
       fetch(`https://api.imgbb.com/1/upload?key=${imageApiKey}`, {
         method: "POST",
