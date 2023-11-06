@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    NEXT_PUBLIC_SECRET_KEY: process.env.NEXT_PUBLIC_SECRET_KEY,
-    NEXT_PUBLIC_IMAGE_KEY: process.env.NEXT_PUBLIC_IMAGE_KEY,
+    DB_SECRET_KEY: process.env.DB_SECRET_KEY,
+    DB_IMAGE_KEY: process.env.DB_IMAGE_KEY,
   },
   images: {
     remotePatterns: [
