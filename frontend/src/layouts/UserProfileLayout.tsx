@@ -7,20 +7,23 @@ import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
 
 const UserProfileLayout = ({ children }: { children: ReactNode }) => {
-  const { token, isLoading: authLoading } = useUserContext();
+  const { token, user, isLoading: authLoading } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
   const [sideNaveOpen, setSideNavOpen] = useState(true);
 
   const router = useRouter();
 
+  console.log(token);
+
   useEffect(() => {
     if (!authLoading) {
-      if (!token) {
+      if (!token && !user) {
         router.push("/authentication/login");
+      } else {
+        setIsLoading(true);
       }
-      setIsLoading(true);
     }
-  }, [authLoading, token, router, isLoading]);
+  }, [authLoading, token, user, router, isLoading]);
 
   useEffect(() => {
     const handleResize = () => {

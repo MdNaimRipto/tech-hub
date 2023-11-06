@@ -21,7 +21,7 @@ export default function AccountMenu({
   smallIconSize,
   largeIconSize,
 }: IIconSizes) {
-  const { user, setUser } = useUserContext();
+  const { user, setUser, setToken } = useUserContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -34,6 +34,7 @@ export default function AccountMenu({
   const handleLogout = () => {
     Cookies.remove("token");
     setUser(null);
+    setToken(undefined);
     setAnchorEl(null);
     toast.success("Logout Successful");
   };

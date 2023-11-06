@@ -44,12 +44,13 @@ const AuthContext = ({ children }: { children: ReactNode }) => {
       if (encryptedValue) {
         const decryptedToken = decrypt(encryptedValue);
         return decryptedToken;
+      } else {
+        setToken(undefined);
       }
     }
 
-    const token = getToken();
-    setToken(token?.slice(1, -1));
-  }, []);
+    setToken(getToken()?.slice(1, -1));
+  }, [token]);
 
   const option = {
     token,
