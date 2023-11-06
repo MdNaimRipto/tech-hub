@@ -8,7 +8,7 @@ import React, {
   useContext,
 } from "react";
 import CryptoJS from "crypto-js";
-import envConfig from "@/config/envConfig";
+import { envConfig } from "@/config/envConfig";
 import Cookies from "js-cookie";
 import { IUser } from "@/types/userTypes/userTypes";
 import { useGetAuthenticatedUserQuery } from "@/redux/features/auth/userApis";

@@ -6,7 +6,7 @@ import GeneralInputField from "@/components/common/authInputFields/GeneralInputF
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
-import envConfig from "@/config/envConfig";
+import { envConfig } from "@/config/envConfig";
 import { UserContext } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { useUserRegisterMutation } from "@/redux/features/auth/authApis";

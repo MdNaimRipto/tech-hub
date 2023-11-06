@@ -1,10 +1,4 @@
-/* eslint-disable import/no-anonymous-default-export */
-import dotenv from "dotenv";
-import path from "path";
-
-dotenv.config({ path: path.join(process.cwd(), ".env.local") });
-
-export default {
+export const envConfig = {
   secret_key: process.env.NEXT_PUBLIC_SECRET_KEY,
   image_api_key: process.env.NEXT_PUBLIC_IMAGE_KEY,
 };

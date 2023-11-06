@@ -4,7 +4,7 @@ import { IUser } from "@/types/userTypes/userTypes";
 import EditIcon from "@mui/icons-material/EditOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useUpdateUserMutation } from "@/redux/features/auth/userApis";
-import envConfig from "@/config/envConfig";
+import { envConfig } from "@/config/envConfig";
 import { toast } from "react-toastify";
 
 const UserSmallInfo = ({
