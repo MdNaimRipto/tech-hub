@@ -13,8 +13,6 @@ const UserProfileLayout = ({ children }: { children: ReactNode }) => {
 
   const router = useRouter();
 
-  console.log(token);
-
   useEffect(() => {
     if (!authLoading) {
       if (!token && !user) {
