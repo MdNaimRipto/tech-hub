@@ -1,3 +1,4 @@
+"use-client";
 import React, { useState } from "react";
 import { Avatar, IconButton, Tooltip } from "@mui/material";
 import { IUser } from "@/types/userTypes/userTypes";
