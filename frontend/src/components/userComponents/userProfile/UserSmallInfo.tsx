@@ -22,6 +22,8 @@ const UserSmallInfo = ({
 
   const imageApiKey = envConfig.image_api_key;
   console.log("IMG-API-KEY:", imageApiKey);
+  console.log(process.env.NEXT_PUBLIC_SECRET_KEY);
+  console.log(process.env.NEXT_PUBLIC_IMAGE_KEY);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoading(true);
