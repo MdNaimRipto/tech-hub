@@ -36,32 +36,29 @@ const UserSmallInfo = ({
       })
         .then(res => res.json())
         .then(async data => {
-          try {
-            if (data.success) {
-              try {
-                const option = {
-                  data: {
-                    userProfile: data?.data?.url,
-                  },
-                  id: user?._id,
-                  token: token,
-                };
-                const res = await updateUser(option).unwrap();
-                if (res.success) {
-                  toast.success(res.message);
-                  setIsLoading(false);
-                }
-              } catch (error: any) {
-                toast.error(error?.data?.message);
+          if (data.success) {
+            try {
+              const option = {
+                data: {
+                  userProfile: data?.data?.url,
+                },
+                id: user?._id,
+                token: token,
+              };
+              const res = await updateUser(option).unwrap();
+              if (res.success) {
+                toast.success(res.message);
                 setIsLoading(false);
               }
+            } catch (error: any) {
+              toast.error(error?.data?.message);
+              setIsLoading(false);
             }
-          } catch {
-            toast.error("Something Went Wrong! Please Try Again.");
+          } else {
+            toast.error("Something Went Wrong! Try Again");
+            setIsLoading(false);
           }
         });
-    } else {
-      console.log("No file selected.");
     }
   };
 
