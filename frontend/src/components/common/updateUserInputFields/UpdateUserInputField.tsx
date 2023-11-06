@@ -28,7 +28,12 @@ const UpdateUserInputField = ({
       {!field ? (
         <Tooltip title="Update This Field">
           <IconButton
-            sx={{ background: "#e2e2e2", color: "#ff7a1a" }}
+            sx={{
+              color: "#ff7a1a",
+              "&:hover": {
+                background: "#e2e2e2 !important",
+              },
+            }}
             onClick={() => {
               setUpdateFields((prevUpdateFields: any) => ({
                 ...prevUpdateFields,
@@ -42,7 +47,7 @@ const UpdateUserInputField = ({
       ) : (
         <Tooltip title="Close Update Filed">
           <IconButton
-            sx={{ background: "#e2e2e2", color: "#ff7a1a" }}
+            sx={{ background: "#e2e2e2 !important", color: "#ff7a1a" }}
             onClick={() => {
               setUpdateFields((prevUpdateFields: any) => ({
                 ...prevUpdateFields,
