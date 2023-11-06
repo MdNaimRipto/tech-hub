@@ -7,7 +7,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useUpdateUserMutation } from "@/redux/features/auth/userApis";
 import { envConfig } from "@/config/envConfig";
 import { toast } from "react-toastify";
-import { customEnv } from "@/config/customEnv";
 
 const UserSmallInfo = ({
   user,
@@ -33,10 +32,9 @@ const UserSmallInfo = ({
 
       const imageApiKey = envConfig.image_api_key;
 
-      console.log("Env:", imageApiKey);
-      console.log("CustomEnv:", customEnv.IMAGE_API_KEY);
+      console.log("IMG-KEY:", imageApiKey);
 
-      fetch(`https://api.imgbb.com/1/upload?key=${customEnv.IMAGE_API_KEY}`, {
+      fetch(`https://api.imgbb.com/1/upload?key=${imageApiKey}`, {
         method: "POST",
         body: formData,
       })
