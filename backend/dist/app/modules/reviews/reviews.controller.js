@@ -33,12 +33,12 @@ const verifyAuthToken_1 = require("../../../util/verifyAuthToken");
 const addReview = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reviewInfo = __rest(req.body, []);
     const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
-    yield reviews_service_1.ReviewsService.addReview(reviewInfo, token);
+    const review = yield reviews_service_1.ReviewsService.addReview(reviewInfo, token);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Review Added Successfully",
-        data: null,
+        data: review,
     });
 }));
 // Get Review's by Product ID

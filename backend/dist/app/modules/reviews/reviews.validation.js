@@ -13,6 +13,9 @@ const reviewsZodSchema = zod_1.z.object({
         review: zod_1.z.string({
             required_error: "Review is Required",
         }),
+        rating: zod_1.z.number({
+            required_error: "Rating is Required",
+        }),
     }),
 });
 exports.ReviewsValidation = {

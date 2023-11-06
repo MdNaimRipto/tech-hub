@@ -221,6 +221,19 @@ const updateUser = async (
     updatePayload.email = payload.email;
   }
 
+  if (payload.contactNumber) {
+    const isExists = await Users.findOne({
+      contactNumber: payload.contactNumber,
+    });
+    if (isExists) {
+      throw new ApiError(
+        httpStatus.FORBIDDEN,
+        "Contact Number Already Exists! Try Another One."
+      );
+    }
+    updatePayload.contactNumber = payload.contactNumber;
+  }
+
   if (payload.password) {
     const isPreviousPass = await bcrypt.compare(
       payload.password,

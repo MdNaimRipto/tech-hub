@@ -82,7 +82,6 @@ const getTopSellingProducts = (0, catchAsync_1.default)((req, res) => __awaiter(
 // Get Products by ID
 const getProductsByID = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    console.log(id);
     const product = yield products_service_1.ProductService.getProductsByID(id);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -103,18 +102,6 @@ const updateProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         data: null,
     });
 }));
-const updateProductRating = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const { userID, rating } = req.body;
-    const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
-    yield products_service_1.ProductService.updateProductRating(id, userID, rating, token);
-    (0, sendResponse_1.default)(res, {
-        success: true,
-        statusCode: http_status_1.default.OK,
-        message: "Rating Added Successfully",
-        data: null,
-    });
-}));
 exports.ProductController = {
     uploadProduct,
     getAllProducts,
@@ -122,5 +109,4 @@ exports.ProductController = {
     getTopSellingProducts,
     getProductsByID,
     updateProduct,
-    updateProductRating,
 };

@@ -35,13 +35,6 @@ const loginUserZodSchema = zod_1.z.object({
         }),
     }),
 });
-const getAuthenticatedUserZodSchema = zod_1.z.object({
-    body: zod_1.z.object({
-        token: zod_1.z.string({
-            required_error: "Token is Required",
-        }),
-    }),
-});
 const userUpdateZodSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z.string().optional(),
@@ -59,6 +52,5 @@ const userUpdateZodSchema = zod_1.z.object({
 exports.userValidation = {
     usersZodSchema,
     loginUserZodSchema,
-    getAuthenticatedUserZodSchema,
     userUpdateZodSchema,
 };

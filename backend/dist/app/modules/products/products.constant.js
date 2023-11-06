@@ -8,4 +8,7 @@ exports.productsFilterableFields = [
     "category",
     "brand",
     "discountedPrice",
+    "minPrice",
+    "maxPrice",
+    "status",
 ];

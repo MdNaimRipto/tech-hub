@@ -40,8 +40,8 @@ const addReview = (payload, token) => __awaiter(void 0, void 0, void 0, function
     if (String(userId) === isProductExists.sellerID) {
         throw new ApiError_1.default(http_status_1.default.FORBIDDEN, "Failed to Add Review!");
     }
-    yield reviews_schema_1.Reviews.create(payload);
-    return null;
+    const result = yield reviews_schema_1.Reviews.create(payload);
+    return result;
 });
 // Get Reviews By Product ID
 const getReviewsByProductID = (productID) => __awaiter(void 0, void 0, void 0, function* () {

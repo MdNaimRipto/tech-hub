@@ -29,7 +29,6 @@ const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const products_utils_1 = require("./products.utils");
 const products_schema_1 = require("./products.schema");
-const user_schema_1 = require("../user/user.schema");
 const products_constant_1 = require("./products.constant");
 const paginationHelpers_1 = require("../../../helpers/paginationHelpers");
 const config_1 = __importDefault(require("../../../config/config"));
@@ -84,9 +83,17 @@ const getAllProducts = (filters, paginationOptions) => __awaiter(void 0, void 0,
     //
     if (Object.keys(filterData).length) {
         andConditions.push({
-            $and: Object.entries(filterData).map(([field, value]) => ({
-                [field]: value,
-            })),
+            $and: Object.entries(filterData).map(([field, value]) => {
+                if (field === "minPrice") {
+                    return { discountedPrice: { $gte: value } };
+                }
+                if (field === "maxPrice") {
+                    return { discountedPrice: { $lte: value } };
+                }
+                else {
+                    return { [field]: value };
+                }
+            }),
         });
     }
     //
@@ -97,17 +104,15 @@ const getAllProducts = (filters, paginationOptions) => __awaiter(void 0, void 0,
     }
     //
     const checkAndCondition = (andConditions === null || andConditions === void 0 ? void 0 : andConditions.length) > 0 ? { $and: andConditions } : {};
-    const products = yield products_schema_1.Products.find(checkAndCondition
-    // {
-    // _id: 1,
-    // images: {
-    //   i1: 1,
-    // },
-    // name: 1,
-    // price: 1,
-    // discountedPrice: 1,
-    // }
-    )
+    const products = yield products_schema_1.Products.find(checkAndCondition, {
+        _id: 1,
+        images: {
+            i1: 1,
+        },
+        name: 1,
+        price: 1,
+        discountedPrice: 1,
+    })
         .sort(sortConditions)
         .skip(skip)
         .limit(180);
@@ -141,9 +146,17 @@ const getProductsByCategory = (category, filters, paginationOptions) => __awaite
     //
     if (Object.keys(filterData).length) {
         andConditions.push({
-            $and: Object.entries(filterData).map(([field, value]) => ({
-                [field]: value,
-            })),
+            $and: Object.entries(filterData).map(([field, value]) => {
+                if (field === "minPrice") {
+                    return { discountedPrice: { $gte: value } };
+                }
+                if (field === "maxPrice") {
+                    return { discountedPrice: { $lte: value } };
+                }
+                else {
+                    return { [field]: value };
+                }
+            }),
         });
     }
     //
@@ -170,6 +183,7 @@ const getProductsByCategory = (category, filters, paginationOptions) => __awaite
         price: 1,
         discountedPrice: 1,
         status: 1,
+        brand: 1,
     })
         .sort(sortConditions)
         .skip(skip)
@@ -204,11 +218,17 @@ const getProductsByID = (productID) => __awaiter(void 0, void 0, void 0, functio
         discount: 0,
         quantity: 0,
         allRating: 0,
-        code: 0,
         sellerID: 0,
     });
     if (!product) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "No Product found");
+    }
+    const rating = yield (0, products_utils_1.getProductRating)(productID);
+    if (!rating) {
+        product.rating = 0;
+    }
+    else {
+        product.rating = rating;
     }
     return product;
 });
@@ -278,30 +298,6 @@ const updateProduct = (productID, payload, token) => __awaiter(void 0, void 0, v
     });
     return null;
 });
-//* Update Rating Function:
-const updateProductRating = (id, useID, newRating, token) => __awaiter(void 0, void 0, void 0, function* () {
-    jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_secret);
-    const isExists = yield products_schema_1.Products.findById({ _id: id });
-    if (!isExists) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Product Not Found!");
-    }
-    const checkUser = yield user_schema_1.Users.findById({ _id: useID });
-    if ((checkUser === null || checkUser === void 0 ? void 0 : checkUser.id) === isExists.sellerID) {
-        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, "Permission Denied! Please Try Again.");
-    }
-    const { allRating } = isExists;
-    if (allRating) {
-        allRating.push(newRating);
-        const totalRating = allRating.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-        const ratingCount = allRating.length - 1;
-        const avgRating = totalRating / ratingCount;
-        isExists.rating = avgRating >= 5 ? 5 : parseFloat(avgRating.toFixed(1));
-    }
-    yield products_schema_1.Products.findOneAndUpdate({ _id: id }, isExists, {
-        new: true,
-    });
-    return null;
-});
 // * Product Service Export
 exports.ProductService = {
     uploadProduct,
@@ -310,5 +306,4 @@ exports.ProductService = {
     getTopSellingProducts,
     getProductsByID,
     updateProduct,
-    updateProductRating,
 };

@@ -168,6 +168,15 @@ const updateUser = (userID, payload, token) => __awaiter(void 0, void 0, void 0,
         }
         updatePayload.email = payload.email;
     }
+    if (payload.contactNumber) {
+        const isExists = yield user_schema_1.Users.findOne({
+            contactNumber: payload.contactNumber,
+        });
+        if (isExists) {
+            throw new ApiError_1.default(http_status_1.default.FORBIDDEN, "Contact Number Already Exists! Try Another One.");
+        }
+        updatePayload.contactNumber = payload.contactNumber;
+    }
     if (payload.password) {
         const isPreviousPass = yield bcrypt_1.default.compare(payload.password, isExistsUser.password);
         if (isPreviousPass) {

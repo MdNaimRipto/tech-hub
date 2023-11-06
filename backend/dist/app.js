@@ -29,10 +29,24 @@ app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         statusCode: http_status_1.default.OK,
     });
 }));
-// Main endpoint
+// ! Middleware to Update any value {Warning: Use only if needed}
+// app.get("/api/update", async (req, res) => {
+//   try {
+//     const products = await Products.find().exec();
+//     for (const product of products) {
+//       product.brand = product.brand.toLowerCase();
+//       await product.save(); // Update and save each document
+//     }
+//     res.json({ message: "Updated successfully" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+//* Main endpoint
 app.use("/api/v1.0", router_1.Routers);
-// Global error Handler
+//* Global error Handler
 app.use(globalErrorHandler_1.default);
-// Path Not Found Error Handler
+//* Path Not Found Error Handler
 app.use(pathNotFoundErrorHandler_1.default);
 exports.default = app;

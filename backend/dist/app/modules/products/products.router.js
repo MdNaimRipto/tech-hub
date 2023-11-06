@@ -15,5 +15,4 @@ router.get("/getProducts", products_controller_1.ProductController.getProductsBy
 router.get("/getTopSellingProducts", products_controller_1.ProductController.getTopSellingProducts);
 router.get("/getProductByID/:id", products_controller_1.ProductController.getProductsByID);
 router.patch("/updateProduct/:id", (0, zodValidationRequest_1.default)(products_validation_1.ProductValidation.updateProductSchema), products_controller_1.ProductController.updateProduct);
-router.patch("/updateRating/:id", (0, zodValidationRequest_1.default)(products_validation_1.ProductValidation.updateRatingZodSchema), products_controller_1.ProductController.updateProductRating);
 exports.ProductsRouter = router;

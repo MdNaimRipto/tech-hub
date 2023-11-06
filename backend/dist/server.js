@@ -25,6 +25,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const uri = config_1.default.database_url;
+            // const uri = `mongodb://127.0.0.1:27017/tech-mart`;
             yield mongoose_1.default.connect(`${uri}`);
             console.log(`🛢 Database Connected Successfully`);
             app_1.default.listen(port, () => {
