@@ -11,6 +11,7 @@ import { useUserContext } from "@/context/AuthContext";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import { envConfig } from "@/config/envConfig";
 
 interface IIconSizes {
   smallIconSize: string;
@@ -96,14 +97,17 @@ export default function AccountMenu({
       >
         {user ? (
           <Link href="/user/profile">
-            <MenuItem onClick={handleClose}>
-              <Avatar src={user.userProfile} /> My Profile
-            </MenuItem>
+            <MenuItem onClick={handleClose}>My Profile</MenuItem>
           </Link>
         ) : (
           <MenuItem disabled>
             <Avatar /> My Profile
           </MenuItem>
+        )}
+        {user && user.uid === envConfig.admin_uid && (
+          <Link href="/admin/addProducts" className="mt-2 mb-3 block">
+            <MenuItem onClick={handleClose}>Admin Dashboard</MenuItem>
+          </Link>
         )}
         <Divider />
         {!user ? (

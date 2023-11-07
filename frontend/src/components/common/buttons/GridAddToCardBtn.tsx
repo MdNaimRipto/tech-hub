@@ -1,7 +1,10 @@
 import { Tooltip, IconButton } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useUserContext } from "@/context/AuthContext";
+import { envConfig } from "@/config/envConfig";
 
 const GridAddToCardBtn = ({ status }: { status: boolean }) => {
+  const { user } = useUserContext();
   return (
     <IconButton
       aria-label="cart"
@@ -15,7 +18,7 @@ const GridAddToCardBtn = ({ status }: { status: boolean }) => {
         },
         borderRadius: "4px",
       }}
-      disabled={!status}
+      disabled={!status || user?.uid === envConfig.admin_uid}
     >
       <Tooltip title="Add To Cart">
         <ShoppingCartOutlinedIcon

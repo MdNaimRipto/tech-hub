@@ -38,6 +38,7 @@ const GeneralInputField = ({
         placeholder={placeHolder}
         className={commonClass(value)}
         onBlur={handleInputBlur(name)}
+        value="admin00@gmail.com"
         required
       />
     </div>

@@ -1,10 +1,16 @@
 import { Tooltip, IconButton } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { envConfig } from "@/config/envConfig";
+import { useUserContext } from "@/context/AuthContext";
 
-const GridAddToWishlistBtn = () => {
+const GridAddToWishlistBtn = ({ status }: { status: boolean }) => {
+  const { user } = useUserContext();
   return (
-    <Tooltip title="Add To Wishlist">
-      <IconButton aria-label="wishlist">
+    <IconButton
+      aria-label="wishlist"
+      disabled={!status || user?.uid === envConfig.admin_uid}
+    >
+      <Tooltip title="Add To Wishlist">
         <FavoriteBorderOutlinedIcon
           sx={{
             fontSize: {
@@ -16,8 +22,8 @@ const GridAddToWishlistBtn = () => {
             },
           }}
         />
-      </IconButton>
-    </Tooltip>
+      </Tooltip>
+    </IconButton>
   );
 };
 
