@@ -27,6 +27,14 @@ const addReview = async (
     throw new ApiError(httpStatus.NOT_FOUND, "User Does Not Exist's!");
   }
 
+  const isAlreadyReviewed = await Reviews.findOne({ userId: userId });
+  if (isAlreadyReviewed) {
+    throw new ApiError(
+      httpStatus.CONFLICT,
+      "User Cannot Review One Single Product Twice!"
+    );
+  }
+
   const isProductExists = await Products.findById(
     { _id: productId },
     {
