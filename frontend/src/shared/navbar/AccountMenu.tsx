@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -105,9 +106,9 @@ export default function AccountMenu({
           </MenuItem>
         )}
         {user && user.uid === envConfig.admin_uid && (
-          <Link href="/admin/addProducts" className="mt-2 mb-3 block">
+          <a href="/admin/addProducts" className="mt-2 mb-3 block">
             <MenuItem onClick={handleClose}>Admin Dashboard</MenuItem>
-          </Link>
+          </a>
         )}
         <Divider />
         {!user ? (
