@@ -87,7 +87,7 @@ const ProductsInfo = ({ product }: { product: IProductDetails }) => {
             +
           </button>
         </div>
-        <GridAddToWishlistBtn />
+        <GridAddToWishlistBtn status={status} />
         <BuyNowBtn
           title="Add to Cart"
           background="linear-gradient(#f15700, #ff7a1a)"
