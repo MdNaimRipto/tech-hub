@@ -30,6 +30,10 @@ const addReview = (payload, token) => __awaiter(void 0, void 0, void 0, function
     if (!isExistsUser) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "User Does Not Exist's!");
     }
+    const isAlreadyReviewed = yield reviews_schema_1.Reviews.findOne({ userId: userId });
+    if (isAlreadyReviewed) {
+        throw new ApiError_1.default(http_status_1.default.CONFLICT, "User Cannot Review One Single Product Twice!");
+    }
     const isProductExists = yield products_schema_1.Products.findById({ _id: productId }, {
         _id: 0,
         sellerID: 1,

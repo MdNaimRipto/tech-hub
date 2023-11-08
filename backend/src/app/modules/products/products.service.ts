@@ -117,7 +117,7 @@ const getAllProducts = async (
   })
     .sort(sortConditions)
     .skip(skip)
-    .limit(180);
+    .limit(limit);
 
   if (products.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
