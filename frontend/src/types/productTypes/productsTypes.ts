@@ -28,6 +28,18 @@ export type IProducts = {
   brand: string;
 };
 
+// * AllProductsType
+export type IAllProducts = {
+  _id: string;
+  id: string;
+  name: string;
+  images: {
+    i1: string;
+  };
+  price: string;
+  discountedPrice: number;
+};
+
 // * Product Type
 export type IProductDetails = {
   _id: string;

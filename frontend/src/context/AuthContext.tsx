@@ -71,8 +71,6 @@ const AuthContext = ({ children }: { children: ReactNode }) => {
     }
   }, [isLoading, data, refetch]);
 
-  console.log(user);
-
   const value = {
     user,
     setUser,

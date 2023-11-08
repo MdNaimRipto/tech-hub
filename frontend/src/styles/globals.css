@@ -79,6 +79,14 @@
   justify-content: left !important;
 }
 
+.css-wjh20t-MuiPagination-ul {
+  justify-content: flex-end !important;
+}
+
+.css-1to7aaw-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: #f15700 !important;
+}
+
 /** Rotating button */
 
 @keyframes spin {

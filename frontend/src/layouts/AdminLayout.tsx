@@ -42,7 +42,10 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     }
 
     if (!authLoading) {
-      if (user && user?.uid !== envConfig.admin_uid) {
+      if (
+        user &&
+        (user?.uid !== envConfig.admin_uid || user.userRole !== "admin")
+      ) {
         redirectToLogin();
       } else {
         setIsLoading(true);

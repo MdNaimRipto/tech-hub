@@ -5,8 +5,14 @@ import { IProductsByCategoryFilter } from "@/types/productTypes/productsTypes";
 const productsApi = api.injectEndpoints({
   endpoints: builder => ({
     getAllProducts: builder.query({
+      query: (option: { page: string }) => ({
+        url: `${config.PRODUCTS.GET_ALL_PRODUCT}?page=${option.page}&limit=8`,
+      }),
+      providesTags: [],
+    }),
+    getProductsCount: builder.query({
       query: () => ({
-        url: `${config.PRODUCTS.GET_ALL_PRODUCT}`,
+        url: `${config.PRODUCTS.GET_PRODUCTS_COUNT}`,
       }),
       providesTags: [],
     }),
@@ -57,6 +63,7 @@ const productsApi = api.injectEndpoints({
 
 export const {
   useGetAllProductsQuery,
+  useGetProductsCountQuery,
   useGetProductsByCategoryQuery,
   useGetTopSellingProductsQuery,
   useGetProductsByIDLQuery,
