@@ -40,7 +40,6 @@ const PasswordInputField = ({
           className={commonClass(value.password)}
           onBlur={handleInputBlur("password")}
           required
-          value="admin123"
           autoComplete="off"
         />
         <div className="absolute top-1/2 -translate-y-1/2 right-3">

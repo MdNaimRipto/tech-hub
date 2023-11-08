@@ -24,17 +24,26 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    if (!authLoading) {
+      if (!token && !user) {
+        router.push("/authentication/login");
+      } else {
+        setIsLoading(true);
+      }
+    }
+  }, [authLoading, token, user, router, isLoading]);
+
+  useEffect(() => {
     function redirectToLogin() {
       router.push("/authentication/login");
       Cookies.remove("token");
       setToken(undefined);
       setUser(null);
     }
+
     if (!authLoading) {
-      if (token && user) {
-        if (user?.userRole !== "admin" || user?.uid !== envConfig.admin_uid) {
-          redirectToLogin();
-        }
+      if (user && user?.uid !== envConfig.admin_uid) {
+        redirectToLogin();
       } else {
         setIsLoading(true);
       }
