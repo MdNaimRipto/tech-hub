@@ -24,7 +24,12 @@ const AllProducts = () => {
   return (
     <div className="my-12 mx-0 md:mx-4 w-full">
       <ProductTable products={products} />
-      <PaginationComponent count={count} page={page} setPage={setPage} />
+      <PaginationComponent
+        count={count}
+        page={page}
+        setPage={setPage}
+        storageName="page"
+      />
     </div>
   );
 };

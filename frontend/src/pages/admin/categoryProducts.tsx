@@ -24,13 +24,17 @@ const CategoryProducts = () => {
     sortOrder: sortOrder,
   };
 
+  console.log(option);
+
   const { data, isLoading } = useGetProductsByCategoryQuery(option);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
+  console.log(data);
 
   const products = data.data.data;
+
   const count = data.data.meta.total;
 
   return (
@@ -43,7 +47,12 @@ const CategoryProducts = () => {
         </div>
       </div>
       <ProductTable products={products} />
-      <PaginationComponent count={count} page={page} setPage={setPage} />
+      <PaginationComponent
+        count={count}
+        page={page}
+        setPage={setPage}
+        storageName="categoryPage"
+      />
     </div>
   );
 };

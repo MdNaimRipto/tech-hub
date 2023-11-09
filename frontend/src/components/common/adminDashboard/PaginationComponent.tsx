@@ -5,16 +5,23 @@ interface IPaginationOptions {
   count: number;
   page: number;
   setPage: any;
+  storageName: string;
 }
 
-const PaginationComponent = ({ count, page, setPage }: IPaginationOptions) => {
+const PaginationComponent = ({
+  count,
+  page,
+  setPage,
+  storageName,
+}: IPaginationOptions) => {
   return (
     <Pagination
       count={Math.ceil(count / 10)}
       page={page}
       onChange={(event: React.ChangeEvent<unknown>, value: number) => {
+        console.log(value);
         setPage(value);
-        localStorage.setItem("categoryPage", JSON.stringify(value));
+        localStorage.setItem(storageName, JSON.stringify(value));
         window.scrollTo({
           top: 0,
           behavior: "smooth",
