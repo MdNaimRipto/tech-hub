@@ -31,6 +31,9 @@ const productsApi = api.injectEndpoints({
         if (data.sortOrder) {
           queryParameters.append("sortOrder", data.sortOrder);
         }
+        if (data.page) {
+          queryParameters.append("page", data.page);
+        }
         if (data.limit) {
           queryParameters.append("limit", data.limit);
         }

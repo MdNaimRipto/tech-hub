@@ -4,6 +4,7 @@ export type IProductsByCategoryFilter = {
   searchTerm?: string;
   sortBy?: string;
   sortOrder?: string;
+  page?: string;
   limit?: string;
   status?: string;
   brand?: string;

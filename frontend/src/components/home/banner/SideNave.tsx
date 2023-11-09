@@ -1,24 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import LaptopIcon from "@mui/icons-material/Laptop";
-import ProcessorIcon from "@mui/icons-material/Memory";
-import {
-  BsMotherboard,
-  BsFan,
-  BsDeviceSsd,
-  BsGpuCard,
-  BsPower,
-  BsKeyboard,
-  BsMouse,
-  BsHeadphones,
-  BsController,
-} from "react-icons/bs";
-import { GiTicket } from "react-icons/gi";
-import { PiHardDrivesBold } from "react-icons/pi";
-import { LuPcCase } from "react-icons/lu";
-import { GrMonitor } from "react-icons/gr";
-import { SiPcgamingwiki } from "react-icons/si";
 import Link from "next/link";
+import { categoryList } from "@/components/common/categoryList/CategoryList";
 
 const SideNav = () => {
   const [sideNavOpen, setSideNavOpen] = useState(true);
@@ -51,84 +34,6 @@ const SideNav = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const menuList = [
-    {
-      name: "Laptop",
-      icon: <LaptopIcon />,
-      path: "LAPTOP",
-    },
-    {
-      name: "Processor",
-      icon: <ProcessorIcon />,
-      path: "CPU",
-    },
-    {
-      name: "CPU Cooler",
-      icon: <BsFan />,
-      path: "COOLER",
-    },
-    {
-      name: "Motherboard",
-      icon: <BsMotherboard />,
-      path: "MOTHERBOARD",
-    },
-    {
-      name: "RAM",
-      icon: <GiTicket />,
-      path: "RAM",
-    },
-    {
-      name: "Storage (HDD & SSD)",
-      icon: <PiHardDrivesBold />,
-      path: "STORAGE",
-    },
-    {
-      name: "Graphics Card",
-      icon: <BsGpuCard />,
-      path: "GPU",
-    },
-    {
-      name: "Power Supply",
-      icon: <BsPower />,
-      path: "PSU",
-    },
-    {
-      name: "Casing",
-      icon: <LuPcCase />,
-      path: "CASING",
-    },
-    {
-      name: "Monitor",
-      icon: <GrMonitor />,
-      path: "MONITOR",
-    },
-    {
-      name: "Keyboard",
-      icon: <BsKeyboard />,
-      path: "KEYBOARD",
-    },
-    {
-      name: "Mouse",
-      icon: <BsMouse />,
-      path: "MOUSE",
-    },
-    {
-      name: "Headphone",
-      icon: <BsHeadphones />,
-      path: "HEADPHONE",
-    },
-    {
-      name: "Controller",
-      icon: <BsController />,
-      path: "CONTROLLER",
-    },
-    {
-      name: "Gaming Console",
-      icon: <SiPcgamingwiki />,
-      path: "CONSOLE",
-    },
-  ];
 
   return (
     <div
@@ -166,13 +71,13 @@ const SideNav = () => {
             : "h-screen md:h-full xl:h-[90%] opacity-100"
         } duration-300 absolute w-full xl:w-[20%] bg-[#fff] side-nav-scroll px-4`}
       >
-        {menuList.map((list, i) => (
+        {categoryList.map((list, i) => (
           <li
             key={i + 1}
             className="py-3 mb-1 w-full text-[#252525] font-medium cursor-pointer hover:text-secondary duration-300"
           >
             <Link
-              href={`/products?category=${list.path}`}
+              href={`/products?category=${list.value}`}
               className="flex items-center gap-3"
             >
               <>{list.icon}</>

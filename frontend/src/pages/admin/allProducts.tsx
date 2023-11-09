@@ -1,9 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
-import {
-  useGetAllProductsQuery,
-  useGetProductsCountQuery,
-} from "@/redux/features/products/productsApi";
+import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
 import {
   TableBody,
   TableHead,
