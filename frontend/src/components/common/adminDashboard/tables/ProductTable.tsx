@@ -41,6 +41,7 @@ const ProductTable = ({ products }: { products: IAllProducts[] }) => {
               <TableBodyCell
                 value={`${p.status ? "In Stock" : "Out of Stock"}`}
                 align="center"
+                style={`${p.status ? "text-green" : "text-red"}`}
               />
             </TableRow>
           ))}

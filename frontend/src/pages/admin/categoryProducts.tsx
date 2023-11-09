@@ -22,6 +22,7 @@ const CategoryProducts = () => {
     category: category,
     page: `${page}`,
     sortOrder: sortOrder,
+    sortBy: "discountedPrice",
   };
 
   console.log(option);
@@ -31,10 +32,7 @@ const CategoryProducts = () => {
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
-  console.log(data);
-
   const products = data.data.data;
-
   const count = data.data.meta.total;
 
   return (
