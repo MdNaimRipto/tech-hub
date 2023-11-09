@@ -39,6 +39,7 @@ export type IAllProducts = {
   };
   price: string;
   discountedPrice: number;
+  status: boolean;
 };
 
 // * Product Type
