@@ -27,14 +27,13 @@ const AllProducts = () => {
     page: `${page}`,
   };
   const { data, isLoading } = useGetAllProductsQuery(option);
-  const { data: count, isLoading: allProductLoading } =
-    useGetProductsCountQuery({});
 
-  if (isLoading || allProductLoading) {
+  if (isLoading) {
     return <h2>Loading...</h2>;
   }
 
   const products = data.data.data as IAllProducts[];
+  const count = data.data.meta.total;
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -50,7 +49,7 @@ const AllProducts = () => {
 
   return (
     <div className="my-12 mx-0 md:mx-4 w-full">
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ minHeight: "100vh" }}>
         <Table sx={{ width: "100%" }} aria-label="simple table">
           <TableHead sx={{ position: "sticky", top: 0 }}>
             <TableRow sx={{ background: "#e2e2e2 !important" }}>
@@ -82,7 +81,7 @@ const AllProducts = () => {
         </Table>
       </TableContainer>
       <Pagination
-        count={Math.ceil(count.data / 10)}
+        count={Math.ceil(count / 10)}
         page={page}
         onChange={handlePageChange}
         color="primary"

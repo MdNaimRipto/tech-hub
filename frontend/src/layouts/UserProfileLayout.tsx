@@ -53,7 +53,7 @@ const UserProfileLayout = ({ children }: { children: ReactNode }) => {
       <ProfileNav sideNavOpen={sideNaveOpen} setSideNavOpen={setSideNavOpen} />
       <div className="flex container px-4">
         <div
-          className={`absolute z-40 lg:static ${
+          className={`fixed z-40 lg:sticky top-0 h-[calc(100vh-75px)] ${
             sideNaveOpen
               ? "w-[66%] md:w-2/5 xl:w-[20%] left-0"
               : "w-[6%] -left-96"
@@ -62,7 +62,7 @@ const UserProfileLayout = ({ children }: { children: ReactNode }) => {
           <UserProfileSideNav sideNavOpen={sideNaveOpen} />
         </div>
         <div
-          className={`${
+          className={`pt-16 ${
             sideNaveOpen ? "w-full lg:w-[80%]" : "w-full lg:w-[94%]"
           } duration-300`}
         >

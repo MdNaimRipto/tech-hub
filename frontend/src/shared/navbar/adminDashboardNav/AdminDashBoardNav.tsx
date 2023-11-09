@@ -14,7 +14,7 @@ const AdminDashBoardNav = ({
   setSideNavOpen: any;
 }) => {
   return (
-    <div className="border-b border-b-input bg-white sticky top-0 z-50">
+    <div className="border-b border-b-input bg-white fixed w-full h-[75px] top-0 left-0 z-50">
       <div className="py-3 flex items-center justify-between container px-4">
         <div className="flex items-center gap-4">
           <IconButton

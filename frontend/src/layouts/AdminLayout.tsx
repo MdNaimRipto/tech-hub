@@ -86,16 +86,17 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       />
       <div className="flex container px-4">
         <div
-          className={`absolute z-40 lg:static ${
+          className={`fixed z-40 lg:sticky top-0 h-[calc(100vh-75px)] ${
             sideNaveOpen
-              ? "w-[66%] md:w-2/5 xl:w-[20%] left-0"
+              ? "w-[70%] md:w-2/5 xl:w-[20%] left-0"
               : "w-[6%] -left-96"
           } duration-300`}
+          // style={{ height: "calc(100vh - 75px)" }}
         >
           <AdminDashboardSideNav sideNavOpen={sideNaveOpen} />
         </div>
         <div
-          className={`${
+          className={`pt-16 ${
             sideNaveOpen ? "w-full lg:w-[80%]" : "w-full lg:w-[94%]"
           } duration-300`}
         >

@@ -33,7 +33,7 @@ const sideNavOptions = [
 const UserProfileSideNav = ({ sideNavOpen }: { sideNavOpen: boolean }) => {
   const router = useRouter();
   return (
-    <div className="h-screen pt-8 bg-white">
+    <div className="h-screen pt-24 bg-white overflow-auto">
       <ul className="border-r border-r-input ">
         {sideNavOptions.map((o, i) => (
           <Link
