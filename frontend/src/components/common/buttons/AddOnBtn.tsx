@@ -2,13 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const AuthenticationBtn = ({
-  title,
-  loading,
-}: {
-  title: string;
-  loading: boolean;
-}) => {
+const AddOnBtn = ({ title, loading }: { title: string; loading: boolean }) => {
   return (
     <Button
       type="submit"
@@ -37,4 +31,4 @@ const AuthenticationBtn = ({
   );
 };
 
-export default AuthenticationBtn;
+export default AddOnBtn;

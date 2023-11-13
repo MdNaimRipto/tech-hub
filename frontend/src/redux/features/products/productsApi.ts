@@ -4,6 +4,18 @@ import { IProductsByCategoryFilter } from "@/types/productTypes/productsTypes";
 
 const productsApi = api.injectEndpoints({
   endpoints: builder => ({
+    uploadProduct: builder.mutation({
+      query: ({ data, token }) => ({
+        url: config.PRODUCTS.UPLOAD_PRODUCT,
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ["uploadProduct"],
+    }),
     getAllProducts: builder.query({
       query: (option: { page: string }) => ({
         url: `${config.PRODUCTS.GET_ALL_PRODUCT}?page=${option.page}&limit=8`,
@@ -14,7 +26,7 @@ const productsApi = api.injectEndpoints({
       query: () => ({
         url: `${config.PRODUCTS.GET_PRODUCTS_COUNT}`,
       }),
-      providesTags: [],
+      providesTags: ["uploadProduct"],
     }),
     getProductsByCategory: builder.query({
       query: (data: IProductsByCategoryFilter) => {
@@ -47,7 +59,7 @@ const productsApi = api.injectEndpoints({
           config.PRODUCTS.GET_PRODUCTS_BY_CATEGORY
         }?${queryParameters.toString()}`;
       },
-      providesTags: [],
+      providesTags: ["uploadProduct"],
     }),
     getTopSellingProducts: builder.query({
       query: () => ({
@@ -65,6 +77,7 @@ const productsApi = api.injectEndpoints({
 });
 
 export const {
+  useUploadProductMutation,
   useGetAllProductsQuery,
   useGetProductsCountQuery,
   useGetProductsByCategoryQuery,

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import Link from "next/link";
-import AuthenticationBtn from "@/components/common/buttons/AuthenticationBtn";
+import AuthenticationBtn from "@/components/common/buttons/AddOnBtn";
 import PasswordInputField from "@/components/common/authInputFields/PasswordInputField";
 import GeneralInputField from "@/components/common/authInputFields/GeneralInputField";
 import { toast } from "react-toastify";
