@@ -5,9 +5,16 @@ interface IInputType {
   name: string;
   placeholder: string;
   label: string;
+  required: boolean;
 }
 
-const ProductsInputField = ({ name, type, placeholder, label }: IInputType) => {
+const ProductsInputField = ({
+  name,
+  type,
+  placeholder,
+  label,
+  required,
+}: IInputType) => {
   return (
     <div className="mb-5">
       <div className="mb-3 flex items-center gap-1">
@@ -19,7 +26,7 @@ const ProductsInputField = ({ name, type, placeholder, label }: IInputType) => {
         name={name}
         placeholder={placeholder}
         className="w-full px-2 py-3 rounded border border-light-gray focus:outline-none"
-        required
+        required={required}
       />
     </div>
   );

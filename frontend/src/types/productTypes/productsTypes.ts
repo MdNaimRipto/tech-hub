@@ -49,6 +49,7 @@ export type IProductDetails = {
   status: boolean;
   rating: number;
   price: string;
+  discount: number;
   discountedPrice: number;
   images: {
     i1: string;

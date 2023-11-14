@@ -18,11 +18,6 @@ const sideNavOptions = [
     path: "/admin/addProducts",
   },
   {
-    icon: <EditIcon sx={{ fontSize: "24px" }} />,
-    name: "Edit Products",
-    path: "/admin/editProducts",
-  },
-  {
     icon: <ProductsIcon sx={{ fontSize: "24px" }} />,
     name: "All Products ",
     path: "/admin/allProducts",

@@ -1,7 +1,7 @@
 import ProductImages from "@/components/productDetails/ProductImages";
 import ProductsInfo from "@/components/productDetails/ProductsInfo";
 import MainLayout from "@/layouts/MainLayout";
-import { useGetProductsByIDLQuery } from "@/redux/features/products/productsApi";
+import { useGetProductsByIDQuery } from "@/redux/features/products/productsApi";
 import { IProductDetails } from "@/types/productTypes/productsTypes";
 import { Breadcrumbs, Link } from "@mui/material";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import DetailTabs from "@/components/productDetails/productDetailTabs/DetailTabs
 const ProductsDetails = () => {
   const router = useRouter();
   const id = router.query.productId;
-  const { data, isLoading } = useGetProductsByIDLQuery({ id });
+  const { data, isLoading } = useGetProductsByIDQuery({ id });
 
   if (isLoading || !data) {
     return <h2>Loading...</h2>;

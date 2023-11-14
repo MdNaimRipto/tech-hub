@@ -1,17 +1,21 @@
 import React from "react";
 
+interface ICategoryList {
+  setProductCategory: any;
+  required: boolean;
+}
+
 const ProductCategoryList = ({
   setProductCategory,
-}: {
-  setProductCategory: any;
-}) => {
+  required,
+}: ICategoryList) => {
   return (
     <select
       className="w-full p-2 rounded border border-light-gray focus:outline-none mb-3"
       onChange={e => {
         setProductCategory(e.target.value);
       }}
-      required
+      required={required}
     >
       <option value="">Select Category</option>
       <option value="LAPTOP">Laptop</option>

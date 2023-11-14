@@ -11,6 +11,7 @@ import TableHeader from "../tableComponents/TableHeader";
 import TableBodyImgCell from "../tableComponents/TableBodyImgCell";
 import TableBodyCell from "../tableComponents/TableBodyCell";
 import { IAllProducts } from "@/types/productTypes/productsTypes";
+import TableBodyButtonCell from "../tableComponents/TableBodyButtonCell";
 
 const ProductTable = ({ products }: { products: IAllProducts[] }) => {
   return (
@@ -26,6 +27,7 @@ const ProductTable = ({ products }: { products: IAllProducts[] }) => {
             <TableHeader heading="Product Price" align="center" />
             <TableHeader heading="Discounted Price" align="center" />
             <TableHeader heading="Product Stock" align="center" />
+            <TableHeader heading="Edit Product" align="center" />
           </TableRow>
         </TableHead>
         <TableBody>
@@ -43,6 +45,7 @@ const ProductTable = ({ products }: { products: IAllProducts[] }) => {
                 align="center"
                 style={`${p.status ? "text-green" : "text-red"}`}
               />
+              <TableBodyButtonCell id={p._id} />
             </TableRow>
           ))}
         </TableBody>

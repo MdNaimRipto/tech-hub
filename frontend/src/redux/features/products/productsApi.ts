@@ -20,13 +20,7 @@ const productsApi = api.injectEndpoints({
       query: (option: { page: string }) => ({
         url: `${config.PRODUCTS.GET_ALL_PRODUCT}?page=${option.page}&limit=8`,
       }),
-      providesTags: [],
-    }),
-    getProductsCount: builder.query({
-      query: () => ({
-        url: `${config.PRODUCTS.GET_PRODUCTS_COUNT}`,
-      }),
-      providesTags: ["uploadProduct"],
+      providesTags: ["uploadProduct", "updateProduct"],
     }),
     getProductsByCategory: builder.query({
       query: (data: IProductsByCategoryFilter) => {
@@ -59,7 +53,7 @@ const productsApi = api.injectEndpoints({
           config.PRODUCTS.GET_PRODUCTS_BY_CATEGORY
         }?${queryParameters.toString()}`;
       },
-      providesTags: ["uploadProduct"],
+      providesTags: ["uploadProduct", "updateProduct"],
     }),
     getTopSellingProducts: builder.query({
       query: () => ({
@@ -67,11 +61,23 @@ const productsApi = api.injectEndpoints({
       }),
       providesTags: [],
     }),
-    getProductsByIDL: builder.query({
+    getProductsByID: builder.query({
       query: ({ id }) => ({
         url: `${config.PRODUCTS.GET_PRODUCTS_BY_ID}/${id}`,
       }),
-      providesTags: [],
+      providesTags: ["uploadProduct", "updateProduct"],
+    }),
+    editProduct: builder.mutation({
+      query: ({ data, token, id }) => ({
+        url: `${config.PRODUCTS.UPDATE_PRODUCT}/${id}`,
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ["updateProduct"],
     }),
   }),
 });
@@ -79,8 +85,8 @@ const productsApi = api.injectEndpoints({
 export const {
   useUploadProductMutation,
   useGetAllProductsQuery,
-  useGetProductsCountQuery,
   useGetProductsByCategoryQuery,
   useGetTopSellingProductsQuery,
-  useGetProductsByIDLQuery,
+  useGetProductsByIDQuery,
+  useEditProductMutation,
 } = productsApi;

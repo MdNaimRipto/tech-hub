@@ -2,8 +2,6 @@
 import { envConfig } from "@/config/envConfig";
 import { useUserContext } from "@/context/AuthContext";
 import ResponsiveMobileNav from "@/shared/navbar/ResponsiveMobileNav";
-import ProfileNav from "@/shared/navbar/profileNav/ProfileNav";
-import UserProfileSideNav from "@/shared/sideNavs/UserProfileSideNav";
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
 import Cookies from "js-cookie";
