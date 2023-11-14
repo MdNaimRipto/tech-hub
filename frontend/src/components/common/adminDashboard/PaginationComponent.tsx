@@ -16,7 +16,7 @@ const PaginationComponent = ({
 }: IPaginationOptions) => {
   return (
     <Pagination
-      count={Math.ceil(count / 10)}
+      count={Math.ceil(count / 8)}
       page={page}
       onChange={(event: React.ChangeEvent<unknown>, value: number) => {
         console.log(value);
