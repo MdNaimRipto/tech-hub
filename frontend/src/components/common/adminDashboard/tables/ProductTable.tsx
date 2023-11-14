@@ -12,6 +12,7 @@ import TableBodyImgCell from "../tableComponents/TableBodyImgCell";
 import TableBodyCell from "../tableComponents/TableBodyCell";
 import { IAllProducts } from "@/types/productTypes/productsTypes";
 import TableBodyButtonCell from "../tableComponents/TableBodyButtonCell";
+import TableBodyLinkCell from "../tableComponents/TableBodyLinkCell";
 
 const ProductTable = ({ products }: { products: IAllProducts[] }) => {
   return (
@@ -37,7 +38,11 @@ const ProductTable = ({ products }: { products: IAllProducts[] }) => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableBodyImgCell src={p.images.i1} />
-              <TableBodyCell value={`${p.name.slice(0, 40)}...`} align="left" />
+              <TableBodyLinkCell
+                value={`${p.name.slice(0, 40)}...`}
+                id={p._id}
+                style="text-black hover:text-primary duration-300"
+              />
               <TableBodyCell value={`${p.price}Tk`} align="center" />
               <TableBodyCell value={`${p.discountedPrice}Tk`} align="center" />
               <TableBodyCell
