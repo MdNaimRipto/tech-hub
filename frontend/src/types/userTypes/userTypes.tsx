@@ -10,3 +10,10 @@ export interface IUser {
   userRole: string;
   uid: string;
 }
+
+export interface IAllUser {
+  name: string;
+  email: string;
+  contactNumber: string;
+  userProfile: string;
+}

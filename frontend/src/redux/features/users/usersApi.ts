@@ -3,10 +3,10 @@ import { api } from "../../apis/apiSlice";
 const usersApi = api.injectEndpoints({
   endpoints: builder => ({
     getAllUsers: builder.query({
-      query: ({ token }) => ({
-        url: `/user/getAllUsers`,
+      query: (option: { page: string; token: string }) => ({
+        url: `/user/getAllUsers?page=${option.page}&limit=8`,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${option.token}`,
         },
       }),
       providesTags: [],
