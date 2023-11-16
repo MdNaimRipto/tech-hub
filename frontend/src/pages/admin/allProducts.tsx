@@ -1,8 +1,8 @@
 import React, { ReactElement, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
 import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
-import PaginationComponent from "@/components/common/adminDashboard/PaginationComponent";
-import ProductTable from "@/components/common/adminDashboard/tables/ProductTable";
+import PaginationComponent from "@/components/common/pagination/PaginationComponent";
+import ProductTable from "@/components/common/tables/ProductTable";
 
 const AllProducts = () => {
   const pageValue = Number(localStorage.getItem("page"));

@@ -1,5 +1,5 @@
 import React from "react";
-import { categoryList } from "../../categoryList/CategoryList";
+import { categoryList } from "../categoryList/CategoryList";
 
 interface ICategoryFilter {
   setCategory: any;

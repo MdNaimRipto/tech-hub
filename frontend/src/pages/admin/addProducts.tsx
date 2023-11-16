@@ -1,6 +1,6 @@
-import ProductCategoryList from "@/components/common/adminDashboard/inputFields/ProductCategoryList";
-import ProductImageFiled from "@/components/common/adminDashboard/inputFields/ProductImageFiled";
-import ProductsInputField from "@/components/common/adminDashboard/inputFields/ProductsInputField";
+import ProductCategoryList from "@/components/adminDashboard/inputFields/ProductCategoryList";
+import ProductImageFiled from "@/components/adminDashboard/inputFields/ProductImageFiled";
+import ProductsInputField from "@/components/adminDashboard/inputFields/ProductsInputField";
 import AddOnBtn from "@/components/common/buttons/AddOnBtn";
 import { useUserContext } from "@/context/AuthContext";
 import AdminLayout from "@/layouts/AdminLayout";

@@ -1,5 +1,5 @@
-import PaginationComponent from "@/components/common/adminDashboard/PaginationComponent";
-import UserTable from "@/components/common/adminDashboard/tables/UserTable";
+import PaginationComponent from "@/components/common/pagination/PaginationComponent";
+import UserTable from "@/components/common/tables/UserTable";
 import { useUserContext } from "@/context/AuthContext";
 import AdminLayout from "@/layouts/AdminLayout";
 import { useGetAllUsersQuery } from "@/redux/features/users/usersApi";
