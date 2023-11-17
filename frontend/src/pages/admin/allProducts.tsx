@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
 import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
-import PaginationComponent from "@/components/common/pagination/PaginationComponent";
+import PaginationComponent from "@/components/adminDashboard/pagination/PaginationComponent";
 import ProductTable from "@/components/common/tables/ProductTable";
 
 const AllProducts = () => {

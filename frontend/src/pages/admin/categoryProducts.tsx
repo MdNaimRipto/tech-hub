@@ -1,9 +1,9 @@
 import React, { ReactElement, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
 import { useGetProductsByCategoryQuery } from "@/redux/features/products/productsApi";
-import PriceFilter from "@/components/common/filterComponents/PriceFilter";
-import CategoryFilter from "@/components/common/filterComponents/CategoryFilter";
-import PaginationComponent from "@/components/common/pagination/PaginationComponent";
+import PriceFilter from "@/components/adminDashboard/filterComponents/PriceFilter";
+import CategoryFilter from "@/components/adminDashboard/filterComponents/CategoryFilter";
+import PaginationComponent from "@/components/adminDashboard/pagination/PaginationComponent";
 import ProductTable from "@/components/common/tables/ProductTable";
 
 const CategoryProducts = () => {

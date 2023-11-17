@@ -1,4 +1,4 @@
-import PaginationComponent from "@/components/common/pagination/PaginationComponent";
+import PaginationComponent from "@/components/adminDashboard/pagination/PaginationComponent";
 import UserTable from "@/components/common/tables/UserTable";
 import { useUserContext } from "@/context/AuthContext";
 import AdminLayout from "@/layouts/AdminLayout";
