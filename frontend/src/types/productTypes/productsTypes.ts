@@ -27,6 +27,7 @@ export type IProducts = {
     f5: string;
   };
   brand: string;
+  category: string;
 };
 
 // * AllProductsType
@@ -40,6 +41,7 @@ export type IAllProducts = {
   price: string;
   discountedPrice: number;
   status: boolean;
+  category: string;
 };
 
 // * Product Type

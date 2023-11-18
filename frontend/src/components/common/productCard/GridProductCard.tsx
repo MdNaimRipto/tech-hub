@@ -6,13 +6,9 @@ import Link from "next/link";
 import { Tooltip } from "@mui/material";
 import GridAddToWishlistBtn from "../buttons/GridAddToWishlistBtn";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import errorImage from "@/assets/image-placeholder.jpg";
 
 const GridProductCard = ({ product }: { product: IProducts }) => {
-  const router = useRouter();
-  const { category } = router.query;
-
   const { features } = product;
   const productFeatures = [features.f2, features.f3, features.f4, features.f5];
   return (
