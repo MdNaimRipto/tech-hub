@@ -7,7 +7,7 @@ exports.pcBuilderPopulatePaths = [
         select: "_id images.i1 category name price status",
     },
     {
-        path: "build.cpuCooler",
+        path: "build.cooler",
         select: "_id images.i1 category name price status",
     },
     {
@@ -15,27 +15,11 @@ exports.pcBuilderPopulatePaths = [
         select: "_id images.i1 category name price status",
     },
     {
-        path: "build.ram1",
+        path: "build.ram",
         select: "_id images.i1 category name price status",
     },
     {
-        path: "build.ram2",
-        select: "_id images.i1 category name price status",
-    },
-    {
-        path: "build.ram3",
-        select: "_id images.i1 category name price status",
-    },
-    {
-        path: "build.ram4",
-        select: "_id images.i1 category name price status",
-    },
-    {
-        path: "build.storage1",
-        select: "_id images.i1 category name price status",
-    },
-    {
-        path: "build.storage2",
+        path: "build.storage",
         select: "_id images.i1 category name price status",
     },
     {
@@ -52,10 +36,6 @@ exports.pcBuilderPopulatePaths = [
     },
     {
         path: "build.monitor",
-        select: "_id images.i1 category name price status",
-    },
-    {
-        path: "build.casingCooler",
         select: "_id images.i1 category name price status",
     },
     {
