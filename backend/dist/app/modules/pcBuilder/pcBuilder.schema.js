@@ -14,56 +14,42 @@ const pcBuilderSchema = new mongoose_1.Schema({
         cpu: {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Products",
+            required: true,
         },
-        cpuCooler: {
+        cooler: {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Products",
         },
         motherboard: {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Products",
+            required: true,
         },
-        ram1: {
+        ram: {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Products",
+            required: true,
         },
-        ram2: {
+        storage: {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Products",
-        },
-        ram3: {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "Products",
-        },
-        ram4: {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "Products",
-        },
-        storage1: {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "Products",
-        },
-        storage2: {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "Products",
-        },
-        gpu: {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "Products",
+            required: true,
         },
         psu: {
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: "Products",
+            required: true,
+        },
+        gpu: {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Products",
         },
         casing: {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Products",
+            required: true,
         },
         monitor: {
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "Products",
-        },
-        casingCooler: {
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Products",
         },

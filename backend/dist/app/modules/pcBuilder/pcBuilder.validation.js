@@ -14,20 +14,27 @@ const pcBuilderSchema = zod_1.default.object({
             required_error: "Build Name is Required",
         }),
         build: zod_1.default.object({
-            cpu: zod_1.default.string().optional(),
-            cpuCooler: zod_1.default.string().optional(),
-            motherboard: zod_1.default.string().optional(),
-            ram1: zod_1.default.string().optional(),
-            ram2: zod_1.default.string().optional(),
-            ram3: zod_1.default.string().optional(),
-            ram4: zod_1.default.string().optional(),
-            storage1: zod_1.default.string().optional(),
-            storage2: zod_1.default.string().optional(),
+            cpu: zod_1.default.string({
+                required_error: "CPU Is Required",
+            }),
+            cooler: zod_1.default.string().optional(),
+            motherboard: zod_1.default.string({
+                required_error: "Motherboard Is Required",
+            }),
+            ram: zod_1.default.string({
+                required_error: "RAM Is Required",
+            }),
+            storage: zod_1.default.string({
+                required_error: "Storage Is Required",
+            }),
+            psu: zod_1.default.string({
+                required_error: "PSU Is Required",
+            }),
             gpu: zod_1.default.string().optional(),
-            psu: zod_1.default.string().optional(),
-            casing: zod_1.default.string().optional(),
+            casing: zod_1.default.string({
+                required_error: "Casing Is Required",
+            }),
             monitor: zod_1.default.string().optional(),
-            casingCooler: zod_1.default.string().optional(),
             keyboard: zod_1.default.string().optional(),
             mouse: zod_1.default.string().optional(),
             speaker: zod_1.default.string().optional(),
