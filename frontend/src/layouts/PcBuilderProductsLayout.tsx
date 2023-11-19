@@ -63,7 +63,7 @@ const PcBuilderProductsLayout = () => {
   return (
     <>
       <Navbar />
-      <div className={`lg:grid grid-cols-5 container px-4 min-h-[700px] my-12`}>
+      <div className="lg:grid grid-cols-5 container px-4 min-h-[700px] my-12">
         <PcBuilderProductsSideNav
           isSideBarOpen={isSideBarOpen}
           category={category as string}

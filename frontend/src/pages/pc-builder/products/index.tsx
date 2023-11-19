@@ -71,7 +71,10 @@ const PcBuilderProducts = ({
           onClick={() => setIsSideBarOpen(!isSideBarOpen)}
           sx={{
             position: "fixed",
-            bottom: 60,
+            bottom: {
+              xs: 60,
+              sm: 70,
+            },
             right: 10,
             background: `${isSideBarOpen ? "red" : "#a9a9a9"}`,
             borderRadius: 1,

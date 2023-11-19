@@ -16,26 +16,26 @@ const PcBuilder = () => {
   );
 
   return (
-    <div className="container w-[70%] border border-input p-5 my-5">
-      <div className="flex items-center justify-between">
-        <div>
-          <h6 className="text-black font-medium text-lg mb-2">
+    <div className="container w-full p-2 lg:w-[70%] border border-input md:p-5 my-5">
+      <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div className="text-center md:text-start">
+          <h6 className="text-black font-medium text-sm md:text-lg mb-2">
             Build Your Dream PC With Tech-Mart
           </h6>
-          <p className="text-black font-medium text-sm">
+          <p className="text-black font-medium text-xs md:text-sm">
             Select Your Components
           </p>
         </div>
         <div className="flex items-center gap-4">
-          <p className="border border-secondary px-5 py-3 text-secondary rounded">
+          <p className="border border-secondary text-xs md:text-base p-2 md:px-5 md:py-3 text-secondary rounded">
             Total Items: {products.length}
           </p>
-          <p className="bg-secondary px-5 py-3 text-white rounded">
+          <p className="bg-secondary text-xs md:text-base p-2 md:px-5 md:py-3 text-white rounded border border-secondary">
             Total Price: {Math.floor(totalPrice)} Tk
           </p>
         </div>
       </div>
-      <div className="my-6 py-6 mx-4 border-t border-t-input">
+      <div className="my-6 py-6 mx-1 md:mx-4 border-t border-t-input">
         {options.map((o, i) => (
           <div key={i}>
             {o?.product !== null ? (

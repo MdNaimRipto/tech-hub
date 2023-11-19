@@ -17,8 +17,8 @@ const ListProductCard = ({ product }: { product: IProducts }) => {
   const { features } = product;
   const productFeatures = [features.f2, features.f3, features.f4, features.f5];
   return (
-    <div className="w-full flex items-center gap-4 mb-6">
-      <div className="p-5 w-[20%]">
+    <div className="relative w-full flex flex-col md:flex-row items-center gap-4 mb-6">
+      <div className="p-5 w-4/5 md:w-[20%]">
         <Image
           width={400}
           height={400}
@@ -31,7 +31,7 @@ const ListProductCard = ({ product }: { product: IProducts }) => {
           }}
         />
       </div>
-      <div className="w-[80%]">
+      <div className="w-full md:w-[80%]">
         <Tooltip title="View Details">
           <Link href={`/products/${product._id}`}>
             <h2 className="text-sm font-medium leading-6 text-black hover:text-primary duration-300 flex items-start h-[45px] overflow-hidden">
@@ -41,16 +41,25 @@ const ListProductCard = ({ product }: { product: IProducts }) => {
         </Tooltip>
         <ul className="mt-2 text-xs 2xl:text-sm text-[#666]">
           {productFeatures.map((f, i) => (
-            <li
-              key={i + 1}
-              className="mb-2 leading-5 font-normal list-disc ml-4"
-              style={{ whiteSpace: "nowrap" }}
-            >
-              {f}
-            </li>
+            <>
+              <li
+                key={i + 1}
+                className="block md:hidden mb-2 leading-5 font-normal list-disc ml-4"
+                style={{ whiteSpace: "nowrap" }}
+              >
+                {f.length > 25 ? f.slice(0, 25) + "..." : f}
+              </li>
+              <li
+                key={i + 1}
+                className="hidden md:block mb-2 leading-5 font-normal list-disc ml-4"
+                style={{ whiteSpace: "nowrap" }}
+              >
+                {f}
+              </li>
+            </>
           ))}
         </ul>
-        <div className="flex items-center justify-between gap-2 mt-3 pr-6">
+        <div className="flex items-center justify-between gap-2 mt-3 md:pr-6">
           <div className="flex items-center gap-2">
             <p className="line-through text-gray font-medium text-sm 2xl:text-base">
               {product.price}Tk
@@ -59,9 +68,7 @@ const ListProductCard = ({ product }: { product: IProducts }) => {
               {Math.floor(product.discountedPrice)}Tk
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <ListCardAddBtn param={category as string} product={product} />
-          </div>
+          <ListCardAddBtn param={category as string} product={product} />
         </div>
       </div>
     </div>
