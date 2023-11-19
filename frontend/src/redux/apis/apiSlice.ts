@@ -12,6 +12,7 @@ export const api = createApi({
     "uploadProduct",
     "updateProduct",
     "saveBuild",
+    "deleteBuild",
   ],
   endpoints: () => ({}),
 });

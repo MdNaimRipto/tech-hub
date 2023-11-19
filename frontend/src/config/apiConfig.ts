@@ -21,5 +21,7 @@ export const config = {
   PC_BUILDER: {
     UPLOAD_BUILD: "/pcBuilder/saveBuildPc",
     GET_USERS_BUILDS: "/pcBuilder/getSavedPCs",
+    GET_BUILD_BY_ID: "/pcBuilder/getSavedPCByID",
+    DELETE_BUILD: "/pcBuilder/deleteBuild",
   },
 };

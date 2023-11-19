@@ -12,18 +12,18 @@ import monitor from "@/assets/pc-builder/monitor.webp";
 import keyboard from "@/assets/pc-builder/keyboard.webp";
 import mouse from "@/assets/pc-builder/mouse.webp";
 import headphone from "@/assets/pc-builder/headphone.webp";
-import { IProducts } from "@/types/productTypes/productsTypes";
+import { IPcBuildCard } from "@/types/pc-buildTypes/PcBuildTypes";
 
 interface IOption {
   img: any;
   title: string;
   path: string;
-  product?: IProducts | null;
+  product?: IPcBuildCard | null;
   required: boolean;
 }
 
 export function PcBuilderOptions() {
-  const [products, setProducts] = useState<IProducts[]>([]);
+  const [products, setProducts] = useState<IPcBuildCard[]>([]);
 
   // Check if running in the browser environment
   useEffect(() => {

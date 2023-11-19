@@ -1,11 +1,11 @@
-import { IProducts } from "@/types/productTypes/productsTypes";
 import { IconButton } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { PcBuilderOptions } from "@/components/pcBuilderComponents/PcBuilderOptions";
+import { IPcBuildCard } from "@/types/pc-buildTypes/PcBuildTypes";
 
-const PcBuilderAddedProductCard = ({ product }: { product: IProducts }) => {
+const PcBuilderAddedProductCard = ({ product }: { product: IPcBuildCard }) => {
   const { products } = PcBuilderOptions();
 
   // Check if running in the browser environment

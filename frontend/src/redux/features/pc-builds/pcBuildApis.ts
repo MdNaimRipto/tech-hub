@@ -23,9 +23,36 @@ const pcBuildApis = api.injectEndpoints({
           authorization: `Bearer ${token}`,
         },
       }),
-      providesTags: ["saveBuild"],
+      providesTags: ["saveBuild", "deleteBuild"],
+    }),
+    getBuildsById: builder.query({
+      query: ({ id, token }) => ({
+        url: `${config.PC_BUILDER.GET_BUILD_BY_ID}/${id}`,
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: [],
+    }),
+    deleteBuild: builder.mutation({
+      query: ({ data, token, buildId }) => ({
+        url: `${config.PC_BUILDER.DELETE_BUILD}/${buildId}`,
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ["deleteBuild"],
     }),
   }),
 });
 
-export const { useUploadBuildMutation, useGetUserBuildsQuery } = pcBuildApis;
+export const {
+  useUploadBuildMutation,
+  useGetUserBuildsQuery,
+  useGetBuildsByIdQuery,
+  useDeleteBuildMutation,
+} = pcBuildApis;

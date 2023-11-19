@@ -44,6 +44,7 @@ const SaveBuildBtn = ({
       data: {
         userID: user?._id,
         buildName: buildName,
+        savedTime: new Date().toLocaleString(),
         build: {
           ...(cpu && { cpu: cpu._id }),
           ...(cooler && { cooler: cooler._id }),

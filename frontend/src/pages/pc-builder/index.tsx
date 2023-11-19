@@ -5,7 +5,7 @@ import Image from "next/image";
 import PcBuilderSelectBtn from "@/components/common/buttons/PcBuilderSelectBtn";
 import { PcBuilderOptions } from "@/components/pcBuilderComponents/PcBuilderOptions";
 import { IProducts } from "@/types/productTypes/productsTypes";
-import PcBuilderAddedProductCard from "@/components/common/productCard/PcBuilderAddedProductCard";
+import PcBuilderAddedProductCard from "@/components/pcBuilderComponents/PcBuilderAddedProductCard";
 import SaveBuildBtn from "@/components/common/buttons/SaveBuildBtn";
 
 const PcBuilder = () => {
@@ -65,7 +65,7 @@ const PcBuilder = () => {
         <input
           onChange={e => setBuildName(e.target.value)}
           placeholder="Add Build Name (Required*)"
-          className="border-b border-b-input focus:outline-none w-[60%] p-2 mb-5"
+          className="border-b border-b-input focus:outline-none w-1/2 md:w-[60%] p-2"
         />
         <SaveBuildBtn buildName={buildName} setBuildName={setBuildName} />
       </div>
