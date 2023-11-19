@@ -13,9 +13,19 @@ const pcBuildApis = api.injectEndpoints({
         },
         body: data,
       }),
-      invalidatesTags: [],
+      invalidatesTags: ["saveBuild"],
+    }),
+    getUserBuilds: builder.query({
+      query: ({ id, token }) => ({
+        url: `${config.PC_BUILDER.GET_USERS_BUILDS}/${id}`,
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ["saveBuild"],
     }),
   }),
 });
 
-export const { useUploadBuildMutation } = pcBuildApis;
+export const { useUploadBuildMutation, useGetUserBuildsQuery } = pcBuildApis;

@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useRouter } from "next/router";
 
 const SaveBuildBtn = ({
   buildName,
@@ -17,6 +18,8 @@ const SaveBuildBtn = ({
   const { products, setProducts } = PcBuilderOptions();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const cpu = products?.find(p => p.category === "CPU");
   const cooler = products?.find(p => p.category === "COOLER");
@@ -31,7 +34,7 @@ const SaveBuildBtn = ({
   const mouse = products?.find(p => p.category === "MOUSE");
   const headphone = products?.find(p => p.category === "HEADPHONE");
 
-  const requiredFields = cpu || motherboard || ram || storage || psu || casing;
+  const requiredFields = cpu && motherboard && ram && storage && psu && casing;
 
   const [uploadBuild] = useUploadBuildMutation();
 
@@ -62,10 +65,10 @@ const SaveBuildBtn = ({
     try {
       const res = await uploadBuild(option).unwrap();
       if (res.success) {
-        setProducts([]);
         toast.success(res.message);
         localStorage.removeItem("pc-builder-products");
-        setBuildName("");
+        setProducts([]);
+        router.push("/user/pc-builds");
         setIsLoading(false);
       }
     } catch (error: any) {

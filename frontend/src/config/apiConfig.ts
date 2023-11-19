@@ -20,5 +20,6 @@ export const config = {
   },
   PC_BUILDER: {
     UPLOAD_BUILD: "/pcBuilder/saveBuildPc",
+    GET_USERS_BUILDS: "/pcBuilder/getSavedPCs",
   },
 };
