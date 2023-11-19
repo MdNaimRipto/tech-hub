@@ -18,4 +18,7 @@ export const config = {
     UPDATE_PRODUCT: "/products/updateProduct",
     UPDATE_RATING: "/products/updateRating",
   },
+  PC_BUILDER: {
+    UPLOAD_BUILD: "/pcBuilder/saveBuildPc",
+  },
 };

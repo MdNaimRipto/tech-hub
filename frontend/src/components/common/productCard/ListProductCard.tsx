@@ -25,7 +25,8 @@ const ListProductCard = ({ product }: { product: IProducts }) => {
           src={product.images.i1}
           alt="Product Image"
           className="w-full"
-          loading="lazy"
+          // loading="lazy"
+          priority
           onError={(e: any) => {
             e.target.src = errorImage.src;
           }}
@@ -41,22 +42,20 @@ const ListProductCard = ({ product }: { product: IProducts }) => {
         </Tooltip>
         <ul className="mt-2 text-xs 2xl:text-sm text-[#666]">
           {productFeatures.map((f, i) => (
-            <>
+            <div key={i}>
               <li
-                key={i + 1}
                 className="block md:hidden mb-2 leading-5 font-normal list-disc ml-4"
                 style={{ whiteSpace: "nowrap" }}
               >
                 {f.length > 25 ? f.slice(0, 25) + "..." : f}
               </li>
               <li
-                key={i + 1}
                 className="hidden md:block mb-2 leading-5 font-normal list-disc ml-4"
                 style={{ whiteSpace: "nowrap" }}
               >
                 {f}
               </li>
-            </>
+            </div>
           ))}
         </ul>
         <div className="flex items-center justify-between gap-2 mt-3 md:pr-6">

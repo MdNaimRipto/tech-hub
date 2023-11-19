@@ -1,13 +1,15 @@
 "use-client";
 import MainLayout from "@/layouts/MainLayout";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import Image from "next/image";
 import PcBuilderSelectBtn from "@/components/common/buttons/PcBuilderSelectBtn";
 import { PcBuilderOptions } from "@/components/pcBuilderComponents/PcBuilderOptions";
 import { IProducts } from "@/types/productTypes/productsTypes";
 import PcBuilderAddedProductCard from "@/components/common/productCard/PcBuilderAddedProductCard";
+import SaveBuildBtn from "@/components/common/buttons/SaveBuildBtn";
 
 const PcBuilder = () => {
+  const [buildName, setBuildName] = useState("");
   const { products, options } = PcBuilderOptions();
 
   const totalPrice = products.reduce(
@@ -35,7 +37,7 @@ const PcBuilder = () => {
           </p>
         </div>
       </div>
-      <div className="my-6 py-6 mx-1 md:mx-4 border-t border-t-input">
+      <div className="my-6 py-6 mx-1 md:mx-4 border-y border-y-input">
         {options.map((o, i) => (
           <div key={i}>
             {o?.product !== null ? (
@@ -44,7 +46,14 @@ const PcBuilder = () => {
               <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-4">
                   <Image src={o.img} alt="CPU Logo" />
-                  <p className="text-sm font-medium text-black">{o.title}</p>
+                  <p className="text-sm font-medium text-black">
+                    {o.title}{" "}
+                    {o.required && (
+                      <span className="text-error text-xl font-semibold">
+                        *
+                      </span>
+                    )}
+                  </p>
                 </div>
                 <PcBuilderSelectBtn path={o.path} />
               </div>
@@ -52,6 +61,18 @@ const PcBuilder = () => {
           </div>
         ))}
       </div>
+      <div className="flex justify-between items-center">
+        <input
+          onChange={e => setBuildName(e.target.value)}
+          placeholder="Add Build Name (Required*)"
+          className="border-b border-b-input focus:outline-none w-[60%] p-2 mb-5"
+        />
+        <SaveBuildBtn buildName={buildName} />
+      </div>
+      <p className="text-black mt-6 text-sm">
+        <span className="text-error">!</span> Warning: Must Add the Required ( *
+        / Star ) Products and Provide Build Name to Save Build
+      </p>
     </div>
   );
 };
