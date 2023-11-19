@@ -9,6 +9,7 @@ const pcBuilderSchema = new Schema<IPcBuilder>({
   },
   buildName: { type: String, required: true },
   code: { type: String, required: true },
+  savedTime: { type: String, required: true },
   build: {
     cpu: {
       type: Schema.Types.ObjectId,

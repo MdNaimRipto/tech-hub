@@ -58,7 +58,7 @@ const getBuildPcByUserId = async (
       _id: 1,
       code: 1,
       buildName: 1,
-      createdAt: 1,
+      savedTime: 1,
     }
   ).populate({
     path: "userID",

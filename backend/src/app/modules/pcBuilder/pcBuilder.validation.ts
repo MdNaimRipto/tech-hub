@@ -8,6 +8,9 @@ const pcBuilderSchema = z.object({
     buildName: z.string({
       required_error: "Build Name is Required",
     }),
+    savedTime: z.string({
+      required_error: "Save Time Required",
+    }),
     build: z.object({
       cpu: z.string({
         required_error: "CPU Is Required",

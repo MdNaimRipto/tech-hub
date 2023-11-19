@@ -13,6 +13,9 @@ const pcBuilderSchema = zod_1.default.object({
         buildName: zod_1.default.string({
             required_error: "Build Name is Required",
         }),
+        savedTime: zod_1.default.string({
+            required_error: "Save Time Required",
+        }),
         build: zod_1.default.object({
             cpu: zod_1.default.string({
                 required_error: "CPU Is Required",

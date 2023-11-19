@@ -10,6 +10,7 @@ const pcBuilderSchema = new mongoose_1.Schema({
     },
     buildName: { type: String, required: true },
     code: { type: String, required: true },
+    savedTime: { type: String, required: true },
     build: {
         cpu: {
             type: mongoose_1.Schema.Types.ObjectId,

@@ -47,7 +47,7 @@ const getBuildPcByUserId = (userID, token) => __awaiter(void 0, void 0, void 0, 
         _id: 1,
         code: 1,
         buildName: 1,
-        createdAt: 1,
+        savedTime: 1,
     }).populate({
         path: "userID",
         select: "-_id name",

@@ -6,6 +6,7 @@ export type IPcBuilder = {
   userID: Types.ObjectId | IUser;
   buildName: string;
   code: string;
+  savedTime: string;
   build: {
     cpu: Types.ObjectId | IProduct;
     cooler?: Types.ObjectId | IProduct;
