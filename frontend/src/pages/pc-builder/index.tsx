@@ -67,7 +67,7 @@ const PcBuilder = () => {
           placeholder="Add Build Name (Required*)"
           className="border-b border-b-input focus:outline-none w-[60%] p-2 mb-5"
         />
-        <SaveBuildBtn buildName={buildName} />
+        <SaveBuildBtn buildName={buildName} setBuildName={setBuildName} />
       </div>
       <p className="text-black mt-6 text-sm">
         <span className="text-error">!</span> Warning: Must Add the Required ( *

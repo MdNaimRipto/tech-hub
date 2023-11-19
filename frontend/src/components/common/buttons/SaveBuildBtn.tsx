@@ -6,7 +6,13 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const SaveBuildBtn = ({ buildName }: { buildName: string }) => {
+const SaveBuildBtn = ({
+  buildName,
+  setBuildName,
+}: {
+  buildName: string;
+  setBuildName: any;
+}) => {
   const { user, token } = useUserContext();
   const { products, setProducts } = PcBuilderOptions();
 
@@ -59,6 +65,7 @@ const SaveBuildBtn = ({ buildName }: { buildName: string }) => {
         setProducts([]);
         toast.success(res.message);
         localStorage.removeItem("pc-builder-products");
+        setBuildName("");
         setIsLoading(false);
       }
     } catch (error: any) {
