@@ -13,56 +13,42 @@ const pcBuilderSchema = new Schema<IPcBuilder>({
     cpu: {
       type: Schema.Types.ObjectId,
       ref: "Products",
+      required: true,
     },
-    cpuCooler: {
+    cooler: {
       type: Schema.Types.ObjectId,
       ref: "Products",
     },
     motherboard: {
       type: Schema.Types.ObjectId,
       ref: "Products",
+      required: true,
     },
-    ram1: {
+    ram: {
       type: Schema.Types.ObjectId,
       ref: "Products",
+      required: true,
     },
-    ram2: {
+    storage: {
       type: Schema.Types.ObjectId,
       ref: "Products",
-    },
-    ram3: {
-      type: Schema.Types.ObjectId,
-      ref: "Products",
-    },
-    ram4: {
-      type: Schema.Types.ObjectId,
-      ref: "Products",
-    },
-    storage1: {
-      type: Schema.Types.ObjectId,
-      ref: "Products",
-    },
-    storage2: {
-      type: Schema.Types.ObjectId,
-      ref: "Products",
-    },
-    gpu: {
-      type: Schema.Types.ObjectId,
-      ref: "Products",
+      required: true,
     },
     psu: {
+      type: Schema.Types.ObjectId,
+      ref: "Products",
+      required: true,
+    },
+    gpu: {
       type: Schema.Types.ObjectId,
       ref: "Products",
     },
     casing: {
       type: Schema.Types.ObjectId,
       ref: "Products",
+      required: true,
     },
     monitor: {
-      type: Schema.Types.ObjectId,
-      ref: "Products",
-    },
-    casingCooler: {
       type: Schema.Types.ObjectId,
       ref: "Products",
     },

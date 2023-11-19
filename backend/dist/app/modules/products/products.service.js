@@ -112,10 +112,12 @@ const getAllProducts = (filters, paginationOptions) => __awaiter(void 0, void 0,
         name: 1,
         price: 1,
         discountedPrice: 1,
+        status: 1,
+        category: 1,
     })
         .sort(sortConditions)
         .skip(skip)
-        .limit(180);
+        .limit(limit);
     if (products.length === 0) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "No Products to Show");
     }
@@ -184,6 +186,7 @@ const getProductsByCategory = (category, filters, paginationOptions) => __awaite
         discountedPrice: 1,
         status: 1,
         brand: 1,
+        category: 1,
     })
         .sort(sortConditions)
         .skip(skip)

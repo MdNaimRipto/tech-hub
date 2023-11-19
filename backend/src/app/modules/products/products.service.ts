@@ -114,6 +114,8 @@ const getAllProducts = async (
     name: 1,
     price: 1,
     discountedPrice: 1,
+    status: 1,
+    category: 1,
   })
     .sort(sortConditions)
     .skip(skip)
@@ -202,6 +204,7 @@ const getProductsByCategory = async (
     discountedPrice: 1,
     status: 1,
     brand: 1,
+    category: 1,
   })
     .sort(sortConditions)
     .skip(skip)

@@ -7,20 +7,15 @@ export type IPcBuilder = {
   buildName: string;
   code: string;
   build: {
-    cpu?: Types.ObjectId | IProduct;
-    cpuCooler?: Types.ObjectId | IProduct;
-    motherboard?: Types.ObjectId | IProduct;
-    ram1?: Types.ObjectId | IProduct;
-    ram2?: Types.ObjectId | IProduct;
-    ram3?: Types.ObjectId | IProduct;
-    ram4?: Types.ObjectId | IProduct;
-    storage1?: Types.ObjectId | IProduct;
-    storage2?: Types.ObjectId | IProduct;
+    cpu: Types.ObjectId | IProduct;
+    cooler?: Types.ObjectId | IProduct;
+    motherboard: Types.ObjectId | IProduct;
+    ram: Types.ObjectId | IProduct;
+    storage: Types.ObjectId | IProduct;
+    psu: Types.ObjectId | IProduct;
     gpu?: Types.ObjectId | IProduct;
-    psu?: Types.ObjectId | IProduct;
-    casing?: Types.ObjectId | IProduct;
+    casing: Types.ObjectId | IProduct;
     monitor?: Types.ObjectId | IProduct;
-    casingCooler?: Types.ObjectId | IProduct;
     keyboard?: Types.ObjectId | IProduct;
     mouse?: Types.ObjectId | IProduct;
     speaker?: Types.ObjectId | IProduct;
