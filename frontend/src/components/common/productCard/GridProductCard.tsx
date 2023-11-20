@@ -63,7 +63,10 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <GridAddToWishlistBtn status={product.status} />
+          <GridAddToWishlistBtn
+            status={product.status}
+            productID={product._id}
+          />
           <GridAddToCartBtn status={product.status} />
         </div>
       </div>

@@ -15,7 +15,7 @@ const ResponsiveMobileNav = () => {
     {
       icon: <FavoriteBorderIcon className="text-lg md:text-xl" />,
       name: "Wishlist",
-      path: "/wishlist",
+      path: "/user/wishlists",
     },
     {
       icon: <ShoppingBasketOutlinedIcon className="text-lg md:text-xl" />,

@@ -24,4 +24,9 @@ export const config = {
     GET_BUILD_BY_ID: "/pcBuilder/getSavedPCByID",
     DELETE_BUILD: "/pcBuilder/deleteBuild",
   },
+  WISHLIST: {
+    ADD_TO_WISHLIST: "/wishlist/addWishlist",
+    GET_WISHLISTS_PRODUCT: "/wishlist/getWishlists",
+    DELETE_WISHLIST_PRODUCT: "/wishlist/deleteWishlist",
+  },
 };

@@ -6,8 +6,21 @@ import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlin
 import Link from "next/link";
 import { Button, Tooltip } from "@mui/material";
 import AccountMenu from "../AccountMenu";
+import { useGetWishlistsProductQuery } from "@/redux/features/wishlist/wishlistApi";
+import { useUserContext } from "@/context/AuthContext";
 
 const MainNav = () => {
+  const { user, token } = useUserContext();
+
+  const option = {
+    userId: user?._id as string,
+    token: token as string,
+  };
+
+  const { data, isLoading } = useGetWishlistsProductQuery(option);
+
+  const wishlistProducts = data?.data;
+
   return (
     <div className="bg-[#e7e7e7] sticky top-0 z-50">
       <div className="flex items-center justify-between h-18 py-3 container px-4 xl:px-0">
@@ -28,7 +41,10 @@ const MainNav = () => {
         </div>
         <div className="hidden lg:flex items-center justify-evenly lg:w-[22%] xl:w-[20%]">
           <Tooltip title="Wishlist">
-            <Link href="/">
+            <Link href="/user/wishlists" className="relative">
+              <p className="absolute top-0 -right-1 text-xs bg-secondary text-black rounded-full w-4 h-4 text-center">
+                {isLoading || !wishlistProducts ? 0 : wishlistProducts?.length}
+              </p>
               <FavoriteBorderIcon />
             </Link>
           </Tooltip>

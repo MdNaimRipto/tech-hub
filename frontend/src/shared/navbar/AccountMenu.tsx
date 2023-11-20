@@ -13,6 +13,7 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { envConfig } from "@/config/envConfig";
+import { useRouter } from "next/router";
 
 interface IIconSizes {
   smallIconSize: string;
@@ -25,6 +26,9 @@ export default function AccountMenu({
 }: IIconSizes) {
   const { user, setUser, setToken } = useUserContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const router = useRouter();
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -34,6 +38,7 @@ export default function AccountMenu({
   };
 
   const handleLogout = () => {
+    router.push("/");
     Cookies.remove("token");
     setUser(null);
     setToken(undefined);
