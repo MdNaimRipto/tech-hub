@@ -7,17 +7,8 @@ import { useState } from "react";
 import GridAddToWishlistBtn from "@/components/common/buttons/GridAddToWishlistBtn";
 
 const ProductsInfo = ({ product }: { product: IProductDetails }) => {
-  const {
-    brand,
-    category,
-    description,
-    discountedPrice,
-    features,
-    name,
-    price,
-    rating,
-    status,
-  } = product;
+  const { _id, brand, discountedPrice, features, name, price, status } =
+    product;
   const { f1, f2, f3, f4, f5 } = features;
 
   const [totalProduct, setTotalProduct] = useState(1);
@@ -87,7 +78,7 @@ const ProductsInfo = ({ product }: { product: IProductDetails }) => {
             +
           </button>
         </div>
-        <GridAddToWishlistBtn status={status} />
+        <GridAddToWishlistBtn status={status} productID={_id} />
         <BuyNowBtn
           title="Add to Cart"
           background="linear-gradient(#f15700, #ff7a1a)"
