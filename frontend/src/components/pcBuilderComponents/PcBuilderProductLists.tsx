@@ -3,7 +3,6 @@ import Image from "next/image";
 import React from "react";
 
 const PcBuilderProductLists = ({ product }: { product: IPcBuildCard }) => {
-  console.log(product.price);
   return (
     <div className="flex items-center justify-between mb-8 w-full">
       <div className="flex items-center gap-4">

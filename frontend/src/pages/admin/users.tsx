@@ -9,9 +9,7 @@ const Users = () => {
   const { token } = useUserContext();
 
   const pageValue = Number(localStorage.getItem("userPage"));
-  console.log(pageValue);
   const [page, setPage] = useState<number>(pageValue ? pageValue : 1);
-  console.log(page);
   const option = {
     page: `${page}`,
     token: token as string,

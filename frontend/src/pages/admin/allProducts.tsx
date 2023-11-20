@@ -6,9 +6,7 @@ import ProductTable from "@/components/common/tables/ProductTable";
 
 const AllProducts = () => {
   const pageValue = Number(localStorage.getItem("page"));
-  console.log(pageValue);
   const [page, setPage] = useState<number>(pageValue ? pageValue : 1);
-  console.log(page);
   const option = {
     page: `${page}`,
   };

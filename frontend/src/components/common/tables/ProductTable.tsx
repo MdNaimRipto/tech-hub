@@ -15,7 +15,6 @@ import TableBodyButtonCell from "../tableComponents/TableBodyButtonCell";
 import TableBodyLinkCell from "../tableComponents/TableBodyLinkCell";
 
 const ProductTable = ({ products }: { products: IAllProducts[] }) => {
-  console.log(products);
   return (
     <TableContainer
       component={Paper}

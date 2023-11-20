@@ -15,8 +15,6 @@ const AskQuestion = () => {
   const handleAskQuestion = (e: any) => {
     e.preventDefault();
     const question = e.target.question.value;
-
-    console.log(question, userName);
   };
   return (
     <form onSubmit={handleAskQuestion} className="pb-8 border-b border-b-input">

@@ -19,7 +19,6 @@ const PaginationComponent = ({
       count={Math.ceil(count / 8)}
       page={page}
       onChange={(event: React.ChangeEvent<unknown>, value: number) => {
-        console.log(value);
         setPage(value);
         localStorage.setItem(storageName, JSON.stringify(value));
         window.scrollTo({
