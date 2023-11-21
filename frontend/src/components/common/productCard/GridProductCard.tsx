@@ -67,7 +67,21 @@ const GridProductCard = ({ product }: { product: IProducts }) => {
             status={product.status}
             productID={product._id}
           />
-          <GridAddToCartBtn status={product.status} />
+          <GridAddToCartBtn
+            status={product.status}
+            product={{
+              product: {
+                _id: product._id,
+                name: product.name,
+                status: product.status,
+                images: {
+                  i1: product.images.i1,
+                },
+                discountedPrice: product.discountedPrice,
+              },
+              quantity: 1,
+            }}
+          />
         </div>
       </div>
     </div>

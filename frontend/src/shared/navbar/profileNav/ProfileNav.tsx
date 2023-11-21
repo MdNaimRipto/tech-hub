@@ -10,6 +10,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetWishlistsProductQuery } from "@/redux/features/wishlist/wishlistApi";
+import { GetCartLength } from "@/components/cartComponents/GetCartLength";
 
 const ProfileNav = ({
   sideNavOpen,
@@ -63,7 +64,10 @@ const ProfileNav = ({
             </Link>
           </Tooltip>
           <Tooltip title="Cart">
-            <Link href="/">
+            <Link href="/cart" className="relative">
+              <p className="absolute top-0 -right-1 text-xs bg-secondary text-black rounded-full w-4 h-4 text-center">
+                {GetCartLength()}
+              </p>
               <ShoppingBasketOutlinedIcon sx={{ fontSize: "30px" }} />
             </Link>
           </Tooltip>

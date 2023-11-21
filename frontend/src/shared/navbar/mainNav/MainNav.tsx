@@ -8,6 +8,7 @@ import { Button, Tooltip } from "@mui/material";
 import AccountMenu from "../AccountMenu";
 import { useGetWishlistsProductQuery } from "@/redux/features/wishlist/wishlistApi";
 import { useUserContext } from "@/context/AuthContext";
+import { GetCartLength } from "@/components/cartComponents/GetCartLength";
 
 const MainNav = () => {
   const { user, token } = useUserContext();
@@ -49,7 +50,10 @@ const MainNav = () => {
             </Link>
           </Tooltip>
           <Tooltip title="Cart">
-            <Link href="/">
+            <Link href="/cart" className="relative">
+              <p className="absolute top-0 -right-1 text-xs bg-secondary text-black rounded-full w-4 h-4 text-center">
+                {GetCartLength()}
+              </p>
               <ShoppingBasketOutlinedIcon />
             </Link>
           </Tooltip>

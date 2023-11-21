@@ -2,11 +2,38 @@ import { Tooltip, IconButton } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useUserContext } from "@/context/AuthContext";
 import { envConfig } from "@/config/envConfig";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/slice/cartSlice";
+import { ICartProducts } from "@/types/cartTypes/cartTypes";
 
-const GridAddToCardBtn = ({ status }: { status: boolean }) => {
+const GridAddToCardBtn = ({
+  status,
+  product,
+}: {
+  status: boolean;
+  product: ICartProducts;
+}) => {
   const { user } = useUserContext();
+
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        ...product,
+        quantity: 1,
+      })
+    );
+
+    // Save to local storage after dispatching addToCart
+    const updatedCart = JSON.parse(localStorage.getItem("cart") || "{}");
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    alert("Successfully!");
+  };
+
   return (
     <IconButton
+      onClick={handleAddToCart}
       aria-label="cart"
       sx={{
         background:
