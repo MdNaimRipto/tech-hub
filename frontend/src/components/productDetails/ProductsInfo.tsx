@@ -2,7 +2,7 @@ import { IProductDetails } from "@/types/productTypes/productsTypes";
 import { Rating } from "@mui/material";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
-import BuyNowBtn from "@/components/common/buttons/AddToCartBtn";
+import AddToCartBtn from "@/components/common/buttons/AddToCartBtn";
 import { useState } from "react";
 import GridAddToWishlistBtn from "@/components/common/buttons/GridAddToWishlistBtn";
 
@@ -79,7 +79,7 @@ const ProductsInfo = ({ product }: { product: IProductDetails }) => {
           </button>
         </div>
         <GridAddToWishlistBtn status={status} productID={_id} />
-        <BuyNowBtn
+        <AddToCartBtn
           title="Add to Cart"
           background="linear-gradient(#f15700, #ff7a1a)"
           color="#ffffff"

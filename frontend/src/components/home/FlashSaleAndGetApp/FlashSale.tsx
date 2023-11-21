@@ -1,7 +1,7 @@
 import React from "react";
 import banner from "@/assets/get-app/get-app-bg.png";
 import CountDown from "./CountDown";
-import BuyNowBtn from "@/components/common/buttons/AddToCartBtn";
+import BuyNowBtn from "@/components/common/buttons/BuyNowBtn";
 
 const FlashSale = () => {
   return (
