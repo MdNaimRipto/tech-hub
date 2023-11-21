@@ -36,8 +36,24 @@ const cartSlice = createSlice({
 
       saveLocalStorageCart(state);
     },
+    updateQuantity(state: IRootCartState, action) {
+      const check = state.list.findIndex(
+        data => data.product._id === action.payload.id
+      );
+      if (check !== -1) {
+        state.list[check].quantity = Math.max(
+          1,
+          action.payload.productQuantity
+        );
+      }
+      state.total = state.list.reduce(
+        (sum, data) => sum + +data?.product?.discountedPrice * data?.quantity,
+        0
+      );
+
+      saveLocalStorageCart(state);
+    },
     removeItem(state: IRootCartState, action) {
-      console.log(action.payload);
       state.list = state.list.filter(
         data => data.product._id !== action.payload.id
       );
@@ -48,27 +64,11 @@ const cartSlice = createSlice({
 
       saveLocalStorageCart(state);
     },
-    // updateQuantity(state: IRootCartState, action) {
-    //   const check = state.list.findIndex(
-    //     data => data.product._id === action.payload.id
-    //   );
-    //   if (check !== -1) {
-    //     state.list[check].quantity = action.payload.quantity;
-    //   }
-    //   state.total = state.list.reduce(
-    //     (sum, data) => sum + +data?.product?.discountedPrice * data?.quantity,
-    //     0
-    //   );
-    // },
   },
 });
 
 const { actions, reducer } = cartSlice;
 
-export const {
-  addToCart,
-  //   updateQuantity,
-  removeItem,
-} = actions;
+export const { addToCart, updateQuantity, removeItem } = actions;
 
 export default reducer;
