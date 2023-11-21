@@ -2,12 +2,12 @@ import { IProductDetails } from "@/types/productTypes/productsTypes";
 import { Rating } from "@mui/material";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
-import BuyNowBtn from "@/components/common/buttons/BuyNowBtn";
+import BuyNowBtn from "@/components/common/buttons/AddToCartBtn";
 import { useState } from "react";
 import GridAddToWishlistBtn from "@/components/common/buttons/GridAddToWishlistBtn";
 
 const ProductsInfo = ({ product }: { product: IProductDetails }) => {
-  const { _id, brand, discountedPrice, features, name, price, status } =
+  const { _id, brand, discountedPrice, features, name, price, status, images } =
     product;
   const { f1, f2, f3, f4, f5 } = features;
 
@@ -84,6 +84,18 @@ const ProductsInfo = ({ product }: { product: IProductDetails }) => {
           background="linear-gradient(#f15700, #ff7a1a)"
           color="#ffffff"
           py="10px"
+          product={{
+            product: {
+              _id,
+              name,
+              discountedPrice,
+              status,
+              images: {
+                i1: images.i1,
+              },
+            },
+            quantity: totalProduct,
+          }}
         />
       </div>
     </div>

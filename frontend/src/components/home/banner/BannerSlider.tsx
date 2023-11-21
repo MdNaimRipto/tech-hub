@@ -3,7 +3,7 @@ import image1 from "@/assets/banner/banner-image1.png";
 import image2 from "@/assets/banner/banner-image2.png";
 import image3 from "@/assets/banner/banner-image3.png";
 import Image from "next/image";
-import BuyNowBtn from "@/components/common/buttons/BuyNowBtn";
+import BuyNowBtn from "@/components/common/buttons/AddToCartBtn";
 
 const products = [
   {
