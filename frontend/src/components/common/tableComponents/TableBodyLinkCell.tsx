@@ -4,11 +4,11 @@ import Link from "next/link";
 
 const TableBodyLinkCell = ({
   value,
-  id,
+  link,
   style,
 }: {
   value: string;
-  id: string;
+  link: string;
   style?: string;
 }) => {
   return (
@@ -18,7 +18,7 @@ const TableBodyLinkCell = ({
       align="left"
       sx={{ whiteSpace: "nowrap" }}
     >
-      <Link href={`/products/${id}`} className={style}>
+      <Link href={link} className={style}>
         <p>{value}</p>
       </Link>
     </TableCell>

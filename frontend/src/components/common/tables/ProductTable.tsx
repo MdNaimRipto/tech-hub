@@ -40,7 +40,7 @@ const ProductTable = ({ products }: { products: IAllProducts[] }) => {
               <TableBodyImgCell src={p.images.i1} />
               <TableBodyLinkCell
                 value={`${p.name.slice(0, 40)}...`}
-                id={p._id}
+                link={`/products/${p._id}`}
                 style="text-black hover:text-primary duration-300"
               />
               <TableBodyCell value={`${p.price}Tk`} align="center" />

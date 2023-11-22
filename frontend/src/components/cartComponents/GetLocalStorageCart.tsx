@@ -14,7 +14,5 @@ export function GetLocalStorageCart() {
     setCart(data);
   }, [data]);
 
-  console.log(cart);
-
   return cart;
 }

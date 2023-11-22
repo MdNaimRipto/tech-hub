@@ -15,6 +15,8 @@ export const api = createApi({
     "deleteBuild",
     "addToWishlist",
     "deleteWishlist",
+    "orderProducts",
+    "updateOrder",
   ],
   endpoints: () => ({}),
 });

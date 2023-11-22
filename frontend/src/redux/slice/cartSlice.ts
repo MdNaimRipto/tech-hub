@@ -64,11 +64,16 @@ const cartSlice = createSlice({
 
       saveLocalStorageCart(state);
     },
+    clearCart(state: IRootCartState) {
+      state.list = [];
+      state.total = 0;
+      saveLocalStorageCart(state);
+    },
   },
 });
 
 const { actions, reducer } = cartSlice;
 
-export const { addToCart, updateQuantity, removeItem } = actions;
+export const { addToCart, updateQuantity, removeItem, clearCart } = actions;
 
 export default reducer;

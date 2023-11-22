@@ -29,4 +29,11 @@ export const config = {
     GET_WISHLISTS_PRODUCT: "/wishlist/getWishlists",
     DELETE_WISHLIST_PRODUCT: "/wishlist/deleteWishlist",
   },
+  ORDER: {
+    ORDER_PRODUCTS: "/order/orderProducts",
+    GET_USER_ORDER: "/order/getUsersOrder",
+    GET_ORDER_BY_PROGRESS: "/order/getOrdersByProgress",
+    GET_ORDER_DETAILS: "/order/getOrderDetails",
+    UPDATE_ORDER_STATUS: "/order/updateOrderStatus",
+  },
 };

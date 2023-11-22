@@ -12,11 +12,9 @@ import TableBodyImgCell from "../tableComponents/TableBodyImgCell";
 import TableBodyCell from "../tableComponents/TableBodyCell";
 import TableBodyLinkCell from "../tableComponents/TableBodyLinkCell";
 import { ICartState } from "@/types/cartTypes/cartTypes";
-import RemoveFromCart from "../tableComponents/RemoveFromCart";
-import CartProductQuantity from "../tableComponents/CartProductQuantity";
-import CartSummery from "@/components/cartComponents/CartSummery";
+import OrderSummery from "@/components/orderComponents/OrderSummery";
 
-const CartTable = ({ cart }: { cart: ICartState }) => {
+const OrderTable = ({ cart }: { cart: ICartState }) => {
   if (!cart?.list?.length) {
     return <h2>Cart is Empty</h2>;
   }
@@ -32,9 +30,9 @@ const CartTable = ({ cart }: { cart: ICartState }) => {
               <TableHeader heading="Product Image" align="left" />
               <TableHeader heading="Product Name" align="left" />
               <TableHeader heading="Product Price" align="center" />
-              <TableHeader heading="Product Stock" align="center" />
               <TableHeader heading="Product Quantity" align="center" />
-              <TableHeader heading="Remove Product" align="center" />
+              <TableHeader heading="Calculation" align="center" />
+              <TableHeader heading="Product Total" align="center" />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -45,29 +43,32 @@ const CartTable = ({ cart }: { cart: ICartState }) => {
               >
                 <TableBodyImgCell src={cart.product.images.i1} />
                 <TableBodyLinkCell
-                  value={`${cart.product.name.slice(0, 40)}...`}
+                  value={`${cart.product.name.slice(0, 50)}...`}
                   link={`/products/${cart.product._id}`}
                   style="text-black hover:text-primary duration-300"
                 />
                 <TableBodyCell
-                  value={`${cart.product.discountedPrice}Tk`}
+                  value={`${cart.product.discountedPrice} Tk`}
+                  style="text-secondary font-medium"
+                  align="center"
+                />
+                <TableBodyCell value={`${cart.quantity}`} align="center" />
+                <TableBodyCell
+                  value={`${cart.product.discountedPrice} x ${cart.quantity}`}
                   align="center"
                 />
                 <TableBodyCell
-                  value={`${cart.product.status ? "In Stock" : "Out of Stock"}`}
+                  value={`${cart.product.discountedPrice * cart.quantity} Tk`}
                   align="center"
-                  style={`${cart.product.status ? "text-green" : "text-red"}`}
                 />
-                <CartProductQuantity cart={cart} />
-                <RemoveFromCart id={cart.product._id} />
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <CartSummery cart={cart} />
+      <OrderSummery cart={cart} />
     </>
   );
 };
 
-export default CartTable;
+export default OrderTable;
