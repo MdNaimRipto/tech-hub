@@ -1,3 +1,8 @@
+export type IOrderProducts = {
+  productID: string;
+  quantity: number;
+};
+
 export type OrderedProducts = {
   productID: {
     _id: string;

@@ -4,7 +4,7 @@ import { GetCartLength } from "../cartComponents/GetCartLength";
 import { ICartState } from "@/types/cartTypes/cartTypes";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { OrderedProducts } from "@/types/orderTypes/orderTypes";
+import { IOrderProducts } from "@/types/orderTypes/orderTypes";
 import { useUserContext } from "@/context/AuthContext";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useOrderProductsMutation } from "@/redux/features/order/orderApis";
@@ -23,7 +23,7 @@ const OrderSummery = ({ cart }: { cart: ICartState }) => {
   const handleConfirmOrder = async () => {
     setIsLoading(true);
 
-    const orderedProducts: OrderedProducts[] = cart.list.map(item => ({
+    const orderedProducts: IOrderProducts[] = cart.list.map(item => ({
       productID: item.product._id,
       quantity: item.quantity,
     }));
