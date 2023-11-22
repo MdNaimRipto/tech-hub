@@ -152,7 +152,7 @@ const getOrdersByUserID = async (
     .skip(skip)
     .limit(limit);
 
-  const total = Order.length;
+  const total = await Order.countDocuments();
 
   return {
     meta: {
@@ -190,16 +190,18 @@ const getOrdersByProgress = async (
 ): Promise<IOrder[]> => {
   jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
 
-  const orders = await Order.find({ progress: progress }).populate([
-    {
-      path: "userID",
-      select: "-_id name email userProfile",
-    },
-    {
-      path: "products.productID",
-      select: "_id images.i1 name code",
-    },
-  ]);
+  const orders = await Order.find({ progress: progress })
+    .populate([
+      {
+        path: "userID",
+        select: "-_id name email userProfile",
+      },
+      {
+        path: "products.productID",
+        select: "_id images.i1 name code",
+      },
+    ])
+    .sort({ createdAt: -1 });
 
   return orders;
 };

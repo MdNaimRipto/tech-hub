@@ -113,7 +113,7 @@ const getOrdersByUserID = (paginationOptions, userID, token) => __awaiter(void 0
         .sort(sortConditions)
         .skip(skip)
         .limit(limit);
-    const total = order_schema_1.Order.length;
+    const total = yield order_schema_1.Order.countDocuments();
     return {
         meta: {
             page,
@@ -138,7 +138,8 @@ const getOrdersByOrderID = (id, token) => __awaiter(void 0, void 0, void 0, func
 //* Get Orders By Progress Status:
 const getOrdersByProgress = (progress, token) => __awaiter(void 0, void 0, void 0, function* () {
     jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_secret);
-    const orders = yield order_schema_1.Order.find({ progress: progress }).populate([
+    const orders = yield order_schema_1.Order.find({ progress: progress })
+        .populate([
         {
             path: "userID",
             select: "-_id name email userProfile",
@@ -147,7 +148,8 @@ const getOrdersByProgress = (progress, token) => __awaiter(void 0, void 0, void 
             path: "products.productID",
             select: "_id images.i1 name code",
         },
-    ]);
+    ])
+        .sort({ createdAt: -1 });
     return orders;
 });
 //* Update Order Status
