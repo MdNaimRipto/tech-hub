@@ -14,7 +14,7 @@ const UserOrders = () => {
 
   const option = {
     id: user?._id,
-    page: "1",
+    page: `${page}`,
     token: token,
   };
 
