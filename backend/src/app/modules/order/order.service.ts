@@ -26,10 +26,15 @@ const addOrder = async (payload: IOrder, token: string): Promise<IOrder> => {
     { _id: userID },
     {
       _id: 1,
+      uid: 1,
     }
   ).lean();
   if (!isUserExists) {
     throw new ApiError(httpStatus.NOT_FOUND, "User Does Not Exist's!");
+  }
+
+  if (isUserExists.uid === config.admin_uid) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Admin Can't Order Products!");
   }
 
   if (!products.length) {

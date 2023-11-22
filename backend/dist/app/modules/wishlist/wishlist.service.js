@@ -58,9 +58,6 @@ const getWishlistsByUserID = (userID, token) => __awaiter(void 0, void 0, void 0
         path: "productID",
         select: "_id images.i1 name status price",
     });
-    if (wishlists.length === 0) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "0 Product's Found");
-    }
     return wishlists;
 });
 // Delete Wishlist Product

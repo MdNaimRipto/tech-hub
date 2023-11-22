@@ -73,9 +73,6 @@ const getWishlistsByUserID = async (
     path: "productID",
     select: "_id images.i1 name status price",
   });
-  if (wishlists.length === 0) {
-    throw new ApiError(httpStatus.NOT_FOUND, "0 Product's Found");
-  }
 
   return wishlists;
 };

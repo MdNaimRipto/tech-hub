@@ -28,9 +28,13 @@ const addOrder = (payload, token) => __awaiter(void 0, void 0, void 0, function*
     const { userID, products } = payload;
     const isUserExists = yield user_schema_1.Users.findById({ _id: userID }, {
         _id: 1,
+        uid: 1,
     }).lean();
     if (!isUserExists) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "User Does Not Exist's!");
+    }
+    if (isUserExists.uid === config_1.default.admin_uid) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Admin Can't Order Products!");
     }
     if (!products.length) {
         throw new ApiError_1.default(http_status_1.default.FORBIDDEN, "Product Cart Cannot Be Empty!");
