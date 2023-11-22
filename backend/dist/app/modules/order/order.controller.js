@@ -82,7 +82,7 @@ const getOrdersByOrderID = (0, catchAsync_1.default)((req, res) => __awaiter(voi
 }));
 // Get Orders By Progress Status
 const getOrdersByProgress = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { progress } = req.body;
+    const { progress } = req.query;
     const token = (0, verifyAuthToken_1.verifyAuthToken)(req);
     const orders = yield order_service_1.OrderService.getOrdersByProgress(progress, token);
     (0, sendResponse_1.default)(res, {

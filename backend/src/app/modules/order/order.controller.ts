@@ -6,6 +6,7 @@ import { OrderService } from "./order.service";
 import { verifyAuthToken } from "../../../util/verifyAuthToken";
 import { paginationFields } from "../../../constants/pagination.constant";
 import pick from "../../../shared/shared";
+import { OrderProgress } from "./order.interface";
 
 // Add Order
 const addOrder = catchAsync(async (req: Request, res: Response) => {
@@ -70,10 +71,13 @@ const getOrdersByOrderID = catchAsync(async (req: Request, res: Response) => {
 
 // Get Orders By Progress Status
 const getOrdersByProgress = catchAsync(async (req: Request, res: Response) => {
-  const { progress } = req.body;
+  const { progress } = req.query;
   const token = verifyAuthToken(req);
 
-  const orders = await OrderService.getOrdersByProgress(progress, token);
+  const orders = await OrderService.getOrdersByProgress(
+    progress as OrderProgress,
+    token
+  );
 
   sendResponse(res, {
     success: true,

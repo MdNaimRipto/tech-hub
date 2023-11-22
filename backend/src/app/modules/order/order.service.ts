@@ -108,9 +108,6 @@ const getAllOrders = async (
     .sort(sortConditions)
     .skip(skip)
     .limit(limit);
-  if (!orders.length) {
-    throw new ApiError(httpStatus.NOT_FOUND, "0 Orders Found");
-  }
 
   const total = Order.length;
 
@@ -154,10 +151,6 @@ const getOrdersByUserID = async (
     .sort(sortConditions)
     .skip(skip)
     .limit(limit);
-
-  if (!orders.length) {
-    throw new ApiError(httpStatus.NOT_FOUND, "0 Orders Found");
-  }
 
   const total = Order.length;
 
@@ -207,9 +200,6 @@ const getOrdersByProgress = async (
       select: "_id images.i1 name code",
     },
   ]);
-  if (!orders.length) {
-    throw new ApiError(httpStatus.NOT_FOUND, "0 Orders Found");
-  }
 
   return orders;
 };

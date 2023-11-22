@@ -85,9 +85,6 @@ const getAllOrders = (paginationOptions, token) => __awaiter(void 0, void 0, voi
         .sort(sortConditions)
         .skip(skip)
         .limit(limit);
-    if (!orders.length) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "0 Orders Found");
-    }
     const total = order_schema_1.Order.length;
     return {
         meta: {
@@ -116,9 +113,6 @@ const getOrdersByUserID = (paginationOptions, userID, token) => __awaiter(void 0
         .sort(sortConditions)
         .skip(skip)
         .limit(limit);
-    if (!orders.length) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "0 Orders Found");
-    }
     const total = order_schema_1.Order.length;
     return {
         meta: {
@@ -154,9 +148,6 @@ const getOrdersByProgress = (progress, token) => __awaiter(void 0, void 0, void 
             select: "_id images.i1 name code",
         },
     ]);
-    if (!orders.length) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "0 Orders Found");
-    }
     return orders;
 });
 //* Update Order Status
