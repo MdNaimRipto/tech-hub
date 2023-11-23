@@ -20,10 +20,8 @@ const OrderedProducts = () => {
   }
 
   setInterval(() => {
-    if (user) {
-      refetch();
-    }
-  }, 600000);
+    window.location.reload();
+  }, 180000);
 
   const products = data?.data;
 

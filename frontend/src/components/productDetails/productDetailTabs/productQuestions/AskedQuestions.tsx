@@ -18,10 +18,6 @@ const AskedQuestions = ({ productId }: { productId: string }) => {
     return <h2>No Questions Asked</h2>;
   }
 
-  setInterval(() => {
-    refetch();
-  }, 600000);
-
   return (
     <div className="mt-8 px-4">
       {questions.map(question => (

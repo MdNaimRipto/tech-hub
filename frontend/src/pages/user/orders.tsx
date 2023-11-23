@@ -29,10 +29,8 @@ const UserOrders = () => {
   }
 
   setInterval(() => {
-    if (user) {
-      refetch();
-    }
-  }, 600000);
+    window.location.reload();
+  }, 180000);
 
   const products = data?.data?.data;
   const count = data?.data?.meta?.total;
