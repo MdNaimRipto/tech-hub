@@ -43,6 +43,7 @@ const AskQuestion = ({ productId }: { productId: string }) => {
       setIsLoading(false);
     }
   };
+
   return (
     <form onSubmit={handleAskQuestion} className="pb-8 border-b border-b-input">
       <textarea
