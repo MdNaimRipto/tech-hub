@@ -12,6 +12,8 @@ export const api = createApi({
     "uploadProduct",
     "updateProduct",
     "addReviewAndRating",
+    "askQuestion",
+    "answerQuestion",
     "saveBuild",
     "deleteBuild",
     "addToWishlist",

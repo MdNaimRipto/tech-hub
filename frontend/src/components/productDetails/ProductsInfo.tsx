@@ -22,8 +22,6 @@ const ProductsInfo = ({ product }: { product: IProductDetails }) => {
 
   const [totalProduct, setTotalProduct] = useState(1);
 
-  console.log(rating);
-
   return (
     <div className="my-8">
       <h2 className="text-lg md:text-xl xl:text-2xl font-medium sm:leading-8 xl:leading-10 text-black mb-5">
@@ -65,6 +63,7 @@ const ProductsInfo = ({ product }: { product: IProductDetails }) => {
           <li className="mb-3 text-sm list-disc">{f2}</li>
           <li className="mb-3 text-sm list-disc">{f3}</li>
           <li className="mb-3 text-sm list-disc">{f4}</li>
+          <li className="mb-3 text-sm list-disc">{f5}</li>
         </ul>
       </div>
       <div className="flex items-center gap-4">

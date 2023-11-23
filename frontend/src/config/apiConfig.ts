@@ -23,7 +23,7 @@ export const config = {
     GET_REVIEWS: "/reviews/getReviews",
   },
   QUESTIONS: {
-    ADD_QUESTION: "/questions/addQuestion",
+    ASK_QUESTION: "/questions/addQuestion",
     GET_PRODUCTS_QUESTION: "/questions/getQuestionsByProductID",
     GET_ALL_QUESTIONS: "/questions/getAllQuestions",
     ANSWER_QUESTION: "/questions/answerQuestion",
