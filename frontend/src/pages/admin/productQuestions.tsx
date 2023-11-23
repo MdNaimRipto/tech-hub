@@ -23,7 +23,7 @@ const ProductQuestions = () => {
 
   setInterval(() => {
     window.location.reload();
-  }, 180000);
+  }, 1800000);
 
   return (
     <div className="pb-12 lg:pb-0 my-12 lg:mx-4">

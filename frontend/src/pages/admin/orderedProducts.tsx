@@ -21,7 +21,7 @@ const OrderedProducts = () => {
 
   setInterval(() => {
     window.location.reload();
-  }, 180000);
+  }, 1800000);
 
   const products = data?.data;
 
