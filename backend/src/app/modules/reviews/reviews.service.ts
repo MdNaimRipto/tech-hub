@@ -27,7 +27,10 @@ const addReview = async (
     throw new ApiError(httpStatus.NOT_FOUND, "User Does Not Exist's!");
   }
 
-  const isAlreadyReviewed = await Reviews.findOne({ userId: userId });
+  const isAlreadyReviewed = await Reviews.findOne({
+    userId: userId,
+    productId: productId,
+  });
   if (isAlreadyReviewed) {
     throw new ApiError(
       httpStatus.CONFLICT,
@@ -63,9 +66,6 @@ const getReviewsByProductID = async (
     path: "userId",
     select: "_id name userProfile",
   });
-  if (reviews.length === 0) {
-    throw new ApiError(httpStatus.NOT_FOUND, "0 Reviews Added");
-  }
 
   return reviews;
 };

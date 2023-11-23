@@ -38,18 +38,14 @@ const addQuestion = (payload) => __awaiter(void 0, void 0, void 0, function* () 
 // Get All Questions
 const getAllQuestions = (token) => __awaiter(void 0, void 0, void 0, function* () {
     jwtHelpers_1.jwtHelpers.jwtVerify(token, config_1.default.jwt_secret);
-    const questions = yield questions_schema_1.Questions.find();
-    if (questions.length === 0) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "0 Questions Found");
-    }
+    const questions = yield questions_schema_1.Questions.find().sort({ createdAt: -1 });
     return questions;
 });
 // Get Questions By Product ID
 const getQuestionsByProductID = (productID) => __awaiter(void 0, void 0, void 0, function* () {
-    const questions = yield questions_schema_1.Questions.find({ productId: productID });
-    if (questions.length === 0) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "0 Questions Found");
-    }
+    const questions = yield questions_schema_1.Questions.find({ productId: productID }).sort({
+        createdAt: -1,
+    });
     return questions;
 });
 // Update Question

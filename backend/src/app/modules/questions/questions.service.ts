@@ -38,10 +38,7 @@ const addQuestion = async (payload: IQuestions): Promise<IQuestions> => {
 const getAllQuestions = async (token: string): Promise<IQuestions[]> => {
   jwtHelpers.jwtVerify(token, config.jwt_secret as Secret);
 
-  const questions = await Questions.find();
-  if (questions.length === 0) {
-    throw new ApiError(httpStatus.NOT_FOUND, "0 Questions Found");
-  }
+  const questions = await Questions.find().sort({ createdAt: -1 });
 
   return questions;
 };
@@ -50,10 +47,9 @@ const getAllQuestions = async (token: string): Promise<IQuestions[]> => {
 const getQuestionsByProductID = async (
   productID: string
 ): Promise<IQuestions[]> => {
-  const questions = await Questions.find({ productId: productID });
-  if (questions.length === 0) {
-    throw new ApiError(httpStatus.NOT_FOUND, "0 Questions Found");
-  }
+  const questions = await Questions.find({ productId: productID }).sort({
+    createdAt: -1,
+  });
 
   return questions;
 };
