@@ -11,6 +11,7 @@ export const api = createApi({
     "updateUser",
     "uploadProduct",
     "updateProduct",
+    "addReviewAndRating",
     "saveBuild",
     "deleteBuild",
     "addToWishlist",

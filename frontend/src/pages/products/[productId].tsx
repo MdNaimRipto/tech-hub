@@ -59,7 +59,11 @@ const ProductsDetails = () => {
         <ProductsInfo product={details} />
       </div>
       <div>
-        <DetailTabs title={details.name} description={details.description} />
+        <DetailTabs
+          title={details.name}
+          description={details.description}
+          productId={details._id}
+        />
       </div>
     </div>
   );

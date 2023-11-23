@@ -2,7 +2,7 @@ import SubmitBtn from "@/components/common/buttons/SubmitBtn";
 import { useUserContext } from "@/context/AuthContext";
 import React, { useState, useEffect } from "react";
 
-const AskQuestion = () => {
+const AskQuestion = ({ productId }: { productId: string }) => {
   const { user } = useUserContext();
   const [userName, setUserName] = useState("");
   useEffect(() => {

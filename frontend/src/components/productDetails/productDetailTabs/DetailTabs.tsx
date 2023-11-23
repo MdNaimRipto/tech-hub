@@ -42,9 +42,11 @@ function a11yProps(index: number) {
 const DetailTabs = ({
   description,
   title,
+  productId,
 }: {
   title: string;
   description: string;
+  productId: string;
 }) => {
   const [value, setValue] = React.useState(0);
 
@@ -90,10 +92,10 @@ const DetailTabs = ({
         <ProductDescription description={description} title={title} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <RatingAndReviews />
+        <RatingAndReviews productId={productId} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <ProductQuestions />
+        <ProductQuestions productId={productId} />
       </CustomTabPanel>
     </div>
   );

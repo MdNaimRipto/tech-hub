@@ -7,11 +7,22 @@ import { useState } from "react";
 import GridAddToWishlistBtn from "@/components/common/buttons/GridAddToWishlistBtn";
 
 const ProductsInfo = ({ product }: { product: IProductDetails }) => {
-  const { _id, brand, discountedPrice, features, name, price, status, images } =
-    product;
+  const {
+    _id,
+    brand,
+    discountedPrice,
+    features,
+    name,
+    price,
+    status,
+    images,
+    rating,
+  } = product;
   const { f1, f2, f3, f4, f5 } = features;
 
   const [totalProduct, setTotalProduct] = useState(1);
+
+  console.log(rating);
 
   return (
     <div className="my-8">
@@ -40,7 +51,7 @@ const ProductsInfo = ({ product }: { product: IProductDetails }) => {
         <div className="px-3 py-2 rounded-full bg-input flex items-center">
           Rating:{" "}
           <Rating
-            value={4}
+            value={rating}
             icon={<StarRoundedIcon sx={{ fontSize: "20px" }} />}
             emptyIcon={<StarOutlineRoundedIcon sx={{ fontSize: "20px" }} />}
             readOnly

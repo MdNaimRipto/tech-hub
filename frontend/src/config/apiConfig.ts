@@ -18,6 +18,16 @@ export const config = {
     UPDATE_PRODUCT: "/products/updateProduct",
     UPDATE_RATING: "/products/updateRating",
   },
+  REVIEW: {
+    ADD_REVIEW: "/reviews/addReview",
+    GET_REVIEWS: "/reviews/getReviews",
+  },
+  QUESTIONS: {
+    ADD_QUESTION: "/questions/addQuestion",
+    GET_PRODUCTS_QUESTION: "/questions/getQuestionsByProductID",
+    GET_ALL_QUESTIONS: "/questions/getAllQuestions",
+    ANSWER_QUESTION: "/questions/answerQuestion",
+  },
   PC_BUILDER: {
     UPLOAD_BUILD: "/pcBuilder/saveBuildPc",
     GET_USERS_BUILDS: "/pcBuilder/getSavedPCs",

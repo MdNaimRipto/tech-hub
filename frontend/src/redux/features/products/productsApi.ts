@@ -65,7 +65,7 @@ const productsApi = api.injectEndpoints({
       query: ({ id }) => ({
         url: `${config.PRODUCTS.GET_PRODUCTS_BY_ID}/${id}`,
       }),
-      providesTags: ["uploadProduct", "updateProduct"],
+      providesTags: ["uploadProduct", "updateProduct", "addReviewAndRating"],
     }),
     editProduct: builder.mutation({
       query: ({ data, token, id }) => ({
