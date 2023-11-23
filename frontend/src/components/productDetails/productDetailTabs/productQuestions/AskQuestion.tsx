@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 const AskQuestion = ({ productId }: { productId: string }) => {
   const { user } = useUserContext();
   const [userName, setUserName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (user) {
       setUserName(user.name);
@@ -26,7 +27,7 @@ const AskQuestion = ({ productId }: { productId: string }) => {
         required
         maxLength={200}
       />
-      <SubmitBtn title="Ask Question" />
+      <SubmitBtn title="Ask Question" isLoading={isLoading} />
     </form>
   );
 };
