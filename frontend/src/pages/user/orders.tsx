@@ -30,7 +30,7 @@ const UserOrders = () => {
 
   setInterval(() => {
     window.location.reload();
-  }, 180000);
+  }, 1800);
 
   const products = data?.data?.data;
   const count = data?.data?.meta?.total;
