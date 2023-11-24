@@ -118,9 +118,6 @@ const getAllProducts = (filters, paginationOptions) => __awaiter(void 0, void 0,
         .sort(sortConditions)
         .skip(skip)
         .limit(limit);
-    if (products.length === 0) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "No Products to Show");
-    }
     const total = yield products_schema_1.Products.countDocuments(checkAndCondition);
     return {
         meta: {
@@ -191,9 +188,6 @@ const getProductsByCategory = (category, filters, paginationOptions) => __awaite
         .sort(sortConditions)
         .skip(skip)
         .limit(limit);
-    if (products.length === 0) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "No Products to Show");
-    }
     const total = yield products_schema_1.Products.countDocuments(checkAndCondition);
     return {
         meta: {
@@ -210,9 +204,6 @@ const getTopSellingProducts = () => __awaiter(void 0, void 0, void 0, function* 
         totalSale: -1,
     })
         .limit(8);
-    if (products.length === 0) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "No Products to Show");
-    }
     return products;
 });
 //* Get Product By ID

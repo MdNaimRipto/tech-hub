@@ -121,10 +121,6 @@ const getAllProducts = async (
     .skip(skip)
     .limit(limit);
 
-  if (products.length === 0) {
-    throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
-  }
-
   const total = await Products.countDocuments(checkAndCondition);
 
   return {
@@ -209,9 +205,6 @@ const getProductsByCategory = async (
     .sort(sortConditions)
     .skip(skip)
     .limit(limit);
-  if (products.length === 0) {
-    throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
-  }
 
   const total = await Products.countDocuments(checkAndCondition);
 
@@ -231,10 +224,6 @@ const getTopSellingProducts = async () => {
       totalSale: -1,
     })
     .limit(8);
-
-  if (products.length === 0) {
-    throw new ApiError(httpStatus.NOT_FOUND, "No Products to Show");
-  }
 
   return products;
 };
