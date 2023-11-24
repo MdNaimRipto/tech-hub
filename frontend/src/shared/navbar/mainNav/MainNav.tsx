@@ -9,6 +9,7 @@ import AccountMenu from "../AccountMenu";
 import { useGetWishlistsProductQuery } from "@/redux/features/wishlist/wishlistApi";
 import { useUserContext } from "@/context/AuthContext";
 import { GetCartLength } from "@/components/cartComponents/GetCartLength";
+import SearchBar from "./SearchBar";
 
 const MainNav = () => {
   const { user, token } = useUserContext();
@@ -33,13 +34,7 @@ const MainNav = () => {
             className="w-full"
           />
         </a>
-        <div className="w-1/2 hidden lg:block">
-          <input
-            type="text"
-            placeholder="Search Here"
-            className="w-full border border-input p-[10px] rounded focus:border-input focus:outline-none cursor-text hover:cursor-pointer"
-          />
-        </div>
+        <SearchBar />
         <div className="hidden lg:flex items-center justify-evenly lg:w-[22%] xl:w-[20%]">
           <Tooltip title="Wishlist">
             <Link href="/user/wishlists" className="relative">

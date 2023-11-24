@@ -9,6 +9,7 @@ const AllProducts = () => {
   const [page, setPage] = useState<number>(pageValue ? pageValue : 1);
   const option = {
     page: `${page}`,
+    limit: "8",
   };
   const { data, isLoading } = useGetAllProductsQuery(option);
 

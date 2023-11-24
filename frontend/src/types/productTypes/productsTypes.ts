@@ -1,4 +1,10 @@
 // * All Filter Options Type
+export type IAllProductsFilter = {
+  page?: string;
+  limit?: string;
+  searchTerm: string;
+};
+
 export type IProductsByCategoryFilter = {
   category?: string;
   searchTerm?: string;

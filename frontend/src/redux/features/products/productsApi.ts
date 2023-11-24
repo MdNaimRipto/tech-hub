@@ -1,6 +1,9 @@
 import { config } from "@/config/apiConfig";
 import { api } from "../../apis/apiSlice";
-import { IProductsByCategoryFilter } from "@/types/productTypes/productsTypes";
+import {
+  IAllProductsFilter,
+  IProductsByCategoryFilter,
+} from "@/types/productTypes/productsTypes";
 
 const productsApi = api.injectEndpoints({
   endpoints: builder => ({
@@ -17,9 +20,21 @@ const productsApi = api.injectEndpoints({
       invalidatesTags: ["uploadProduct"],
     }),
     getAllProducts: builder.query({
-      query: (option: { page: string }) => ({
-        url: `${config.PRODUCTS.GET_ALL_PRODUCT}?page=${option.page}&limit=8`,
-      }),
+      query: (data: IProductsByCategoryFilter) => {
+        const queryParameters = new URLSearchParams();
+        if (data.searchTerm) {
+          queryParameters.append("searchTerm", data.searchTerm);
+        }
+        if (data.page) {
+          queryParameters.append("page", data.page);
+        }
+        if (data.limit) {
+          queryParameters.append("limit", data.limit);
+        }
+        return `${
+          config.PRODUCTS.GET_ALL_PRODUCT
+        }?${queryParameters.toString()}`;
+      },
       providesTags: ["uploadProduct", "updateProduct"],
     }),
     getProductsByCategory: builder.query({
