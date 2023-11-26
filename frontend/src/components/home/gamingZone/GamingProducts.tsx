@@ -1,4 +1,4 @@
-import GridSkeletonLoaderCard from "@/components/common/Loaders/GridSkeletonLoaderCard";
+import GamingZoneLoader from "@/components/common/Loaders/skeletonLoaders/GamingZoneLoader";
 import GridProductCard from "@/components/common/productCard/GridProductCard";
 import { useGetProductsByCategoryQuery } from "@/redux/features/products/productsApi";
 import {
@@ -52,7 +52,7 @@ const GamingProducts = ({ param }: { param: string }) => {
   };
   const { data, isLoading } = useGetProductsByCategoryQuery(option);
   if (isLoading) {
-    return <GridSkeletonLoaderCard />;
+    return <GamingZoneLoader />;
   }
   const products = data?.data?.data;
 

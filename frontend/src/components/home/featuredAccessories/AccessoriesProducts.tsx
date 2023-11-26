@@ -1,4 +1,4 @@
-import GridSkeletonLoaderCard from "@/components/common/Loaders/GridSkeletonLoaderCard";
+import GridSkeletonLoaderCard from "@/components/common/Loaders/skeletonLoaders/GridSkeletonLoaderCard";
 import GridProductCard from "@/components/common/productCard/GridProductCard";
 import { useGetProductsByCategoryQuery } from "@/redux/features/products/productsApi";
 import {
@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Autoplay } from "swiper/modules";
+import AccessoriesProductsLoader from "@/components/common/Loaders/skeletonLoaders/AccessoriesProductsLoader";
 
 const AccessoriesProducts = ({ param }: { param: string }) => {
   const option: IProductsByCategoryFilter = {
@@ -23,7 +24,7 @@ const AccessoriesProducts = ({ param }: { param: string }) => {
   };
   const { data, isLoading } = useGetProductsByCategoryQuery(option);
   if (isLoading) {
-    return <GridSkeletonLoaderCard />;
+    return <AccessoriesProductsLoader />;
   }
   const products = data?.data?.data;
 

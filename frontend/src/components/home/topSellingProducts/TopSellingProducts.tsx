@@ -1,4 +1,4 @@
-import GridSkeletonLoaderCard from "@/components/common/Loaders/GridSkeletonLoaderCard";
+import TopSellingProductsLoader from "@/components/common/Loaders/skeletonLoaders/TopSellingProductsLoader";
 import TopSellingAdds from "@/components/common/adds/TopSellingAdds";
 import Title from "@/components/common/componentTitle/Title";
 import GridProductCard from "@/components/common/productCard/GridProductCard";
@@ -10,7 +10,7 @@ const TopSellingProducts = () => {
   const { data, isLoading } = useGetTopSellingProductsQuery({});
 
   if (isLoading) {
-    return <GridSkeletonLoaderCard />;
+    return <TopSellingProductsLoader />;
   }
 
   const products = data.data;
