@@ -6,6 +6,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import { Breadcrumbs, Link } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 
 interface IProductsContent {
   setIsSideBarOpen: any;
@@ -53,19 +54,19 @@ const Products = ({
           <option value="asc">Low to High</option>
         </select>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
-        {!isError && products?.length ? (
-          <>
-            {products?.map((product: IProducts, i: number) => (
-              <GridProductCard key={product._id} product={product} />
-            ))}
-          </>
-        ) : (
-          <div className="flex items-center justify-center h-screen col-span-4">
-            <h2>No Product Found</h2>
-          </div>
-        )}
-      </div>
+      {!isError && products?.length ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {products?.map((product: IProducts, i: number) => (
+            <GridProductCard key={product._id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <NotFoundMessage
+          heightStyle="h-screen"
+          title="No Product Found"
+          subTitle="Please adjust your filter"
+        />
+      )}
       <div className="lg:hidden">
         <IconButton
           onClick={() => setIsSideBarOpen(!isSideBarOpen)}

@@ -1,3 +1,4 @@
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
 import OrderDetailsTable from "@/components/common/tables/OrderDetailsTable";
 import { useUserContext } from "@/context/AuthContext";
 import MainLayout from "@/layouts/MainLayout";
@@ -13,7 +14,7 @@ const ViewOrderedProducts = () => {
   const { data, isLoading } = useGetOrderDetailsQuery({ id: id, token: token });
 
   if (isLoading) {
-    return <h2>loading...</h2>;
+    return <CommonLoader />;
   }
 
   const products = data?.data;

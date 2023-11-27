@@ -13,6 +13,8 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 
 const UserPcBuilds = () => {
   const { user, token } = useUserContext();
@@ -51,15 +53,11 @@ const UserPcBuilds = () => {
   };
 
   if (getLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   if (isError) {
-    return (
-      <div>
-        <h2>No Builds to Show</h2>
-      </div>
-    );
+    return <NotFoundMessage heightStyle="h-screen" title="No Build's Found" />;
   }
 
   const builds = data?.data;

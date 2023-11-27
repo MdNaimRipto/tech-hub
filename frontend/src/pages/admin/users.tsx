@@ -1,4 +1,5 @@
 import PaginationComponent from "@/components/adminDashboard/pagination/PaginationComponent";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
 import UserTable from "@/components/common/tables/UserTable";
 import { useUserContext } from "@/context/AuthContext";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -17,7 +18,7 @@ const Users = () => {
   const { data, isLoading } = useGetAllUsersQuery(option);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   const users = data.data.data;

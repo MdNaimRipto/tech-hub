@@ -1,3 +1,5 @@
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 import QuestionsTable from "@/components/common/tables/QuestionsTable";
 import { useUserContext } from "@/context/AuthContext";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -12,13 +14,15 @@ const ProductQuestions = () => {
   });
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   const questions = data.data as IQuestions[];
 
   if (!questions.length) {
-    return <h2>No Questions Asked</h2>;
+    return (
+      <NotFoundMessage heightStyle="h-screen" title="No Questions Found" />
+    );
   }
 
   setInterval(() => {

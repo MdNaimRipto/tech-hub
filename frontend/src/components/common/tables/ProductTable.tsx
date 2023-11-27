@@ -18,10 +18,10 @@ const ProductTable = ({ products }: { products: IAllProducts[] }) => {
   return (
     <TableContainer
       component={Paper}
-      sx={{ minHeight: "100vh", overflowX: "auto" }}
+      sx={{ minHeight: "70vh", maxHeight: "70vh", overflow: "auto" }}
     >
       <Table sx={{ width: "100%" }} aria-label="simple table">
-        <TableHead sx={{ position: "sticky", top: 0 }}>
+        <TableHead sx={{ position: "sticky", top: 0, zIndex: 30 }}>
           <TableRow sx={{ background: "#e2e2e2 !important" }}>
             <TableHeader heading="Product Image" align="left" />
             <TableHeader heading="Product Name" align="left" />

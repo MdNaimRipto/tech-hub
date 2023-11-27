@@ -2,6 +2,8 @@ import React from "react";
 import { Avatar } from "@mui/material";
 import { useGetProductsQuestionsQuery } from "@/redux/features/questions/questionApis";
 import { IQuestions } from "@/types/questionsTypes/questionTypes";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 
 const AskedQuestions = ({ productId }: { productId: string }) => {
   const { data, isLoading, refetch } = useGetProductsQuestionsQuery({
@@ -9,13 +11,15 @@ const AskedQuestions = ({ productId }: { productId: string }) => {
   });
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   const questions = data.data as IQuestions[];
 
   if (!questions.length) {
-    return <h2>No Questions Asked</h2>;
+    return (
+      <NotFoundMessage heightStyle="h-[200px]" title="No Questions Asked" />
+    );
   }
 
   return (

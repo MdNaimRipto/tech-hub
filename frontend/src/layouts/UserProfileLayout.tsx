@@ -1,4 +1,5 @@
 "use-client";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
 import { useUserContext } from "@/context/AuthContext";
 import ResponsiveMobileNav from "@/shared/navbar/ResponsiveMobileNav";
 import ProfileNav from "@/shared/navbar/profileNav/ProfileNav";
@@ -45,7 +46,7 @@ const UserProfileLayout = ({ children }: { children: ReactNode }) => {
   }, []);
 
   if (!isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   return (

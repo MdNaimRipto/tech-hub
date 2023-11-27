@@ -8,6 +8,7 @@ import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useUserContext } from "@/context/AuthContext";
 import Link from "next/link";
 import Cookies from "js-cookie";
@@ -103,7 +104,9 @@ export default function AccountMenu({
       >
         {user ? (
           <Link href="/user/profile">
-            <MenuItem onClick={handleClose}>My Profile</MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Avatar /> My Profile
+            </MenuItem>
           </Link>
         ) : (
           <MenuItem disabled>
@@ -112,7 +115,12 @@ export default function AccountMenu({
         )}
         {user && user.uid === envConfig.admin_uid && (
           <a href="/admin/addProducts" className="mt-2 mb-3 block">
-            <MenuItem onClick={handleClose}>Admin Dashboard</MenuItem>
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <DashboardIcon sx={{ marginRight: "10px", color: "gray" }} />
+              </ListItemIcon>
+              Admin Dashboard
+            </MenuItem>
           </a>
         )}
         <Divider />

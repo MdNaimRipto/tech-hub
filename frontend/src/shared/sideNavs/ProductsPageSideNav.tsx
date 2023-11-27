@@ -11,7 +11,7 @@ import {
   FormControl,
 } from "@mui/material";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function valuetext(value: number) {
   return value.toString();
@@ -53,10 +53,6 @@ const ProductsPageSideNav = ({
       setPriceValue([0, maxPrice + 5000]);
     }
   }, [isLoading, data?.data?.data, setMaxPrice, setPriceValue]);
-
-  if (isLoading) {
-    return <h2>loading...</h2>;
-  }
 
   const products = data?.data?.data;
 

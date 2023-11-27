@@ -1,3 +1,5 @@
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 import OrderedProductsTable from "@/components/common/tables/OrderedProductsTable";
 import { useUserContext } from "@/context/AuthContext";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -13,17 +15,17 @@ const OrderedProducts = () => {
     token: token,
   };
 
-  const { data, isLoading, refetch } = useGetOrdersByProgressQuery(option);
+  const { data, isLoading } = useGetOrdersByProgressQuery(option);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   setInterval(() => {
     window.location.reload();
   }, 1800000);
 
-  const products = data?.data;
+  const products = data?.data as IOrder[];
 
   return (
     <div className="pb-12 lg:pb-0 my-12 lg:mx-4">
@@ -44,11 +46,18 @@ const OrderedProducts = () => {
           </select>
         </div>
       </div>
-      <OrderedProductsTable
-        products={products}
-        status={status}
-        setStatus={setStatus}
-      />
+      {products.length ? (
+        <OrderedProductsTable
+          products={products}
+          status={status}
+          setStatus={setStatus}
+        />
+      ) : (
+        <NotFoundMessage
+          heightStyle="h-screen"
+          title={`No ${status} Order's Found`}
+        />
+      )}
     </div>
   );
 };

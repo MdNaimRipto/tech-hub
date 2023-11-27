@@ -3,18 +3,20 @@ import React from "react";
 import { Rating, Avatar } from "@mui/material";
 import { useGetReviewsQuery } from "@/redux/features/reviewsAndRatings/reviewsAndRatingsApis";
 import { IRatingAndReviews } from "@/types/reviewsAndRatings/reviewsAndRatingTypes";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 
 const ProductReviews = ({ productId }: { productId: string }) => {
   const { data, isLoading } = useGetReviewsQuery({ id: productId });
 
   if (isLoading) {
-    return <h2>loading...</h2>;
+    return <CommonLoader />;
   }
 
   const reviews = data.data as IRatingAndReviews[];
 
   if (!reviews.length) {
-    return <h2>0 Reviews Found</h2>;
+    return <NotFoundMessage heightStyle="h-[200px]" title="0 Reviews Found" />;
   }
 
   return (

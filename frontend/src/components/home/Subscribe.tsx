@@ -8,10 +8,15 @@ const Subscribe = () => {
           <span className="mr-1 md:mr-2">Subscribe Now Get</span> |{" "}
           <span className="mr-1 md:ml-2">25% Off first purchase!</span>
         </h4>
-        <input
-          placeholder="Subscribe Now!"
-          className="p-3 rounded-lg focus:outline-none w-full md:w-[40%] mb-2 md:mb-0"
-        />
+        <div className="focus:outline-none w-full md:w-[40%] mb-2 md:mb-0">
+          <input
+            placeholder="Subscribe Now!"
+            className="w-[70%] md:w-[65%] lg:w-3/4 xl:w-4/5 p-3 rounded-s-lg"
+          />
+          <button className="bg-gradient-to-tr from-secondary to-secondary rounded-e-lg p-3 text-white w-[30%] md:w-[35%] lg:w-1/4 xl:w-1/5">
+            Subscribe
+          </button>
+        </div>
       </div>
     </div>
   );

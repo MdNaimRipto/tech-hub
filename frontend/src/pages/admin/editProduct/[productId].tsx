@@ -1,6 +1,7 @@
 import ProductCategoryList from "@/components/adminDashboard/inputFields/ProductCategoryList";
 import ProductImageFiled from "@/components/adminDashboard/inputFields/ProductImageFiled";
 import ProductsInputField from "@/components/adminDashboard/inputFields/ProductsInputField";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
 import AddOnBtn from "@/components/common/buttons/AddOnBtn";
 import { useUserContext } from "@/context/AuthContext";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -31,7 +32,7 @@ const EditProduct = () => {
   const [editProduct] = useEditProductMutation();
 
   if (detailsLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   const details = data.data as IProductDetails;

@@ -4,6 +4,7 @@ import image2 from "@/assets/banner/banner-image2.png";
 import image3 from "@/assets/banner/banner-image3.png";
 import Image from "next/image";
 import BuyNowBtn from "@/components/common/buttons/BuyNowBtn";
+import Link from "next/link";
 
 const products = [
   {
@@ -12,6 +13,7 @@ const products = [
     title2: "Gaming Monitor",
     image: image3,
     bg: "from-[#ef9947] to-[#d7ae6e]",
+    link: "/products/652a227abf54b2b7202f3ac7",
   },
   {
     brand: "MSI",
@@ -19,6 +21,7 @@ const products = [
     title2: "Gaming Laptop",
     image: image1,
     bg: "from-[#7685d5] to-[#c99fbb]",
+    link: "/products/652fa3c34ca9b292e4aa3840",
   },
   {
     brand: "COLORFUL",
@@ -26,6 +29,7 @@ const products = [
     title2: "Graphics Card",
     image: image2,
     bg: "from-[#798acdd1] to-[#6c8dd2f2]",
+    link: "/products/65266843869c21fdb4e27833",
   },
 ];
 
@@ -63,12 +67,14 @@ const Slider = () => {
             <h2 className="text-xl md:text-[22px] lg:text-3xl text-white font-bold mt-3 mb-4">
               {p.title2}
             </h2>
-            <BuyNowBtn
-              title="Buy Now"
-              background="#ffffff"
-              color="#ff7a1a"
-              hover="#e2e2e2"
-            />
+            <Link href={p.link}>
+              <BuyNowBtn
+                title="Buy Now"
+                background="#ffffff"
+                color="#ff7a1a"
+                hover="#e2e2e2"
+              />
+            </Link>
           </div>
           <div>
             <Image

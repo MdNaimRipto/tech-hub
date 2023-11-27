@@ -54,10 +54,6 @@ const PcBuilderProductsSideNav = ({
     }
   }, [isLoading, data?.data?.data, setMaxPrice, setPriceValue]);
 
-  if (isLoading) {
-    return <h2>loading...</h2>;
-  }
-
   const products = data?.data?.data;
 
   const handlePriceChange = (event: Event, newValue: number | number[]) => {

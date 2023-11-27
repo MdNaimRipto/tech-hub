@@ -1,3 +1,6 @@
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
+import NotPermittedMessage from "@/components/common/NotPermittedMessage/NotPermittedMessage";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 import WishlistTable from "@/components/common/tables/WishlistTable";
 import { envConfig } from "@/config/envConfig";
 import { useUserContext } from "@/context/AuthContext";
@@ -16,22 +19,24 @@ const UserWishlists = () => {
   const { data, isLoading } = useGetWishlistsProductQuery(option);
 
   if (user?.uid === envConfig.admin_uid) {
-    return <p>{"Admin Don't Have The Capability to Wishlist Products."}</p>;
+    return (
+      <NotPermittedMessage title="Admin Don't Have The Capability to Wishlist Products." />
+    );
   }
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   const products = data.data;
 
+  if (!products.length) {
+    return <NotFoundMessage heightStyle="h-screen" title="Wishlist is Empty" />;
+  }
+
   return (
     <div className="pb-12 lg:pb-0 my-12 lg:mx-4">
-      {products.length ? (
-        <WishlistTable products={products} />
-      ) : (
-        <h2>No Products to Show</h2>
-      )}
+      <WishlistTable products={products} />
     </div>
   );
 };

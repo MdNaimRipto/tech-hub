@@ -54,10 +54,10 @@ const OrderedProductsTable = ({
   return (
     <TableContainer
       component={Paper}
-      sx={{ minHeight: "70vh", overflowX: "auto" }}
+      sx={{ minHeight: "70vh", maxHeight: "70vh", overflow: "auto" }}
     >
       <Table sx={{ width: "100%" }} aria-label="simple table">
-        <TableHead sx={{ position: "sticky", top: 0 }}>
+        <TableHead sx={{ position: "sticky", top: 0, zIndex: 30 }}>
           <TableRow sx={{ background: "#e2e2e2 !important" }}>
             <TableHeader heading="Order ID" align="center" />
             <TableHeader heading="Ordered User" align="center" />

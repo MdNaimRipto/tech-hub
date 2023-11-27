@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import DetailTabs from "@/components/productDetails/productDetailTabs/DetailTabs";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
 
 const ProductsDetails = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ const ProductsDetails = () => {
   const { data, isLoading } = useGetProductsByIDQuery({ id });
 
   if (isLoading || !data) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
   const details = data?.data as IProductDetails;
 

@@ -1,3 +1,4 @@
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
 import PcBuilderProducts from "@/pages/pc-builder/products";
 import Products from "@/pages/products";
 import { useGetProductsByCategoryQuery } from "@/redux/features/products/productsApi";
@@ -57,7 +58,7 @@ const PcBuilderProductsLayout = () => {
   }, [isLoading, priceValue, products, isError]);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   return (

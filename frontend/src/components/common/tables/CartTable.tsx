@@ -15,10 +15,17 @@ import { ICartState } from "@/types/cartTypes/cartTypes";
 import RemoveFromCart from "../tableComponents/RemoveFromCart";
 import CartProductQuantity from "../tableComponents/CartProductQuantity";
 import CartSummery from "@/components/cartComponents/CartSummery";
+import NotFoundMessage from "../notFoundMessage/NotFoundMessage";
 
 const CartTable = ({ cart }: { cart: ICartState }) => {
   if (!cart?.list?.length) {
-    return <h2>Cart is Empty</h2>;
+    return (
+      <NotFoundMessage
+        heightStyle="h-screen"
+        title="Cart is Empty"
+        subTitle="Please Add Products First"
+      />
+    );
   }
   return (
     <>

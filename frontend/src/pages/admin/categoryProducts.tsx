@@ -5,6 +5,9 @@ import PriceFilter from "@/components/adminDashboard/filterComponents/PriceFilte
 import CategoryFilter from "@/components/adminDashboard/filterComponents/CategoryFilter";
 import PaginationComponent from "@/components/adminDashboard/pagination/PaginationComponent";
 import ProductTable from "@/components/common/tables/ProductTable";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
+import { IAllProducts } from "@/types/productTypes/productsTypes";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 
 const CategoryProducts = () => {
   const pageValue = Number(localStorage.getItem("categoryPage"));
@@ -30,10 +33,20 @@ const CategoryProducts = () => {
   const { data, isLoading } = useGetProductsByCategoryQuery(option);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
-  const products = data.data.data;
+  const products = data.data.data as IAllProducts[];
   const count = data.data.meta.total;
+
+  if (!products.length) {
+    return (
+      <NotFoundMessage
+        heightStyle="h-screen"
+        title="No Products Found"
+        subTitle="Please Add Products First"
+      />
+    );
+  }
 
   return (
     <div className="my-12 mx-0 md:mx-4 w-full">

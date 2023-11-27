@@ -1,9 +1,13 @@
 import PaginationComponent from "@/components/adminDashboard/pagination/PaginationComponent";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
+import NotPermittedMessage from "@/components/common/NotPermittedMessage/NotPermittedMessage";
+import NotFoundMessage from "@/components/common/notFoundMessage/NotFoundMessage";
 import UserOrderTable from "@/components/common/tables/UserOrderTable";
 import { envConfig } from "@/config/envConfig";
 import { useUserContext } from "@/context/AuthContext";
 import UserProfileLayout from "@/layouts/UserProfileLayout";
 import { useGetUserOrdersQuery } from "@/redux/features/order/orderApis";
+import { IUserOrder } from "@/types/orderTypes/orderTypes";
 import React, { ReactElement, useState } from "react";
 
 const UserOrders = () => {
@@ -18,22 +22,28 @@ const UserOrders = () => {
     token: token,
   };
 
-  const { data, isLoading, refetch } = useGetUserOrdersQuery(option);
+  const { data, isLoading } = useGetUserOrdersQuery(option);
 
   if (user?.uid === envConfig.admin_uid) {
-    return <p>{"Admin Don't Have The Capability to Place Orders."}</p>;
+    return (
+      <NotPermittedMessage title="Admin Don't Have The Capability to Place Orders." />
+    );
   }
 
   if (isLoading) {
-    return <h2>loading...</h2>;
+    return <CommonLoader />;
   }
 
   setInterval(() => {
     window.location.reload();
   }, 1800000);
 
-  const products = data?.data?.data;
+  const products = data?.data?.data as IUserOrder[];
   const count = data?.data?.meta?.total;
+
+  if (!products.length) {
+    return <NotFoundMessage heightStyle="h-screen" title="No Orders Found" />;
+  }
 
   return (
     <div className="pb-12 lg:pb-0 my-12 lg:mx-4">

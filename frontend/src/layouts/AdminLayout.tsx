@@ -7,6 +7,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import AdminDashBoardNav from "@/shared/navbar/adminDashboardNav/AdminDashBoardNav";
 import AdminDashboardSideNav from "@/shared/sideNavs/AdminDashBoardSideNav";
+import CommonLoader from "@/components/common/Loaders/commonLoader/CommonLoader";
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   const {
@@ -73,7 +74,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
   }, []);
 
   if (!isLoading) {
-    return <h2>Loading...</h2>;
+    return <CommonLoader />;
   }
 
   return (
