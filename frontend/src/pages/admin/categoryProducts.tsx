@@ -28,8 +28,6 @@ const CategoryProducts = () => {
     sortBy: "discountedPrice",
   };
 
-  console.log(option);
-
   const { data, isLoading } = useGetProductsByCategoryQuery(option);
 
   if (isLoading) {

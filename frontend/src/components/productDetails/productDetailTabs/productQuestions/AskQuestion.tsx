@@ -28,8 +28,6 @@ const AskQuestion = ({ productId }: { productId: string }) => {
       },
     };
 
-    console.log(option);
-
     try {
       const res = await askQuestion(option).unwrap();
       if (res.success) {

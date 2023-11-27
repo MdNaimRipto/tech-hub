@@ -19,8 +19,6 @@ const ViewOrderedProducts = () => {
 
   const products = data?.data;
 
-  console.log(data.data);
-
   return (
     <div className="container px-4 my-12">
       <OrderDetailsTable products={products} />

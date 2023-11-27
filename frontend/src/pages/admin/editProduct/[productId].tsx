@@ -101,7 +101,6 @@ const EditProduct = () => {
       }
     } catch (error: any) {
       toast.error(error.data.message);
-      console.log(error);
       setIsLoading(false);
     }
   };
