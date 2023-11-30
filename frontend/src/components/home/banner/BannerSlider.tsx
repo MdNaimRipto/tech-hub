@@ -5,6 +5,9 @@ import image3 from "@/assets/banner/banner-image3.png";
 import Image from "next/image";
 import BuyNowBtn from "@/components/common/buttons/BuyNowBtn";
 import Link from "next/link";
+import { IconButton } from "@mui/material";
+import ForwardIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import BackwardIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 
 const products = [
   {
@@ -48,63 +51,103 @@ const Slider = () => {
     };
   }, [currentSlide]);
 
+  const backward = () => {
+    setCurrentSlide(
+      prevSlide => (prevSlide - 1 + products.length) % products.length
+    );
+  };
+
+  const forward = () => {
+    setCurrentSlide(prevSlide => (prevSlide + 1) % products.length);
+  };
+
   return (
-    <div className={`h-full relative`}>
+    <div className={`h-full relative overflow-hidden`}>
       {products.map((p, index) => (
         <div
           key={index}
-          className={`flex flex-col-reverse md:flex-row items-center justify-around ${
-            index === currentSlide ? "block" : "hidden"
-          } bg-gradient-to-l ${p.bg} h-full pb-16 md:pb-0`}
+          className="h-full absolute top-0 left-0 w-full transform transition-transform duration-1000 ease-in-out"
+          style={{
+            transform: `translateX(${
+              currentSlide === index
+                ? "0%"
+                : currentSlide < index
+                ? "-100%"
+                : "100%"
+            })`,
+            order: currentSlide === index ? 1 : 0,
+          }}
         >
-          <div className="w-[85%] md:w-full lg:w-[95%] md:pl-8 lg:pl-16">
-            <span className="bg-input text-[10px] text-primary px-2 rounded-2xl py-1">
-              {p.brand}
-            </span>
-            <h2 className="text-xl md:text-[22px] lg:text-3xl text-white font-bold mt-3">
-              {p.title1}
-            </h2>
-            <h2 className="text-xl md:text-[22px] lg:text-3xl text-white font-bold mt-3 mb-4">
-              {p.title2}
-            </h2>
-            <Link href={p.link}>
-              <BuyNowBtn
-                title="Buy Now"
-                background="#ffffff"
-                color="#ff7a1a"
-                hover="#e2e2e2"
+          <div
+            className={`flex flex-col-reverse md:flex-row items-center justify-around bg-gradient-to-l ${p.bg} h-full pb-16 md:pb-0`}
+          >
+            <div className="w-[85%] md:w-full lg:w-[95%] md:pl-8 lg:pl-16">
+              <span className="bg-input text-[10px] text-primary px-2 rounded-2xl py-1">
+                {p.brand}
+              </span>
+              <h2 className="text-xl md:text-[22px] lg:text-3xl text-white font-bold mt-3">
+                {p.title1}
+              </h2>
+              <h2 className="text-xl md:text-[22px] lg:text-3xl text-white font-bold mt-3 mb-4">
+                {p.title2}
+              </h2>
+              <Link href={p.link}>
+                <BuyNowBtn
+                  title="Buy Now"
+                  background="#ffffff"
+                  color="#ff7a1a"
+                  hover="#e2e2e2"
+                />
+              </Link>
+            </div>
+            <div>
+              <Image
+                src={p.image}
+                alt={`Slide ${index}`}
+                priority
+                className="block mx-auto mt-10 md:mt-0"
               />
-            </Link>
-          </div>
-          <div>
-            <Image
-              src={p.image}
-              alt={`Slide ${index}`}
-              priority
-              className="block mx-auto mt-10 md:mt-0"
-            />
+            </div>
           </div>
         </div>
       ))}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-        <button
-          className={`w-6 h-2 ${
-            currentSlide === 0 ? "bg-primary" : "bg-white"
-          }  mx-1`}
-          onClick={() => setCurrentSlide(0)}
-        ></button>
-        <button
-          className={`w-6 h-2 ${
-            currentSlide === 1 ? "bg-primary" : "bg-white"
-          }  mx-1`}
-          onClick={() => setCurrentSlide(1)}
-        ></button>
-        <button
-          className={`w-6 h-2 ${
-            currentSlide === 2 ? "bg-primary" : "bg-white"
-          }  mx-1`}
-          onClick={() => setCurrentSlide(2)}
-        ></button>
+        {products.map((slide, i) => (
+          <button
+            key={i}
+            className={`w-4 md:w-6 h-2 ${
+              currentSlide === i ? "bg-primary" : "bg-white"
+            }  mx-1`}
+            onClick={() => setCurrentSlide(i)}
+          ></button>
+        ))}
+      </div>
+      <div className="absolute bottom-5 right-3 flex gap-2">
+        <IconButton
+          onClick={backward}
+          sx={{ background: `#f15700 !important` }}
+        >
+          <BackwardIcon
+            sx={{
+              color: "#ffffff",
+              fontSize: {
+                xs: 14,
+                sm: 16,
+              },
+            }}
+          />
+        </IconButton>
+        <IconButton onClick={forward} sx={{ background: `#ffffff !important` }}>
+          <ForwardIcon
+            sx={{
+              color: "#f15700",
+              fontSize: {
+                xs: 14,
+                sm: 16,
+              },
+            }}
+          />
+        </IconButton>
       </div>
     </div>
   );
